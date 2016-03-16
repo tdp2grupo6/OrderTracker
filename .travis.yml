@@ -10,4 +10,4 @@ before_script:
 
 script: ./grailsw clean
   && ./grailsw refresh-dependencies
-  && ./grailsw “test-app unit:”
+  && ./grailsw "test-app unit:"
