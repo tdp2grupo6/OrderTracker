@@ -12,12 +12,13 @@ script: ./grailsw clean
   && './grailsw refresh-dependencies'
   && './grailsw "test-app unit:"'
 
-#deploy:
-#  provider: openshift
-#  user: tdp2grupo6@gmail.com
-#  password:
-#    secure: IG61K+lSUcUSQ2vNxiX8oESp5piqjpxJA1z0SsCCIuRZCVS3S+0KpqiR2V6g7mm77Z/c+dIfn9uer0lR88bSiM6hrCpffkKj2vuITwU9weAiUEjkeT1oAvG3UkWy3+QPgne2iwFsESlvTFio0Y1Uu0Z1s2aWS+9HmyDQUuYxkK4GFfJKcJzkvoZPtqGbOkcZAZyR1gGG1fPN9IP7wwfurs5GRzqtDe9UCxQv4LIKygPI043Fse1VtT8G2zOktldmorhCwGAPqFifY6bH6IaBP32/ahQRbc4CZ3V7O6jrMXUAtON42Ng3D0BMVS43aLG40TjqdtfqHpQxaA9k3WHugbolYj6F6PEPnVqU+UYyHdOHWaydXlyZrMBFbNQ2lMQC/9Rh8IUUiExPjxghpKFccTCR4U+FtCKCixVVEmq8xtiUlRXN7sR7TQHiSEjEKqvPvrSpyJKb70LIJMKzYUByONXq+4rH4zTrirjKr+AtnKxNITdFxzPyizAkXpAWOHeZunkTPko7Ht+5dbhkiNS4SzMvP3RGGpS594siNFK52gi0XE3Lg0nOfSH3wr+bGl3uzKOpG2Aw2CTKm6h9R8THvDbHX0WkehSGRDzTI8sfD7ewYcngaxXqDV8ePCY0Nl0ZPeN2IHOKcJqbTquK/necfBgVYHnzxyEPZ3GMg+rFYgw=
-#  app: ordertracker
-#  domain: tdp2grupo6
-#  on:
-#    repo: tdp2grupo6/OrderTracker
+deploy:
+  provider: openshift
+  user: tdp2grupo6@gmail.com
+  password:
+    secure: IG61K+lSUcUSQ2vNxiX8oESp5piqjpxJA1z0SsCCIuRZCVS3S+0KpqiR2V6g7mm77Z/c+dIfn9uer0lR88bSiM6hrCpffkKj2vuITwU9weAiUEjkeT1oAvG3UkWy3+QPgne2iwFsESlvTFio0Y1Uu0Z1s2aWS+9HmyDQUuYxkK4GFfJKcJzkvoZPtqGbOkcZAZyR1gGG1fPN9IP7wwfurs5GRzqtDe9UCxQv4LIKygPI043Fse1VtT8G2zOktldmorhCwGAPqFifY6bH6IaBP32/ahQRbc4CZ3V7O6jrMXUAtON42Ng3D0BMVS43aLG40TjqdtfqHpQxaA9k3WHugbolYj6F6PEPnVqU+UYyHdOHWaydXlyZrMBFbNQ2lMQC/9Rh8IUUiExPjxghpKFccTCR4U+FtCKCixVVEmq8xtiUlRXN7sR7TQHiSEjEKqvPvrSpyJKb70LIJMKzYUByONXq+4rH4zTrirjKr+AtnKxNITdFxzPyizAkXpAWOHeZunkTPko7Ht+5dbhkiNS4SzMvP3RGGpS594siNFK52gi0XE3Lg0nOfSH3wr+bGl3uzKOpG2Aw2CTKm6h9R8THvDbHX0WkehSGRDzTI8sfD7ewYcngaxXqDV8ePCY0Nl0ZPeN2IHOKcJqbTquK/necfBgVYHnzxyEPZ3GMg+rFYgw=
+  app: ordertracker
+  domain: tdp2grupo6
+  on:
+    repo: tdp2grupo6/OrderTracker
+    jdk: openjdk7
