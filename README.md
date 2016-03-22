@@ -5,6 +5,7 @@ Backend aplicación "Order Tracker" - Taller de Desarrollo de Proyectos II
 ## Instrucciones de uso
 
 1. Clonar repositorio
+
 		git clone git@github.com:tdp2grupo6/OrderTracker.git
 
 2. En GGTS (>=3.6.4) habilitar la perspectiva Git en el menú Window -> Open Perspective -> Other...
