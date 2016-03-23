@@ -15,6 +15,13 @@ class ProductoSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "prueba enum estado"() {
+		when:
+		def p = new Producto(nombre: "Producto de Prueba")
+		
+		then:
+		p.validate()
+		assert p.estado.toString() == "No disponible"
+		assert p.stock == 0
     }
 }

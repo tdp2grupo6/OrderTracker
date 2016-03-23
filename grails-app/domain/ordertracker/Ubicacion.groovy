@@ -15,6 +15,6 @@ class Ubicacion {
 
     static constraints = {
 		latitud min: -90d, max: 90d, blank: false
-		longitud blank: false		
+		longitud min: 0d, max: 180d, blank: false
     }
 }

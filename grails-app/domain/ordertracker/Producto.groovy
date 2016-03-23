@@ -8,24 +8,19 @@ class Producto {
 	String urlImagen = ""
 	String caracteristicas = ""
 	
+	String categoria = "" // TODO cambiar categoría a clase de dominio
+	
 	int stock = 0
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 	
-	static hasOne = [categoria: Categoria]
-	static belongsTo = [marca: Marca]
+	//static belongsTo = [marca: Marca]		// TODO implementar Marcas
 	
     static constraints = {
 		nombre blank: false
     }
 	
 	static mapping = {
-		estadoProducto(type: IdentityEnumType)
-	}
-
-	enum EstadoProducto {
-		DISP("Disponible"), NODISP("No Disponible"), SUSP("Suspendido")
-		String id
-		EstadoProducto(String id) { this.id = id }
+		estado(type: IdentityEnumType)
 	}
 }

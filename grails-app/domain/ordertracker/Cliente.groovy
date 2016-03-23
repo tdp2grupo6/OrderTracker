@@ -13,7 +13,7 @@ class Cliente {
 	String razonSocial = ""
 	String codigoUnico = ""
 	
-	Date fechaRegistro
+	Date fechaRegistro = new Date()
 	
 	String nombreCompleto() { "$apellido, $nombre" }
 	
@@ -23,6 +23,5 @@ class Cliente {
 		nombre blank: false
 		apellido blank: false
 		email blank: false, mail: true
-		fechaRegistro blank: false
     }
 }

@@ -32,12 +32,12 @@ class BootStrap {
 		println "Iniciando carga de clientes en la Base de Datos"
 		
 		lugar = new Ubicacion(direccion: "Paseo Colón 850", latitud: -34.5887297d, longitud: -58.3966085d)
-		cliente = new Cliente(apellido: "Gacitúa Vásquez", nombre: "Daniel", email: "dgv@mail.com", codigoUnico: "0", razonSocial: "0", fechaRegistro: new Date(), ubicacion: lugar)
+		cliente = new Cliente(apellido: "Gacitúa Vásquez", nombre: "Daniel", email: "dgv@mail.com", codigoUnico: "0", razonSocial: "0", ubicacion: lugar)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
 		lugar = new Ubicacion(direccion: "Av Las Heras 2214", latitud: -34.5884456d, longitud: -58.3960098d)
-		cliente = new Cliente(apellido: "Beltrán", nombre: "Belén", email: "bb@mail.com", codigoUnico: "1", razonSocial: "1", fechaRegistro: new Date(), ubicacion: lugar)
+		cliente = new Cliente(apellido: "Beltrán", nombre: "Belén", email: "bb@mail.com", codigoUnico: "1", razonSocial: "1", ubicacion: lugar)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
