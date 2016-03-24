@@ -1,7 +1,5 @@
 package ordertracker
 
-import org.codehaus.groovy.grails.orm.hibernate.cfg.IdentityEnumType
-
 class Producto {
 	String nombre
 	String codigo =  ""
@@ -19,8 +17,4 @@ class Producto {
     static constraints = {
 		nombre blank: false
     }
-	
-	static mapping = {
-		estado(type: IdentityEnumType)
-	}
 }

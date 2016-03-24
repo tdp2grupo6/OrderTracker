@@ -13,15 +13,19 @@ class Cliente {
 	String razonSocial = ""
 	String codigoUnico = ""
 	
+	String direccion = ""
+	double latitud
+	double longitud
+	
 	Date fechaRegistro = new Date()
 	
 	String nombreCompleto() { "$apellido, $nombre" }
 	
-	static hasOne = [ubicacion: Ubicacion]
-
-    static constraints = {
+	static constraints = {
 		nombre blank: false
 		apellido blank: false
 		email blank: false, mail: true
+		latitud blank: false
+		longitud blank: false
     }
 }
