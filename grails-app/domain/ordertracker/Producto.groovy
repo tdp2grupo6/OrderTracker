@@ -25,6 +25,7 @@ class Producto {
 	
     static constraints = {
 		nombre blank: false
+		marca nullable: true
 		rutaImagen nullable: true
 		
 		// TODO Decidir implementación de imagen (nativa o Base64)

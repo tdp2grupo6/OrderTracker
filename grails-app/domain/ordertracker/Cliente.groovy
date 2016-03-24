@@ -5,7 +5,7 @@ class Cliente {
 	String apellido
 	String telefono = ""
 	
-	String email = ""
+	String email
 	String contrasena = ""
 	
 	String identificador = ""
