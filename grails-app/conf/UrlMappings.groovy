@@ -3,15 +3,7 @@ import java.awt.Desktop.Action;
 class UrlMappings {
 
 	static mappings = {
-		/*		
-		"/cliente"(parseRequest: true) {
-			action = [GET: "index", POST: "save"]
-		}
-		"/cliente/$id"(parseRequest: true) {
-			action = [GET: "show", PUT: "update", DELETE: "delete"]
-		}
-		*/
-		
+		// Declarar nuevos Endpoints de esta forma en el UrlMapping
 		"/cliente"(resources:"cliente") {
 			"/search/$id?"(action:"search")
 		}

@@ -1,17 +1,16 @@
 package ordertracker
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.converters.JSON
 import grails.test.mixin.*
 import spock.lang.*
 
+
 @TestFor(ClienteController)
 @Mock(Cliente)
 class ClienteControllerSpec extends Specification {
-
-    def populateValidParams(params) {
+	
+	def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
         //params['name'] = 'someValidName'
