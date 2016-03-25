@@ -15,6 +15,11 @@ class ClienteControllerSpec extends Specification {
         assert params != null
         // TODO: Populate valid properties like...
         //params['name'] = 'someValidName'
+		params['nombre'] = 'Juan'
+		params['apellido'] = 'Perez'
+		params['email'] = 'jp@gmail.com'
+		params['latitud'] = 0d
+		params['longitud'] = 0d
     }
 
     void "Test the index action returns the correct model"() {
