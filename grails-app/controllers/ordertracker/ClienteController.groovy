@@ -59,8 +59,7 @@ class ClienteController {
 			]
 		}
 		respond result2, model:[totalResultados: result2.totalCount]
-	}
-	
+	}	
 
     @Transactional
     def save(Cliente clienteInstance) {

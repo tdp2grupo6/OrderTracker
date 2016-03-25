@@ -25,7 +25,7 @@ class Cliente {
 		nombre blank: false
 		apellido blank: false
 		email blank: false, mail: true
-		latitud blank: false, nullable: false
-		longitud blank: false, nullable: false
+		latitud blank: false, nullable: true
+		longitud blank: false, nullable: true
     }
 }
