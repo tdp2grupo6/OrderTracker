@@ -5,7 +5,10 @@ class UrlMappings {
 	static mappings = {
 		// Declarar nuevos Endpoints de esta forma en el UrlMapping
 		"/cliente"(resources:"cliente") {
-			"/search/$id?"(action:"search")
+			"/search/$id?"(resources:"cliente", action:"search")
+		}
+		"/marca"(resources:"marca") {
+			"/search/$id?"(resources:"marca", action:"search")
 		}
 			
         "/$controller/$action?/$id?(.$format)?"{

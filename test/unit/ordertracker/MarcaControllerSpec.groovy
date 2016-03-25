@@ -1,24 +1,20 @@
 package ordertracker
 
+
+
 import static org.springframework.http.HttpStatus.*
 import grails.converters.JSON
 import grails.test.mixin.*
 import spock.lang.*
 
+@TestFor(MarcaController)
+@Mock(Marca)
+class MarcaControllerSpec extends Specification {
 
-@TestFor(ClienteController)
-@Mock(Cliente)
-class ClienteControllerSpec extends Specification {
-	
-	def populateValidParams(params) {
+    def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
         //params['name'] = 'someValidName'
-		params['nombre'] = 'Juan'
-		params['apellido'] = 'Perez'
-		params['email'] = 'jp@gmail.com'
-		params['latitud'] = 0d
-		params['longitud'] = 0d
     }
 
     void "Test the index action returns the correct model"() {
@@ -30,7 +26,7 @@ class ClienteControllerSpec extends Specification {
             response.status == OK.value
             response.text == ([] as JSON).toString()
     }
-	
+
 	// TODO arreglar los tests unitarios de forma urgente
 	/*
     void "Test the save action correctly persists an instance"() {
@@ -38,23 +34,22 @@ class ClienteControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
-            def cliente = new Cliente()
-            controller.save(cliente)
-			
+            def marca = new Marca()
+            controller.save(marca)
+
         then:"The response status is NOT_ACCEPTABLE"
-			// TODO corregir response.status (405) para que sea NOT_ACCEPTABLE (406)
             response.status == NOT_ACCEPTABLE.value
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            cliente = new Cliente(params)
+            marca = new Marca(params)
 
-            controller.save(cliente)
+            controller.save(marca)
 
         then:"The response status is CREATED and the instance is returned"
             response.status == CREATED.value
-            response.text == (cliente as JSON).toString()
+            response.text == (marca as JSON).toString()
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -66,8 +61,8 @@ class ClienteControllerSpec extends Specification {
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def cliente = new Cliente()
-            controller.update(cliente)
+            def marca = new Marca()
+            controller.update(marca)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -75,12 +70,12 @@ class ClienteControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            cliente = new Cliente(params).save(flush: true)
-            controller.update(cliente)
+            marca = new Marca(params).save(flush: true)
+            controller.update(marca)
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value
-            response.text == (cliente as JSON).toString()
+            response.text == (marca as JSON).toString()
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
@@ -93,17 +88,17 @@ class ClienteControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def cliente = new Cliente(params).save(flush: true)
+            def marca = new Marca(params).save(flush: true)
 
         then:"It exists"
-            Cliente.count() == 1
+            Marca.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(cliente)
+            controller.delete(marca)
 
         then:"The instance is deleted"
-            Cliente.count() == 0
+            Marca.count() == 0
             response.status == NO_CONTENT.value
     }
-	*/
+    */
 }

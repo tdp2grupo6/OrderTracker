@@ -2,8 +2,8 @@ package ordertracker
 
 class Marca {
 	String nombre
-	String codigo
-	String rutaImagen
+	String codigo = ""
+	String rutaImagen = "" // TODO cambiar por imagen por defecto
 	
 	// TODO Decidir implementación de imagen (nativa o Base64)
 	/*
@@ -13,7 +13,7 @@ class Marca {
 	
     static constraints = {
 		nombre blank: false
-		codigo blank: false
+		codigo blank: true
 		rutaImagen nullable: true
 		
 		// TODO Decidir implementación de imagen (nativa o Base64)
