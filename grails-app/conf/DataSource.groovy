@@ -60,7 +60,7 @@ environments {
 			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
 			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
 			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
-			name: "OPENSHIFT_APP_NAME"
+			name: System.getenv("OPENSHIFT_APP_NAME")
 		]
 		dataSource {
 			dbCreate = "create-drop"
