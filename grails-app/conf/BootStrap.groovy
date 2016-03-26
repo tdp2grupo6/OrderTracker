@@ -3,29 +3,50 @@ import ordertracker.Cliente
 
 class BootStrap {
 	def init = { servletContext ->
-	def result = 'Corriendo en otro modo!'
-	println "Iniciando Order Tracker..."
-	switch (Environment.current) {
-		case Environment.DEVELOPMENT:
-			result = 'Corriendo en modo DEV!'
-			seedTestData()
-			break;
-		case Environment.TEST:
-			result = 'Corriendo en modo TEST!'
-			break;
-		case Environment.PRODUCTION:
-			result = 'Corriendo en modo PROD!'
-			seedProdData()
-			break;
-   		}
+		def result = 'Corriendo en otro modo!'
+		println "Iniciando Order Tracker..."
+		/*
+		switch (Environment.current) {
+			case Environment.DEVELOPMENT:
+				result = 'Corriendo en modo DEV!'
+				seedTestData()
+				break;
+			case Environment.TEST:
+				result = 'Corriendo en modo TEST!'
+				break;
+			case Environment.PRODUCTION:
+				result = 'Corriendo en modo PROD!'
+				seedProdData()
+				break;
+	   		}
+	   	*/
+		Environment.executeForCurrentEnvironment {
+			development {
+				result = 'Corriendo en modo DEVELOPMENT!'
+				seedDevData()
+			}
+			test {
+				result = 'Corriendo en modo TEST!'
+			}
+			production {
+				result = 'Corriendo en modo PRODUCTION!'
+				seedProdData()
+			}
+			openshift {
+				result = 'Corriendo en modo OPENSHIFT!'
+				seedOpenshiftData()
+			}
+		}
 		println "Ambiente actual: $Environment.current"
-		println "$result"
+		println "$result"	
 	}
+	
 	def destroy = {
 		println "Terminando Order Tracker... "
 	}
 	
-	private void seedTestData() {
+	private void seedDevData() {
+		// TODO Terminar Carga de datos en modo desarrollo
 		def cliente = null
 		println "Iniciando carga de clientes en la Base de Datos"
 		
@@ -42,10 +63,13 @@ class BootStrap {
 		println "Finalizada carga de $Cliente.count clientes en la Base de Datos"
 	}
 	
-	/*
-    def init = { servletContext ->
-    }
-    def destroy = {
-    }
-    */
+	private void seedProdData() {
+		// TODO Cargar datos de prueba en modo producción
+		println "Carga de datos en modo produccion no habilitada!"
+	}
+	
+	private void seedOpenshiftData() {
+		// TODO Cargar datos de prueba para la carga en OpenShift
+		println "Carga de datos en modo OpenShift no habilitada!"
+	}
 }
