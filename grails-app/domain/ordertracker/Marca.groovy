@@ -11,10 +11,13 @@ class Marca {
 	String imagenTipo	// MIME type
 	*/
 	
+	static hasMany = [productos: Producto]
+	
     static constraints = {
 		nombre blank: false
 		codigo blank: true
 		rutaImagen nullable: true
+		productos nullable: true
 		
 		// TODO Decidir implementación de imagen (nativa o Base64)
 		/*

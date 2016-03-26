@@ -7,9 +7,6 @@ class Producto {
 	
 	String rutaImagen
 	
-	String categoria = "" // TODO cambiar categoría a clase de dominio
-	Marca marca
-	
 	// TODO Decidir implementación de imagen (nativa o Base64)
 	/*
 	byte[] imagen		// codificada en Base64
@@ -20,11 +17,26 @@ class Producto {
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 	
-	//static belongsTo = [marca: Marca]		// TODO implementar Marcas
+	static hasOne = [marca: Marca]		// TODO implementar Marcas
+	static hasMany = [categorias: Categoria]
+	
+	def listaCategorias() {
+		def cat = this.categorias.collect() {
+			[
+				codigo: it.id,
+				nombre: it.nombre
+			]
+		}
+		return cat
+	}
+	
+	String nombreMarca() { "$marca.nombre" }
 	
     static constraints = {
 		nombre blank: false
-		// marca nullable: true
+		codigo blank: true
+		marca nullable: false
+		categorias nullable: true
 		rutaImagen nullable: true
 		
 		// TODO Decidir implementación de imagen (nativa o Base64)
