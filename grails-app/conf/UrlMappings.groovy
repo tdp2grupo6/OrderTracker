@@ -3,16 +3,11 @@ import java.awt.Desktop.Action;
 class UrlMappings {
 
 	static mappings = {
-		// Declarar nuevos Endpoints de esta forma en el UrlMapping
-		"/cliente"(resources:"cliente") {
-			"/search/$id?"(resources:"cliente", action:"search")
-		}
-		"/marca"(resources:"marca") {
-			"/search/$id?"(resources:"marca", action:"search")
-		}
-		"/producto"(resources:"producto") {
-			"/search/$id?"(resources:"producto", action:"search")
-		}
+		// TODO Declarar nuevos Endpoints de esta forma en el UrlMapping
+		"/cliente"(resources:"cliente")
+		"/marca"(resources:"marca")
+		"/producto"(resources:"producto")
+		"/categoria"(resources:"categoria")
 		
 		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{
