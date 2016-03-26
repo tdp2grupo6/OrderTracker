@@ -56,11 +56,11 @@ environments {
     }
 	openshift {
 		def credentials = [
-			hostname:System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
-			port:System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
-			username:System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
-			password:System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
-			name:"APPLICATION_NAME"
+			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
+			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
+			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
+			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
+			name: "OPENSHIFT_APP_NAME"
 		]
 		dataSource {
 			dbCreate = "create-drop"
