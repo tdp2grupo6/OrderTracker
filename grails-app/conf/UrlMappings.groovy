@@ -10,7 +10,11 @@ class UrlMappings {
 		"/marca"(resources:"marca") {
 			"/search/$id?"(resources:"marca", action:"search")
 		}
-			
+		"/producto"(resources:"producto") {
+			"/search/$id?"(resources:"producto", action:"search")
+		}
+		
+		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here

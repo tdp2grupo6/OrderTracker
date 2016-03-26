@@ -3,7 +3,6 @@ package ordertracker
 class Producto {
 	String nombre
 	String codigo =  ""
-	String urlImagen = ""
 	String caracteristicas = ""
 	
 	String rutaImagen
