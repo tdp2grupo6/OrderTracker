@@ -16,7 +16,7 @@ class MarcaController {
         def result = Marca.list(params).collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				codigo: it.id,
 				rutaImagen: it.rutaImagen
 			]
 		} 
@@ -27,7 +27,7 @@ class MarcaController {
 		respond tm.collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				codigo: it.id,
 				rutaImagen: it.rutaImagen
 			]
 		}
@@ -42,7 +42,7 @@ class MarcaController {
 		def result2 = result1.collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				codigo: it.id,
 				rutaImagen: it.rutaImagen
 			]
 		}

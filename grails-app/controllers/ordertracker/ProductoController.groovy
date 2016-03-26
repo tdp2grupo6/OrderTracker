@@ -16,7 +16,8 @@ class ProductoController {
 		def result = Producto.list(params).collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				marca: it.marca.nombre,
+				codigo: it.id,
 				caracteristicas: it.caracteristicas,
 				categoria: it.categoria,
 				rutaImagen: it.rutaImagen,
@@ -32,7 +33,8 @@ class ProductoController {
 		respond prod.collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				marca: it.marca.nombre,
+				codigo: it.id,
 				caracteristicas: it.caracteristicas,
 				categoria: it.categoria,
 				rutaImagen: it.rutaImagen,
@@ -52,7 +54,8 @@ class ProductoController {
 		def result2 = result1.collect {
 			[
 				nombre: it.nombre,
-				codigo: it.codigo,
+				marca: it.marca.nombre,
+				codigo: it.id,
 				caracteristicas: it.caracteristicas,
 				categoria: it.categoria,
 				rutaImagen: it.rutaImagen,

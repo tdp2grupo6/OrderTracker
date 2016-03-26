@@ -75,7 +75,7 @@ class BootStrap {
 		
 		// Ejemplo de inserción de Producto
 		def producto = null
-		producto = new Producto(nombre: "Clavos Princesa", precio: 49.99, stock: 0)
+		producto = new Producto(nombre: "Clavos Princesa", marca: marca, precio: 49.99, stock: 0)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		

@@ -17,7 +17,8 @@ class ProductoSpec extends Specification {
 
     void "prueba enum estado"() {
 		when:
-		def p = new Producto(nombre: "Producto de Prueba")
+		def m = new Marca(nombre: "Fantabuloso")
+		def p = new Producto(nombre: "Producto de Prueba", marca: m)
 		
 		then:
 		p.validate()

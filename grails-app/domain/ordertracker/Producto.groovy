@@ -2,7 +2,7 @@ package ordertracker
 
 class Producto {
 	String nombre
-	String codigo =  ""
+	String codigo = ""
 	String caracteristicas = ""
 	
 	String rutaImagen
@@ -24,7 +24,7 @@ class Producto {
 	
     static constraints = {
 		nombre blank: false
-		marca nullable: true
+		// marca nullable: true
 		rutaImagen nullable: true
 		
 		// TODO Decidir implementación de imagen (nativa o Base64)
