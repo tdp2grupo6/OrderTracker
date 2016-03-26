@@ -65,6 +65,7 @@ environments {
 		dataSource {
 			dbCreate = "create-drop"
 			driverClassName = "com.mysql.jdbc.Driver"
+			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 			url = "jdbc:mysql://${credentials.hostname}:${credentials.port}/${credentials.name}?useUnicode=yes&characterEncoding=UTF-8"
 			username = credentials.username
 			password = credentials.password
