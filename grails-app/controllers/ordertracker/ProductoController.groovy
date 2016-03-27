@@ -7,6 +7,8 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class ProductoController {
+	
+	SubirArchivoService sas
 
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
@@ -81,7 +83,12 @@ class ProductoController {
             return
         }
 
-        productoInstance.save flush:true
+        if (productoInstance.save (flush:true)) {
+			def imagen = request.getFile('imagen')
+			if (!imagen.isEmpty()) {
+				productoInstance.rutaImagen = sas.uploadFile(imagen, "${productoInstance.id}.png", "ImagenesProducto")
+			}
+		}
         respond productoInstance, [status: CREATED]
     }
 
