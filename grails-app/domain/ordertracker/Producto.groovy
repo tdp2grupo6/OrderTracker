@@ -30,6 +30,20 @@ class Producto {
 		return cat
 	}
 	
+	def filtroProducto() {
+		return [
+			nombre: nombre,
+			marca: nombreMarca(),
+			codigo: id,
+			caracteristicas: caracteristicas,
+			categoria: categorias,
+			rutaImagen: rutaImagen,
+			stock: stock,
+			precio: precio,
+			estado: estado.toString()
+		]
+	}
+	
 	String nombreMarca() { "$marca.nombre" }
 	
     static constraints = {
