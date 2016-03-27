@@ -1,7 +1,9 @@
 package ordertracker
 
 import static org.springframework.http.HttpStatus.*
+
 import org.hibernate.validator.internal.util.Contracts;
+
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -12,30 +14,18 @@ class ClienteController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-		def result = Cliente.list(params).collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
-		} 
-        respond result, [status: OK]
+		def result1 = Cliente.list(params)
+		def result2 = result1*.filtroCliente()
+        respond result2, [status: OK]
     }
 	
 	def show(Cliente cl) {
-		respond cl.collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
+		if (!cl) {
+			respond null, [status: NOT_FOUND]
 		}
+		else {
+			respond cl.filtroCliente()
+		}		
 	}
 	
 	def search(Integer max) {
@@ -48,17 +38,13 @@ class ClienteController {
 				ilike("razonSocial", "$params.id%")
 			}
 		}
-		def result2 = result1.collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
+		if (!result1 || !(result1.isEmpty())) {
+			def result2 = result1*.filtroCliente()
+			respond result2, model:[totalResultados: result2.totalCount]
 		}
-		respond result2, model:[totalResultados: result2.totalCount]
+		else {
+			respond null, [status: NOT_FOUND]
+		}
 	}
 
     @Transactional
