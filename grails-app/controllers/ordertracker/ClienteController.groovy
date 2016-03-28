@@ -38,13 +38,8 @@ class ClienteController {
 				ilike("razonSocial", "$params.id%")
 			}
 		}
-		if (!result1 || !(result1.isEmpty())) {
-			def result2 = result1*.filtroCliente()
-			respond result2, model:[totalResultados: result2.totalCount]
-		}
-		else {
-			respond null, [status: NOT_FOUND]
-		}
+		def result2 = result1*.filtroCliente()
+		respond result2, model:[totalResultados: result2.totalCount]
 	}
 
     @Transactional

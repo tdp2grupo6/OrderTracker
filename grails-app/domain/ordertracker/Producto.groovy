@@ -7,12 +7,6 @@ class Producto {
 	
 	String rutaImagen
 	
-	// TODO Decidir implementación de imagen (nativa o Base64)
-	/*
-	byte[] imagen		// codificada en Base64
-	String imagenTipo	// MIME type
-	*/
-	
 	int stock = 0
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
@@ -21,13 +15,12 @@ class Producto {
 	static hasMany = [categorias: Categoria]
 	
 	def listaCategorias() {
-		def cat = this.categorias.collect() {
+		return categorias.collect() {
 			[
 				codigo: it.id,
 				nombre: it.nombre
 			]
 		}
-		return cat
 	}
 	
 	def filtroProducto() {
@@ -52,11 +45,5 @@ class Producto {
 		marca nullable: false
 		categorias nullable: true
 		rutaImagen nullable: true
-		
-		// TODO Decidir implementación de imagen (nativa o Base64)
-		/*
-		imagen nullable: true, maxSize: 32768	// 32KB en Base64, 24KB en JPG/PNG
-		imagenTipo nullable: true
-		 */
-    }
+	}
 }

@@ -33,13 +33,8 @@ class ProductoController {
 		def result1 = prod.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		if (!result1 || !(result1.isEmpty())) {
-			def result2 = result1*.filtroProducto()
-			respond result2, model:[totalResultados: result2.totalCount]
-		}
-		else {
-			respond null, [status: NOT_FOUND]
-		}
+		def result2 = result1*.filtroProducto()
+		respond result2, model:[totalResultados: result2.totalCount]
 	}	
 
     @Transactional
