@@ -9,8 +9,8 @@ class Categoria {
 	
 	def filtroCategoria() {
 		return [
+			id: id,
 			nombre: nombre,
-			codigo: id,
 			caracteristicas: caracteristicas
 		]
 	}

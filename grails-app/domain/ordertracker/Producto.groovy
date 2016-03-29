@@ -25,9 +25,9 @@ class Producto {
 	
 	def filtroProducto() {
 		return [
+			id: id,
 			nombre: nombre,
 			marca: nombreMarca(),
-			codigo: id,
 			caracteristicas: caracteristicas,
 			categoria: categorias,
 			rutaImagen: rutaImagen,

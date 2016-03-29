@@ -23,7 +23,11 @@ class Cliente {
 	
 	def filtroCliente() {
 		return [
+			id: id,
 			nombreCompleto: nombreCompleto(),
+			nombre: nombre,
+			apellido: apellido,
+			razonSocial: razonSocial,
 			direccion: direccion,
 			telefono: telefono,
 			email: email,

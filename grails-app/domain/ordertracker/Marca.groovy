@@ -9,8 +9,8 @@ class Marca {
 	
 	def filtroMarca() {
 		return [
+			id: id,
 			nombre: nombre,
-			codigo: id,
 			rutaImagen: rutaImagen
 		]
 	}
