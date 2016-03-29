@@ -48,7 +48,6 @@ class BootStrap {
 	}
 	
 	private void seedDevData() {
-		// TODO Terminar Carga de datos en modo desarrollo
 		println "Iniciando carga de datos de prueba en la Base de Datos"
 		
 		// Ejemplo de inserciÃ³n de Cliente
@@ -69,7 +68,7 @@ class BootStrap {
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "peña@gmail.com", razonSocial: "Florencia Peña", direccion: "Libertador 1090", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "PeÃ±a", nombre: "Florencia", email: "pena@gmail.com", razonSocial: "Florencia PeÃ±a", direccion: "Libertador 1090", latitud: -34.5887297d, longitud: -58.3966085d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
@@ -151,7 +150,6 @@ class BootStrap {
 	}
 	
 	private void seedOpenshiftData() {
-		// TODO Cargar datos de prueba para la carga en OpenShift
 		seedDevData()
 	}
 }
