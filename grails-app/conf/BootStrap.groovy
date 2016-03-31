@@ -89,11 +89,11 @@ class BootStrap {
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		producto = new Producto(nombre: "Mochila Deportiva Negra", marca: marca, precio: 849.00, stock: 3)
+		producto = new Producto(nombre: "Mochila Deportiva Negra", caracteristicas: "Mochila de alta capacidad y costura reforzada", marca: marca, precio: 849.00, stock: 3)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
-		producto = new Producto(nombre: "Bolso de la Seleccion", marca: marca, precio: 1002.99, stock: 34)
+		producto = new Producto(nombre: "Bolso de la Seleccion", caracteristicas: "Diseño y estilo de la Selección Argentina", marca: marca, precio: 1002.99, stock: 34)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
@@ -101,7 +101,7 @@ class BootStrap {
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		producto = new Producto(nombre: "Vestido Print", marca: marca, precio: 1433.99, stock: 12)
+		producto = new Producto(nombre: "Vestido Print", caracteristicas: "Temporada otoño-invierno 2016", marca: marca, precio: 1433.99, stock: 12)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
@@ -109,11 +109,11 @@ class BootStrap {
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		producto = new Producto(nombre: "Vestido Basico", marca: marca, precio: 995.99, stock: 2)
+		producto = new Producto(nombre: "Vestido Basico", caracteristicas: "Diseño sencillo", marca: marca, precio: 995.99, stock: 2)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
-		producto = new Producto(nombre: "Vestido Mini Negro", marca: marca, precio: 666.99, stock: 12)
+		producto = new Producto(nombre: "Vestido Mini Negro", caracteristicas: "Fuera de temporada", marca: marca, precio: 666.99, stock: 12)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
@@ -121,7 +121,7 @@ class BootStrap {
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		producto = new Producto(nombre: "Zapatillas de Correr", marca: marca, precio: 1600.00, stock: 45)
+		producto = new Producto(nombre: "Zapatillas de Correr", caracteristicas: "Modelo Runner Fit", marca: marca, precio: 1600.00, stock: 45)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
@@ -129,11 +129,11 @@ class BootStrap {
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		producto = new Producto(nombre: "Remera zebra", marca: marca, precio: 349.99, stock: 15)
+		producto = new Producto(nombre: "Remera Zebra", caracteristicas: "Colección Animal", marca: marca, precio: 349.99, stock: 15)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
-		producto = new Producto(nombre: "Remera leopardo", marca: marca, precio: 449.99, stock: 15)
+		producto = new Producto(nombre: "Remera Leopardo", caracteristicas: "Colección Animal", marca: marca, precio: 449.99, stock: 15)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
