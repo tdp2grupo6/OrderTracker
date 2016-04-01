@@ -44,7 +44,7 @@ class ProductoControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == ([p1, p2, p3]*.filtroProducto() as JSON).toString()
+		response.text == ([p1, p2, p3] as JSON).toString()
 	}
 	
 	void "Testeando listar un producto"() {
@@ -61,7 +61,7 @@ class ProductoControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == (productoBuscado.filtroProducto() as JSON).toString()
+		response.text == (productoBuscado as JSON).toString()
 	}
 	
 	void "Testeando busqueda de un producto"() {
@@ -79,7 +79,7 @@ class ProductoControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == ([productoBuscado]*.filtroProducto() as JSON).toString()
+		response.text == ([productoBuscado] as JSON).toString()
 		
 		// TODO Arreglar
 		/*

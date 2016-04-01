@@ -21,21 +21,6 @@ class Cliente {
 	
 	String nombreCompleto() { "$apellido, $nombre" }
 	
-	def filtroCliente() {
-		return [
-			id: id,
-			nombreCompleto: nombreCompleto(),
-			nombre: nombre,
-			apellido: apellido,
-			razonSocial: razonSocial,
-			direccion: direccion,
-			telefono: telefono,
-			email: email,
-			latitud: latitud,
-			longitud: longitud
-		]
-	}
-	
 	static constraints = {
 		nombre blank: false
 		apellido blank: false

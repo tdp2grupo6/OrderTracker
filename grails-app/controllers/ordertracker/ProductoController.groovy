@@ -14,7 +14,7 @@ class ProductoController {
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		def result1 = Producto.list(params)
-		def result2 = result1*.filtroProducto()
+		def result2 = result1
 		respond result2, [status: OK]
 	}
 	
@@ -23,8 +23,8 @@ class ProductoController {
 			respond null, [status: NOT_FOUND]
 		}
 		else {
-			respond prod.filtroProducto()
-		}		
+			respond prod
+		}
 	}
 	
 	def search(Integer max) {
@@ -33,7 +33,7 @@ class ProductoController {
 		def result1 = prod.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1*.filtroProducto()
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}	
 

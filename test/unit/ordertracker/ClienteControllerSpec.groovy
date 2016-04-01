@@ -42,7 +42,7 @@ class ClienteControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == ([c1, c2, c3]*.filtroCliente() as JSON).toString()
+		response.text == ([c1, c2, c3] as JSON).toString()
 	}
 	
 	void "Testeando listar un cliente"() {
@@ -58,7 +58,7 @@ class ClienteControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == (clienteBuscado.filtroCliente() as JSON).toString()		
+		response.text == (clienteBuscado as JSON).toString()		
 	}
 	
 	void "Testeando busqueda de un cliente"() {
@@ -75,7 +75,7 @@ class ClienteControllerSpec extends Specification {
 		
 		then:
 		response.status == OK.value
-		response.text == ([clienteBuscado]*.filtroCliente() as JSON).toString()
+		response.text == ([clienteBuscado] as JSON).toString()
 	}
 	
 	// TODO arreglar los tests unitarios de forma urgente

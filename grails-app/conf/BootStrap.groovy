@@ -1,3 +1,4 @@
+import org.springframework.web.context.support.WebApplicationContextUtils
 import grails.util.Environment
 import ordertracker.Cliente
 import ordertracker.Marca
@@ -5,23 +6,13 @@ import ordertracker.Producto
 
 class BootStrap {
 	def init = { servletContext ->
+		// Importando Marshallers
+		def springContext = WebApplicationContextUtils.getWebApplicationContext( servletContext )
+		springContext.getBean( "customObjectMarshallers" ).register()
+		
+		// Código separado por Ambiente de Deploy
 		def result = 'Corriendo en otro modo!'
 		println "Iniciando Order Tracker..."
-		/*
-		switch (Environment.current) {
-			case Environment.DEVELOPMENT:
-				result = 'Corriendo en modo DEV!'
-				seedTestData()
-				break;
-			case Environment.TEST:
-				result = 'Corriendo en modo TEST!'
-				break;
-			case Environment.PRODUCTION:
-				result = 'Corriendo en modo PROD!'
-				seedProdData()
-				break;
-	   		}
-	   	*/
 		Environment.executeForCurrentEnvironment {
 			development {
 				result = 'Corriendo en modo DEVELOPMENT!'
