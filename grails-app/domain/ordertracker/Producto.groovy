@@ -5,7 +5,7 @@ class Producto {
 	String codigo = ""
 	String caracteristicas = ""
 	
-	String rutaImagen
+	String rutaImagen = ""  // TODO cambiar por imagen por defecto
 	
 	int stock = 0
 	float precio = 0f
