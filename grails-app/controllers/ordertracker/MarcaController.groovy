@@ -14,7 +14,7 @@ class MarcaController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         def result1 = Marca.list(params)
-       	def result2 = result1*.filtroMarca()
+       	def result2 = result1
 		respond result2, [status: OK]
     }
 
@@ -23,7 +23,7 @@ class MarcaController {
 			respond null, [status: NOT_FOUND]
 		}
 		else {
-			respond tm.filtroMarca()
+			respond tm
 		}
 	}
 	
@@ -33,7 +33,7 @@ class MarcaController {
 		def result1 = tm.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1*.filtroMarca()
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
 	

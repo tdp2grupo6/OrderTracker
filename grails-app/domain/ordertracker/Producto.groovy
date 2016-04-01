@@ -11,7 +11,8 @@ class Producto {
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 	
-	static hasOne = [marca: Marca]		// TODO implementar Marcas
+	//static belongsTo = [Marca]
+	static hasOne = [marca: Marca]
 	static hasMany = [categorias: Categoria]
 	
 	def listaCategorias() {

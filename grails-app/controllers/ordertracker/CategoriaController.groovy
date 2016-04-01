@@ -12,7 +12,7 @@ class CategoriaController {
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		def result1 = Categoria.list(params)
-       	def result2 = result1*.filtroCategoria()
+       	def result2 = result1
 		respond result2, [status: OK]
 	}
 	
@@ -21,7 +21,7 @@ class CategoriaController {
 			respond null, [status: NOT_FOUND]
 		}
 		else {
-			respond cat.filtroCategoria()
+			respond cat
 		}
 	}
 	
@@ -31,7 +31,7 @@ class CategoriaController {
 		def result1 = c.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1*.filtroCategoria()
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
 	
