@@ -16,6 +16,11 @@ class ProductoControllerSpec extends Specification {
         // TODO: Populate valid properties like...
         //params['name'] = 'someValidName'
     }
+	
+	def populateCustomParams(params, value) {
+		assert params != null
+		params['id'] = value
+	}
 
     void "Test the index action returns the correct model"() {
 
@@ -26,6 +31,79 @@ class ProductoControllerSpec extends Specification {
             response.status == OK.value
             response.text == ([] as JSON).toString()
     }
+	
+	void "Testeando listado productos"() {
+		given:
+		def marca = new Marca(nombre: "Adidas")
+		def p1 = new Producto(nombre: "Mochila Deportiva Negra", marca: marca, precio: 849.00, stock: 3).save(flush:true)
+		def p2 = new Producto(nombre: "Bolso de la Seleccion", marca: marca, precio: 1002.99, stock: 34).save(flush:true)
+		def p3 = new Producto(nombre: "Remera Deportiva", marca: marca, precio: 1433.99, stock: 12).save(flush:true)
+		
+		when:
+		controller.index()
+		
+		then:
+		response.status == OK.value
+		response.text == ([p1, p2, p3] as JSON).toString()
+	}
+	
+	void "Testeando listar un producto"() {
+		given:
+		def marca = new Marca(nombre: "Adidas")
+		def p1 = new Producto(nombre: "Mochila Deportiva Negra", marca: marca, precio: 849.00, stock: 3).save(flush:true)
+		def p2 = new Producto(nombre: "Bolso de la Seleccion", marca: marca, precio: 1002.99, stock: 34).save(flush:true)
+		def p3 = new Producto(nombre: "Remera Deportiva", marca: marca, precio: 1433.99, stock: 12).save(flush:true)
+		
+		when:
+		def productoBuscado = p2		// Cambiar por c1, c2 o c3 (a gusto)
+		populateCustomParams(params, productoBuscado.id)
+		controller.show()
+		
+		then:
+		response.status == OK.value
+		response.text == (productoBuscado as JSON).toString()
+	}
+	
+	void "Testeando busqueda de un producto"() {
+		given:
+		def marca = new Marca(nombre: "Adidas")
+		def p1 = new Producto(nombre: "Mochila Deportiva Negra", marca: marca, precio: 849.00, stock: 3).save(flush:true)
+		def p2 = new Producto(nombre: "Bolso de la Seleccion", marca: marca, precio: 1002.99, stock: 34).save(flush:true)
+		def p3 = new Producto(nombre: "Remera Deportiva", marca: marca, precio: 1433.99, stock: 12).save(flush:true)
+		
+		when: "Búsqueda normal"
+		def productoBuscado = p2		// Cambiar por c1, c2 o c3 (a gusto)
+		String query = productoBuscado.nombre.substring(0,3)
+		populateCustomParams(params, query)
+		controller.search()
+		
+		then:
+		response.status == OK.value
+		response.text == ([productoBuscado] as JSON).toString()
+		
+		// TODO Arreglar
+		/*
+		when: "Búsqueda vacía"
+		response.reset()
+		query = ""
+		populateCustomParams(params, query)
+		controller.search()
+		
+		then:
+		response.status == OK.value
+		response.text == ([] as JSON).toString()
+			
+		when: "Búsqueda de algo que no existe"
+		response.reset()
+		query = "1234"
+		populateCustomParams(params, query)
+		controller.search()
+		
+		then:
+		response.status == NOT_FOUND.value
+		*/
+	}
+	
 	
 	// TODO arreglar los tests unitarios de forma urgente
 	/*

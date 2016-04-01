@@ -5,29 +5,23 @@ class Producto {
 	String codigo = ""
 	String caracteristicas = ""
 	
-	String rutaImagen
-	
-	// TODO Decidir implementación de imagen (nativa o Base64)
-	/*
-	byte[] imagen		// codificada en Base64
-	String imagenTipo	// MIME type
-	*/
+	String rutaImagen = ""  // TODO cambiar por imagen por defecto
 	
 	int stock = 0
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 	
-	static hasOne = [marca: Marca]		// TODO implementar Marcas
+	//static belongsTo = [Marca]
+	static hasOne = [marca: Marca]
 	static hasMany = [categorias: Categoria]
 	
 	def listaCategorias() {
-		def cat = this.categorias.collect() {
+		return categorias.collect() {
 			[
 				codigo: it.id,
 				nombre: it.nombre
 			]
 		}
-		return cat
 	}
 	
 	String nombreMarca() { "$marca.nombre" }
@@ -38,11 +32,5 @@ class Producto {
 		marca nullable: false
 		categorias nullable: true
 		rutaImagen nullable: true
-		
-		// TODO Decidir implementación de imagen (nativa o Base64)
-		/*
-		imagen nullable: true, maxSize: 32768	// 32KB en Base64, 24KB en JPG/PNG
-		imagenTipo nullable: true
-		 */
-    }
+	}
 }

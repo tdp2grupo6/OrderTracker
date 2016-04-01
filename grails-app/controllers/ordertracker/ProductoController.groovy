@@ -15,35 +15,17 @@ class ProductoController {
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		def result = Producto.list(params).collect {
-			[
-				nombre: it.nombre,
-				marca: it.nombreMarca(),
-				codigo: it.id,
-				caracteristicas: it.caracteristicas,
-				categoria: it.categorias,
-				rutaImagen: it.rutaImagen,
-				stock: it.stock,
-				precio: it.precio,
-				estado: it.estado.toString()
-			]
-		}
-		respond result, [status: OK]
+		def result1 = Producto.list(params)
+		def result2 = result1
+		respond result2, [status: OK]
 	}
 	
 	def show(Producto prod) {
-		respond prod.collect {
-			[
-				nombre: it.nombre,
-				marca: it.marca.nombre,
-				codigo: it.id,
-				caracteristicas: it.caracteristicas,
-				categoria: it.categorias,
-				rutaImagen: it.rutaImagen,
-				stock: it.stock,
-				precio: it.precio,
-				estado: it.estado.toString()
-			]
+		if (!prod) {
+			respond null, [status: NOT_FOUND]
+		}
+		else {
+			respond prod
 		}
 	}
 	
@@ -53,22 +35,9 @@ class ProductoController {
 		def result1 = prod.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1.collect {
-			[
-				nombre: it.nombre,
-				marca: it.marca.nombre,
-				codigo: it.id,
-				caracteristicas: it.caracteristicas,
-				categoria: it.categorias,
-				rutaImagen: it.rutaImagen,
-				stock: it.stock,
-				precio: it.precio,
-				estado: it.estado.toString()
-			]
-		}
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
-	}
-	
+	}	
 
     @Transactional
     def save(Producto productoInstance) {

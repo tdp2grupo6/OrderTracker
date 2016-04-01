@@ -11,21 +11,17 @@ class CategoriaController {
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		def result = Categoria.list(params).collect {
-			[
-				nombre: it.nombre,
-				caracteristicas: it.caracteristicas
-			]
-		}
-		respond result, [status: OK]
+		def result1 = Categoria.list(params)
+       	def result2 = result1
+		respond result2, [status: OK]
 	}
 	
 	def show(Categoria cat) {
-		respond cat.collect {
-			[
-				nombre: it.nombre,
-				caracteristicas: it.caracteristicas
-			]
+		if (!cat) {
+			respond null, [status: NOT_FOUND]
+		}
+		else {
+			respond cat
 		}
 	}
 	
@@ -35,12 +31,7 @@ class CategoriaController {
 		def result1 = c.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1.collect {
-			[
-				nombre: it.nombre,
-				caracteristicas: it.caracteristicas
-			]
-		}
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
 	

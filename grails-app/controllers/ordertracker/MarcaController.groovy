@@ -13,23 +13,17 @@ class MarcaController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        def result = Marca.list(params).collect {
-			[
-				nombre: it.nombre,
-				codigo: it.id,
-				rutaImagen: it.rutaImagen
-			]
-		} 
-        respond result, [status: OK]
+        def result1 = Marca.list(params)
+       	def result2 = result1
+		respond result2, [status: OK]
     }
 
 	def show(Marca tm) {
-		respond tm.collect {
-			[
-				nombre: it.nombre,
-				codigo: it.id,
-				rutaImagen: it.rutaImagen
-			]
+		if (!tm) {
+			respond null, [status: NOT_FOUND]
+		}
+		else {
+			respond tm
 		}
 	}
 	
@@ -39,13 +33,7 @@ class MarcaController {
 		def result1 = tm.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1.collect {
-			[
-				nombre: it.nombre,
-				codigo: it.id,
-				rutaImagen: it.rutaImagen
-			]
-		}
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
 	

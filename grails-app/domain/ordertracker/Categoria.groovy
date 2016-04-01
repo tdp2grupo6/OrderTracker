@@ -2,11 +2,11 @@ package ordertracker
 
 class Categoria {
 	String nombre
-	String caracteristicas = ""
+	String descripcion = ""
 	
 	static belongsTo = Producto
 	static hasMany = [producto: Producto]
-
+	
     static constraints = {
 		producto nullable: true
     }

@@ -1,7 +1,9 @@
 package ordertracker
 
 import static org.springframework.http.HttpStatus.*
+
 import org.hibernate.validator.internal.util.Contracts;
+
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -12,30 +14,18 @@ class ClienteController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-		def result = Cliente.list(params).collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
-		} 
-        respond result, [status: OK]
+		def result1 = Cliente.list(params)
+		def result2 = result1
+        respond result2, [status: OK]
     }
 	
 	def show(Cliente cl) {
-		respond cl.collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
+		if (!cl) {
+			respond null, [status: NOT_FOUND]
 		}
+		else {
+			respond cl
+		}		
 	}
 	
 	def search(Integer max) {
@@ -48,16 +38,7 @@ class ClienteController {
 				ilike("razonSocial", "$params.id%")
 			}
 		}
-		def result2 = result1.collect {
-			[
-				nombreCompleto: it.nombreCompleto(),
-				direccion: it.direccion,
-				telefono: it.telefono,
-				email: it.email,
-				latitud: it.latitud,
-				longitud: it.longitud
-			]
-		}
+		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
 

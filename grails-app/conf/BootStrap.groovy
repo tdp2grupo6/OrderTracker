@@ -1,3 +1,4 @@
+import org.springframework.web.context.support.WebApplicationContextUtils
 import grails.util.Environment
 import ordertracker.Cliente
 import ordertracker.Marca
@@ -5,23 +6,13 @@ import ordertracker.Producto
 
 class BootStrap {
 	def init = { servletContext ->
+		// Importando Marshallers
+		def springContext = WebApplicationContextUtils.getWebApplicationContext( servletContext )
+		springContext.getBean( "customObjectMarshallers" ).register()
+		
+		// Código separado por Ambiente de Deploy
 		def result = 'Corriendo en otro modo!'
 		println "Iniciando Order Tracker..."
-		/*
-		switch (Environment.current) {
-			case Environment.DEVELOPMENT:
-				result = 'Corriendo en modo DEV!'
-				seedTestData()
-				break;
-			case Environment.TEST:
-				result = 'Corriendo en modo TEST!'
-				break;
-			case Environment.PRODUCTION:
-				result = 'Corriendo en modo PROD!'
-				seedProdData()
-				break;
-	   		}
-	   	*/
 		Environment.executeForCurrentEnvironment {
 			development {
 				result = 'Corriendo en modo DEVELOPMENT!'
@@ -48,38 +39,97 @@ class BootStrap {
 	}
 	
 	private void seedDevData() {
-		// TODO Terminar Carga de datos en modo desarrollo
 		println "Iniciando carga de datos de prueba en la Base de Datos"
 		
 		// Ejemplo de inserción de Cliente
 		def cliente = null
-		cliente = new Cliente(apellido: "Gacitúa Vásquez", nombre: "Daniel", email: "dgv@mail.com", razonSocial: "Mi Negocio", direccion: "Paseo Colón 850", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", razonSocial: "Silvina Luna", direccion: "Las Heras 2850", latitud: -34.5887297d, longitud: -58.3966085d)
+		assert cliente.save(failOnError:true, flush:true, insert: true)
+		cliente.errors = null
+				
+		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", razonSocial: "Jorge Rial", direccion: "Monroe 1501", latitud: -34.552929d, longitud: -58.451036d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Beltrán", nombre: "Belén", email: "bb@mail.com", razonSocial: "Un Kiosco Cualquiera", direccion: "Av Las Heras 2214", latitud: -34.5884456d, longitud: -58.3960098d)
+		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		assert Cliente.count == 2;
+		cliente = new Cliente(apellido: "Tevez", nombre: "Carlos", email: "apache@hotmail.com", razonSocial: "Carlos Tevez", direccion: "Libertador 1052", latitud: -34.5887297d, longitud: -58.3966085d)
+		assert cliente.save(failOnError:true, flush:true, insert: true)
+		cliente.errors = null
+		
+		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", razonSocial: "Florencia Peña", direccion: "Libertador 1090", latitud: -34.5887297d, longitud: -58.3966085d)
+		assert cliente.save(failOnError:true, flush:true, insert: true)
+		cliente.errors = null
+		
+		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", razonSocial: "Viviana Canosa", direccion: "Monroe 890", latitud: -34.5887297d, longitud: -58.3966085d)
+		assert cliente.save(failOnError:true, flush:true, insert: true)
+		cliente.errors = null
+		
+		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", razonSocial: "Flavio Mendoza", direccion: "Blanco Encalada 390", latitud: -34.5887297d, longitud: -58.3966085d)
+		assert cliente.save(failOnError:true, flush:true, insert: true)
+		cliente.errors = null
+		
 		println "Finalizada carga de $Cliente.count clientes en la Base de Datos"
 		
-		// Ejemplo de inserción de Marca
+		// Ejemplo de inserción de Marca y Producto
 		def marca = null
-		marca = new Marca(nombre: "SuperFantabuloso")
+		def producto = null
+		marca = new Marca(nombre: "Adidas")
 		assert marca.save(failOnError:true, flush:true, insert: true)
 		marca.errors = null
 		
-		assert Marca.count == 1;
-		println "Finalizada carga de $Marca.count marcas en la Base de Datos"
-		
-		// Ejemplo de inserción de Producto
-		def producto = null
-		producto = new Producto(nombre: "Clavos Princesa", marca: marca, precio: 49.99, stock: 0)
+		producto = new Producto(nombre: "Mochila Deportiva Negra", caracteristicas: "Mochila de alta capacidad y costura reforzada", marca: marca, precio: 849.00, stock: 3)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
-		assert Producto.count == 1;
+		producto = new Producto(nombre: "Bolso de la Seleccion", caracteristicas: "Diseño y estilo de la Selección Argentina", marca: marca, precio: 1002.99, stock: 34)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		marca = new Marca(nombre: "A.Y. NOT DEAD")
+		assert marca.save(failOnError:true, flush:true, insert: true)
+		marca.errors = null
+		
+		producto = new Producto(nombre: "Vestido Print", caracteristicas: "Temporada otoño-invierno 2016", marca: marca, precio: 1433.99, stock: 12)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		marca = new Marca(nombre: "Akiabara")
+		assert marca.save(failOnError:true, flush:true, insert: true)
+		marca.errors = null
+		
+		producto = new Producto(nombre: "Vestido Basico", caracteristicas: "Diseño sencillo", marca: marca, precio: 995.99, stock: 2)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		producto = new Producto(nombre: "Vestido Mini Negro", caracteristicas: "Fuera de temporada", marca: marca, precio: 666.99, stock: 12)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		marca = new Marca(nombre: "Nike")
+		assert marca.save(failOnError:true, flush:true, insert: true)
+		marca.errors = null
+		
+		producto = new Producto(nombre: "Zapatillas de Correr", caracteristicas: "Modelo Runner Fit", marca: marca, precio: 1600.00, stock: 45)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		marca = new Marca(nombre: "Zara")
+		assert marca.save(failOnError:true, flush:true, insert: true)
+		marca.errors = null
+		
+		producto = new Producto(nombre: "Remera Zebra", caracteristicas: "Colección Animal", marca: marca, precio: 349.99, stock: 15)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		producto = new Producto(nombre: "Remera Leopardo", caracteristicas: "Colección Animal", marca: marca, precio: 449.99, stock: 15)
+		assert producto.save(failOnError:true, flush:true, insert: true)
+		producto.errors = null
+		
+		println "Finalizada carga de $Marca.count marcas en la Base de Datos"
+		
 		println "Finalizada carga de $Producto.count productos en la Base de Datos"
 		
 		println "Finalizando carga de datos de prueba en la Base de Datos"
@@ -91,7 +141,6 @@ class BootStrap {
 	}
 	
 	private void seedOpenshiftData() {
-		// TODO Cargar datos de prueba para la carga en OpenShift
-		println "Carga de datos en modo OpenShift no habilitada!"
+		seedDevData()
 	}
 }
