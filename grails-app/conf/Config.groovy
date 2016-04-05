@@ -87,13 +87,16 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
+		uploadPath = "/tmp"		//ServletContextHolder.servletContext.getRealPath('/uploads')
         grails.logging.jul.usebridge = true
     }
     production {
+		uploadPath = "/tmp"		// TODO Reemplazar por un directorio de imágenes persistente y con permisos
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 	openshift {
+		uploadPath = System.getenv("OPENSHIFT_DATA_DIR") + "uploads"
 		grails.logging.jul.usebridge = false
 	}
 }

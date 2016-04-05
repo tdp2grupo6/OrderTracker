@@ -16,6 +16,11 @@ class UrlMappings {
 		"/categoria"(resources:"categoria")
 		"/categoria/search/$id?"(controller:"categoria", action:"search")
 		
+		"/imagen/ver/$id"(controller:"imagen", action:"picture")
+		"/imagen/miniatura/$id"(controller:"imagen", action:"thumbnail")
+		"/imagen/subir"(controller:"imagen", action:"upload")
+		"/imagen/borrar/$id"(controller:"imagen", action:"delete")		
+		
 		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{
             constraints {

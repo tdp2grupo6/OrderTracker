@@ -12,7 +12,7 @@ class BootStrap {
 		
 		// Código separado por Ambiente de Deploy
 		def result = 'Corriendo en otro modo!'
-		println "Iniciando Order Tracker..."
+		println "[OT-LOG] Iniciando Order Tracker..."
 		Environment.executeForCurrentEnvironment {
 			development {
 				result = 'Corriendo en modo DEVELOPMENT!'
@@ -30,16 +30,16 @@ class BootStrap {
 				seedOpenshiftData()
 			}
 		}
-		println "Ambiente actual: $Environment.current"
-		println "$result"	
+		println "[OT-LOG] Ambiente actual: $Environment.current"
+		println "[OT-LOG] $result"	
 	}
 	
 	def destroy = {
-		println "Terminando Order Tracker... "
+		println "[OT-LOG] Terminando Order Tracker... "
 	}
 	
 	private void seedDevData() {
-		println "Iniciando carga de datos de prueba en la Base de Datos"
+		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos"
 		
 		// Ejemplo de inserción de Cliente
 		def cliente = null
@@ -71,7 +71,7 @@ class BootStrap {
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		println "Finalizada carga de $Cliente.count clientes en la Base de Datos"
+		println "[OT-LOG] Finalizada carga de $Cliente.count clientes en la Base de Datos"
 		
 		// Ejemplo de inserción de Marca y Producto
 		def marca = null
@@ -128,16 +128,16 @@ class BootStrap {
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		producto.errors = null
 		
-		println "Finalizada carga de $Marca.count marcas en la Base de Datos"
+		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		
-		println "Finalizada carga de $Producto.count productos en la Base de Datos"
+		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
 		
-		println "Finalizando carga de datos de prueba en la Base de Datos"
+		println "[OT-LOG] Finalizando carga de datos de prueba en la Base de Datos"
 	}
 	
 	private void seedProdData() {
 		// TODO Cargar datos de prueba en modo producción
-		println "Carga de datos en modo produccion no habilitada!"
+		println "[OT-LOG] Carga de datos en modo produccion no habilitada!"
 	}
 	
 	private void seedOpenshiftData() {
