@@ -5,13 +5,12 @@ class Producto {
 	String codigo = ""
 	String caracteristicas = ""
 	
-	String rutaImagen = ""  // TODO cambiar por imagen por defecto
-	
 	int stock = 0
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
-	
-	//static belongsTo = [Marca]
+
+	Imagen imagen
+
 	static hasOne = [marca: Marca]
 	static hasMany = [categorias: Categoria]
 	
@@ -24,13 +23,14 @@ class Producto {
 		}
 	}
 	
-	String nombreMarca() { "$marca.nombre" }
+	String rutaImagen() { "/imagen/ver/$imagen.id" }
+	String rutaMiniatura() { "/imagen/miniatura/$imagen.id" }
 	
     static constraints = {
 		nombre blank: false
 		codigo blank: true
 		marca nullable: false
 		categorias nullable: true
-		rutaImagen nullable: true
+		imagen nullable: true
 	}
 }

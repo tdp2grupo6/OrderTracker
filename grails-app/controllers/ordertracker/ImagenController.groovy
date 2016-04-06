@@ -71,7 +71,7 @@ class ImagenController {
 		}
 	}
 
-	def picture(){
+	def picture() {
 		def pic = Imagen.get(params.id)
 		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
 		response.contentType = 'image/jpeg'
@@ -79,7 +79,7 @@ class ImagenController {
 		response.outputStream.flush()
 	}
 
-	def thumbnail(){
+	def thumbnail() {
 		def pic = Imagen.get(params.id)
 		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
 		response.contentType = 'image/png'
@@ -87,7 +87,7 @@ class ImagenController {
 		response.outputStream.flush()
 	}
 
-	def delete(){
+	def delete() {
 		def pic = Imagen.get(params.id)
 		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
 		picFile.delete()
@@ -104,8 +104,7 @@ class ImagenController {
 
 		Environment.executeForCurrentEnvironment {
 			development {
-				def contexto = ServletContextHolder.servletContext
-				ruta = contexto.getRealPath(rutaRelativa)
+				ruta = ServletContextHolder.servletContext.getRealPath(rutaRelativa)
 			}
 			openshift {
 				ruta = System.getenv("OPENSHIFT_DATA_DIR") + rutaRelativa

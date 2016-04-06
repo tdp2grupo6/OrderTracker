@@ -3,14 +3,17 @@ package ordertracker
 class Marca {
 	String nombre = ""
 	String codigo = ""
-	String rutaImagen = "" // TODO cambiar por imagen por defecto
-	
+
+	Imagen imagen
+
 	static hasMany = [productos: Producto]
-	
+
+	String rutaImagen() { "/imagen/ver/$imagen.id" }
+	String rutaMiniatura() { "/imagen/miniatura/$imagen.id" }
+
     static constraints = {
 		nombre blank: false
-		codigo blank: true
-		rutaImagen nullable: true
+		imagen nullable: true
 		productos nullable: true
 	}
 }

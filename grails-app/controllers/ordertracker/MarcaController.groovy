@@ -8,7 +8,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MarcaController {
 
-    static responseFormats = ['json', 'xml']
+    static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
 
     def index(Integer max) {

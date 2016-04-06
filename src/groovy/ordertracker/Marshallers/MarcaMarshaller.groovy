@@ -9,7 +9,8 @@ class MarcaMarshaller {
 			return [
 				id: m.id,
 				nombre: m.nombre,
-				rutaImagen: m.rutaImagen
+				rutaImagen: m.rutaImagen(),
+				rutaMiniatura: m.rutaMiniatura()
 			]
 		}
 	}

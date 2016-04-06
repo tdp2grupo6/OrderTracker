@@ -12,7 +12,9 @@ class ProductoMarshaller {
 				marca: p.marca.nombre,
 				caracteristicas: p.caracteristicas,
 				categoria: p.categorias,
-				rutaImagen: p.rutaImagen,
+				rutaImagen: p.rutaImagen(),
+				rutaMiniatura: p.rutaMiniatura(),
+				categorias: p.listaCategorias(),
 				stock: p.stock,
 				precio: p.precio,
 				estado: p.estado.toString()
