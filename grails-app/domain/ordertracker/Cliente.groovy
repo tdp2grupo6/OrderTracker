@@ -12,7 +12,9 @@ class Cliente {
 	
 	String razonSocial = ""
 	String codigoUnico = ""
-	
+
+	EstadoCliente estado = EstadoCliente.ROJO
+
 	String direccion = ""
 	double latitud
 	double longitud

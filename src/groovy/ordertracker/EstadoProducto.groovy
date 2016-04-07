@@ -9,4 +9,8 @@ public enum EstadoProducto{
 	
 	String toString() { valor }
 	String getKey() { name() }
+
+	def displayEnum() {
+		return [ tipo: getKey(), nombre: toString() ]
+	}
 }

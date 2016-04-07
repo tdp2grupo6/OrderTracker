@@ -16,7 +16,7 @@ class ProductoMarshaller {
 				rutaMiniatura: p.rutaMiniatura(),
 				stock: p.stock,
 				precio: p.precio,
-				estado: p.estado.toString()
+				estado: p.estado.displayEnum()
 			]
 		}
 	}

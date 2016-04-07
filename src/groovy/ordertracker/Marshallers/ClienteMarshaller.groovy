@@ -16,7 +16,8 @@ class ClienteMarshaller {
 				telefono: c.telefono,
 				email: c.email,
 				latitud: c.latitud,
-				longitud: c.longitud
+				longitud: c.longitud,
+				estado: c.estado.displayEnum()
 			]
 		}
 	}
