@@ -4,9 +4,11 @@ class Categoria {
 	String nombre
 	String descripcion = ""
 
-	static hasMany = [producto: Producto]
+	static hasMany = [productos: Producto]
+	static belongsTo = Producto
 
     static constraints = {
-		producto nullable: true
+		nombre blank: false
+		productos nullable: true
     }
 }

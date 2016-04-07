@@ -14,10 +14,22 @@ class ClienteSpec extends Specification {
 
     def cleanup() {
     }
-	
-	void "datos del Cliente en blanco"() {
+
+	void "Verificar datos por defecto"() {
 		when:
-		def c = new Cliente(nombre: "", apellido: "", email: "", direccion: "Paseo Colón 850", latitud: -34.5887297d, longitud: -58.3966085d)
+		def c = new Cliente(nombre: "Juan", apellido: "Pérez", email: "jp@gmail.com", latitud: -34.5887297d, longitud: -58.3966085d)
+
+		then:
+		c.validate()
+		c.direccion == ""
+		c.razonSocial == ""
+		c.codigoUnico == ""
+		c.estado == EstadoCliente.ROJO
+	}
+	
+	void "Verificar datos del Cliente en blanco"() {
+		when:
+		def c = new Cliente(nombre: "", apellido: "", email: "", latitud: -34.5887297d, longitud: -58.3966085d)
 		
 		then:
 		!c.validate()

@@ -9,11 +9,11 @@ class Producto {
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 
-	Imagen imagen
+	//Imagen imagen
 
-	static hasOne = [marca: Marca]
+	static hasOne = [imagen: Imagen]
 	static hasMany = [categorias: Categoria]
-	static belongsTo = Categoria
+	static belongsTo = [marca: Marca]
 	
 	def listaCategorias() {
 		return categorias.collect() {
