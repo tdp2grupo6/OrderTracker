@@ -73,30 +73,57 @@ class ImagenController {
 
 	def picture() {
 		def pic = Imagen.get(params.id)
-		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
-		response.contentType = 'image/jpeg'
-		response.outputStream << new FileInputStream(picFile)
-		response.outputStream.flush()
+
+		if (pic) {
+			def picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
+
+			if (picFile.exists()) {
+				File picture = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
+				response.contentType = 'image/jpeg'
+				response.outputStream << new FileInputStream(picture)
+				response.outputStream.flush()
+			}
+		}
+		else {
+			render "Imagen no encontrada!"
+		}
 	}
 
 	def thumbnail() {
 		def pic = Imagen.get(params.id)
-		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
-		response.contentType = 'image/png'
-		response.outputStream << new FileInputStream(picFile)
-		response.outputStream.flush()
+
+		if (pic) {
+			def picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
+
+			if (picFile.exists()) {
+				File picture = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
+				response.contentType = 'image/png'
+				response.outputStream << new FileInputStream(picture)
+				response.outputStream.flush()
+			}
+		}
+		else {
+			render "Imagen no encontrada!"
+		}
 	}
 
 	def delete() {
 		def pic = Imagen.get(params.id)
-		File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
-		picFile.delete()
-		File thumbnailFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
-		thumbnailFile.delete()
-		pic.delete()
 
-		def result = [success: true]
-		render result as JSON
+		if (pic) {
+			File picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.newFilename}")
+			picFile.delete()
+			File thumbnailFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${pic.thumbnailFilename}")
+			thumbnailFile.delete()
+			pic.delete()
+
+			def result = [success: true]
+			render result as JSON
+		}
+		else {
+			def result = [success: false]
+			render result as JSON
+		}
 	}
 
 	def obtenerRuta(String rutaRelativa) {
@@ -114,11 +141,11 @@ class ImagenController {
 		// Crear carpeta de subida si no existe
 		def rutaFinal = new File(ruta)
 		if (!rutaFinal.exists()) {
-			print "CREATING DIRECTORY ${ruta}: "
+			print "[OT-LOG] CREANDO DIRECTORIO ${ruta}: "
 			if (rutaFinal.mkdirs()) {
-				println "SUCCESS"
+				println "ÉXITO!"
 			} else {
-				println "FAILED"
+				println "FALLÓ"
 			}
 		}
 

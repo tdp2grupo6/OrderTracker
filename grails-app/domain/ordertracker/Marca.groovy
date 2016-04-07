@@ -8,8 +8,8 @@ class Marca {
 
 	static hasMany = [productos: Producto]
 
-	String rutaImagen() { "/imagen/ver/$imagen.id" }
-	String rutaMiniatura() { "/imagen/miniatura/$imagen.id" }
+	String rutaImagen() { "imagen/ver/$imagen.id" }
+	String rutaMiniatura() { "imagen/miniatura/$imagen.id" }
 
     static constraints = {
 		nombre blank: false

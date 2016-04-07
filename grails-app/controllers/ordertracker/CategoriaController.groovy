@@ -27,7 +27,7 @@ class CategoriaController {
 	
 	def search(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		def c = Cliente.createCriteria()
+		def c = Categoria.createCriteria()
 		def result1 = c.list(params) {
 			ilike("nombre", "$params.id%")
 		}

@@ -13,6 +13,7 @@ class Producto {
 
 	static hasOne = [marca: Marca]
 	static hasMany = [categorias: Categoria]
+	static belongsTo = Categoria
 	
 	def listaCategorias() {
 		return categorias.collect() {
@@ -23,8 +24,8 @@ class Producto {
 		}
 	}
 	
-	String rutaImagen() { "/imagen/ver/$imagen.id" }
-	String rutaMiniatura() { "/imagen/miniatura/$imagen.id" }
+	String rutaImagen() { "imagen/ver/$imagen.id" }
+	String rutaMiniatura() { "imagen/miniatura/$imagen.id" }
 	
     static constraints = {
 		nombre blank: false
