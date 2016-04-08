@@ -5,17 +5,20 @@ class UrlMappings {
 	static mappings = {
 		// TODO Declarar nuevos Endpoints de esta forma en el UrlMapping
 		"/cliente"(resources:"cliente")
-		"/cliente/search/$id?"(controller:"cliente", action:"search")
+		"/cliente/buscar/$id?"(controller:"cliente", action:"search")
 		
 		"/producto"(resources:"producto")
-		"/producto/search/$id?"(controller:"producto", action:"search")
-		
+		"/producto/buscar/$id?"(controller:"producto", action:"search")
+		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
+		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
+
 		"/marca"(resources:"marca")
-		"/marca/search/$id?"(controller:"marca", action:"search")
-		
+		"/marca/buscar/$id?"(controller:"marca", action:"search")
+
 		"/categoria"(resources:"categoria")
-		"/categoria/search/$id?"(controller:"categoria", action:"search")
-		
+		"/categoria/buscar/$id?"(controller:"categoria", action:"search")
+		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
+
 		"/imagen/ver/$id"(controller:"imagen", action:"picture")
 		"/imagen/miniatura/$id"(controller:"imagen", action:"thumbnail")
 		"/imagen/subir"(controller:"imagen", action:"upload")

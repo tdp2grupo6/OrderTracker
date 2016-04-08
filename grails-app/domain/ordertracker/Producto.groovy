@@ -11,8 +11,9 @@ class Producto {
 
 	Imagen imagen
 
+	static hasOne = [marca: Marca]
 	static hasMany = [categorias: Categoria]
-	static belongsTo = [marca: Marca]
+	static belongsTo = [Marca, Categoria]
 	
 	def listaCategorias() {
 		return categorias.collect() {

@@ -1,6 +1,6 @@
 package ordertracker
 
-
+import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -8,7 +8,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ProductoController {
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
+                             searchInCategoria: "GET", searchInMarca: "GET"]
 	
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
@@ -19,7 +20,8 @@ class ProductoController {
 	
 	def show(Producto prod) {
 		if (!prod) {
-			respond null, [status: NOT_FOUND]
+            def result = []
+            respond result
 		}
 		else {
 			respond prod
@@ -33,8 +35,39 @@ class ProductoController {
 			ilike("nombre", "$params.id%")
 		}
 		def result2 = result1
-		respond result2, model:[totalResultados: result2.totalCount]
-	}	
+		respond result2, model:[totalResultados: result2.count]
+	}
+
+    def searchInCategoria(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        if (StringGroovyMethods.isLong(params.id)) {
+            long idFiltro = StringGroovyMethods.toLong(params.id)
+            def res = Producto.withCriteria {
+                    categorias {
+                        idEq(idFiltro)
+                    }
+                }
+            respond res, model: [totalResultados: res.count]
+        }
+        else {
+            def result = []
+            respond result
+        }
+    }
+
+    def searchInMarca(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        if (StringGroovyMethods.isLong(params.id)) {
+            long idFiltro = StringGroovyMethods.toLong(params.id)
+            def marSet = [Marca.findById(idFiltro)] as Set
+            def result = Producto.findAllByMarca(marSet)
+            respond result, model:[totalResultados: result.count]
+        }
+        else {
+            def result = []
+            respond result
+        }
+    }
 
     @Transactional
     def save(Producto productoInstance) {
@@ -49,13 +82,7 @@ class ProductoController {
             return
         }
 
-        if (productoInstance.save (flush:true)) {
-			def imagen = request.getFile('imagen')
-			if (!imagen.isEmpty()) {
-                // TODO Implementar subida de imagenes
-				//productoInstance.rutaImagen = sas.uploadFile(imagen, "${productoInstance.id}.png", "ImagenesProducto")
-			}
-		}
+        productoInstance.save flush:true
         respond productoInstance, [status: CREATED]
     }
 

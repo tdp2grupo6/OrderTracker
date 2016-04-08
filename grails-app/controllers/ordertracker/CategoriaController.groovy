@@ -1,5 +1,7 @@
 package ordertracker
 
+import org.codehaus.groovy.runtime.StringGroovyMethods
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -7,7 +9,8 @@ import grails.transaction.Transactional
 class CategoriaController {
 	
 	static responseFormats = ['json']
-	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
+                             searchInProducto: "GET"]
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
@@ -34,6 +37,20 @@ class CategoriaController {
 		def result2 = result1
 		respond result2, model:[totalResultados: result2.totalCount]
 	}
+
+    def searchInProducto(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        if (StringGroovyMethods.isLong(params.id)) {
+            long idFiltro = StringGroovyMethods.toLong(params.id)
+            def prod = Producto.findById(idFiltro)
+            def res = prod.categorias.toList()
+            respond res, model: [totalResultados: res.count]
+        }
+        else {
+            def result = []
+            respond result
+        }
+    }
 	
     @Transactional
     def save(Categoria categoriaInstance) {
