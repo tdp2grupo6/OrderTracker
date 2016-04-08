@@ -9,9 +9,8 @@ class Producto {
 	float precio = 0f
 	EstadoProducto estado = EstadoProducto.NODISP
 
-	//Imagen imagen
+	Imagen imagen
 
-	static hasOne = [imagen: Imagen]
 	static hasMany = [categorias: Categoria]
 	static belongsTo = [marca: Marca]
 	

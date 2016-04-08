@@ -4,20 +4,17 @@ class Marca {
 	String nombre = ""
 	String codigo = ""
 
-	//Imagen imagen
+	Imagen imagen
 
-	static hasOne = [imagen: Imagen]
 	static hasMany = [productos: Producto]
 
 	String rutaImagen() { "imagen/ver/$imagen.id" }
 	String rutaMiniatura() { "imagen/miniatura/$imagen.id" }
 
-	/*
 	static mapping = {
 		productos cascade: "all-delete-orphan"
 	}
-	*/
-
+	
     static constraints = {
 		nombre blank: false
 		imagen nullable: true
