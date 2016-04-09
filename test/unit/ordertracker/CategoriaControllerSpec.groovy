@@ -17,6 +17,11 @@ class CategoriaControllerSpec extends Specification {
         //params['name'] = 'someValidName'
     }
 
+    def populateCustomParams(params, value) {
+        assert params != null
+        params['id'] = value
+    }
+
     void "Test the index action returns the correct model"() {
 
         when:"The index action is executed"
@@ -26,6 +31,65 @@ class CategoriaControllerSpec extends Specification {
             response.status == OK.value
             response.text == ([] as JSON).toString()
     }
+
+    void "Testeando listado categorias"() {
+        given:
+        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
+        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
+        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
+
+        when:
+        controller.index()
+
+        then:
+        response.status == OK.value
+        response.text == ([c1, c2, c3] as JSON).toString()
+    }
+
+    void "Testeando listar un categoria"() {
+        given:
+        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
+        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
+        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
+
+        when:
+        def categoriaBuscada = c2		// Cambiar por c1, c2 o c3 (a gusto)
+        populateCustomParams(params, categoriaBuscada.id)
+        controller.show()
+
+        then:
+        response.status == OK.value
+        response.text == (categoriaBuscada as JSON).toString()
+    }
+
+    void "Testeando busqueda de un categoria"() {
+        given:
+        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
+        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
+        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
+
+        when: "Búsqueda normal"
+        def categoriaBuscado = c2		// Cambiar por c1, c2 o c3 (a gusto)
+        String query = categoriaBuscado.nombre.substring(0,3)
+        populateCustomParams(params, query)
+        controller.search()
+
+        then:
+        response.status == OK.value
+        response.text == ([categoriaBuscado] as JSON).toString()
+
+        when: "Búsqueda de algo que no existe"
+        response.reset()
+        query = "1234"
+        populateCustomParams(params, query)
+        controller.search()
+
+        then:
+        response.status == OK.value
+        response.text == ([] as JSON).toString()
+    }
+    // OK (09/04/2016)
+    
 	
 	// TODO arreglar los tests unitarios de forma urgente
 	/*	

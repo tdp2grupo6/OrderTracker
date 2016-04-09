@@ -8,13 +8,18 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MarcaController)
-@Mock(Marca)
+@Mock([Marca, Producto])
 class MarcaControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
         //params['name'] = 'someValidName'
+    }
+
+    def populateCustomParams(params, value) {
+        assert params != null
+        params['id'] = value
     }
 
     void "Test the index action returns the correct model"() {
@@ -26,6 +31,50 @@ class MarcaControllerSpec extends Specification {
             response.status == OK.value
             response.text == ([] as JSON).toString()
     }
+
+    void "Testeando listar un categoria"() {
+        given:
+        def m1 = new Marca(nombre: "Adidas").save(flush: true)
+        def m2 = new Marca(nombre: "Reebok").save(flush: true)
+        def m3 = new Marca(nombre: "Nike").save(flush: true)
+
+        when:
+        def marcaBuscada = m2		// Cambiar por m1, m2 o m3 (a gusto)
+        populateCustomParams(params, marcaBuscada.id)
+        controller.show()
+
+        then:
+        response.status == OK.value
+        response.text == (marcaBuscada as JSON).toString()
+    }
+
+    void "Testeando busqueda de una marca"() {
+        given:
+        def m1 = new Marca(nombre: "Adidas").save(flush: true)
+        def m2 = new Marca(nombre: "Reebok").save(flush: true)
+        def m3 = new Marca(nombre: "Nike").save(flush: true)
+
+        when: "Búsqueda normal"
+        def marcaBuscada = m2		// Cambiar por c1, c2 o c3 (a gusto)
+        String query = marcaBuscada.nombre.substring(0,3)
+        populateCustomParams(params, query)
+        controller.search()
+
+        then:
+        response.status == OK.value
+        response.text == ([marcaBuscada] as JSON).toString()
+
+        when: "Búsqueda de algo que no existe"
+        response.reset()
+        query = "1234"
+        populateCustomParams(params, query)
+        controller.search()
+
+        then:
+        response.status == OK.value
+        response.text == ([] as JSON).toString()
+    }
+    // OK (09/04/2016)
 
 	// TODO arreglar los tests unitarios de forma urgente
 	/*

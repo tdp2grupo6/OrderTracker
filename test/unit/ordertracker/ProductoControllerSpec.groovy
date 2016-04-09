@@ -8,7 +8,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(ProductoController)
-@Mock(Producto)
+@Mock([Marca, Producto])
 class ProductoControllerSpec extends Specification {
 
     def populateValidParams(params) {
@@ -81,18 +81,6 @@ class ProductoControllerSpec extends Specification {
 		response.status == OK.value
 		response.text == ([productoBuscado] as JSON).toString()
 		
-		// TODO Arreglar
-		/*
-		when: "Búsqueda vacía"
-		response.reset()
-		query = ""
-		populateCustomParams(params, query)
-		controller.search()
-		
-		then:
-		response.status == OK.value
-		response.text == ([] as JSON).toString()
-			
 		when: "Búsqueda de algo que no existe"
 		response.reset()
 		query = "1234"
@@ -100,9 +88,10 @@ class ProductoControllerSpec extends Specification {
 		controller.search()
 		
 		then:
-		response.status == NOT_FOUND.value
-		*/
+		response.status == OK.value
+		response.text == ([] as JSON).toString()
 	}
+	// OK (09/04/2016)
 	
 	
 	// TODO arreglar los tests unitarios de forma urgente

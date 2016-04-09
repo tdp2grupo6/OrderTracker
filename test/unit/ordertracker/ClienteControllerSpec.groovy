@@ -9,11 +9,14 @@ import spock.lang.*
 @TestFor(ClienteController)
 @Mock(Cliente)
 class ClienteControllerSpec extends Specification {
-	
+
 	def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
+        params['nombre'] = "Juan"
+		params['apellido'] = "Perez"
+		params['email'] = "jp@gmail.com"
+		params['latitud'] = -34.5887297d
+		params['longitud'] = -58.3966085d
     }
 	
 	def populateCustomParams(params, value) {
@@ -60,13 +63,13 @@ class ClienteControllerSpec extends Specification {
 		response.status == OK.value
 		response.text == (clienteBuscado as JSON).toString()		
 	}
-	
+
 	void "Testeando busqueda de un cliente"() {
 		given:
 		def c1 = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", razonSocial: "Silvina Luna", direccion: "Las Heras 2850", latitud: -34.5887297d, longitud: -58.3966085d).save(flush: true)
 		def c2 = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", razonSocial: "Jorge Rial", direccion: "Monroe 1501", latitud: -34.552929d, longitud: -58.451036d).save(flush: true)
 		def c3 = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d).save(flush: true)
-		
+
 		when: "Búsqueda normal"
 		def clienteBuscado = c2		// Cambiar por c1, c2 o c3 (a gusto)
 		String query = clienteBuscado.nombre.substring(0,3)
@@ -76,15 +79,26 @@ class ClienteControllerSpec extends Specification {
 		then:
 		response.status == OK.value
 		response.text == ([clienteBuscado] as JSON).toString()
+
+		when: "Búsqueda de algo que no existe"
+		response.reset()
+		query = "1234"
+		populateCustomParams(params, query)
+		controller.search()
+
+		then:
+		response.status == OK.value
+		response.text == ([] as JSON).toString()
 	}
+	// OK (09/04/2016)
 	
 	// TODO arreglar los tests unitarios de forma urgente
 	/*
     void "Test the save action correctly persists an instance"() {
-
-        when:"The save action is executed with an invalid instance"
+		when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
+			response.reset()
             def cliente = new Cliente()
             controller.save(cliente)
 			
@@ -152,5 +166,5 @@ class ClienteControllerSpec extends Specification {
             Cliente.count() == 0
             response.status == NO_CONTENT.value
     }
-	*/
+    */
 }
