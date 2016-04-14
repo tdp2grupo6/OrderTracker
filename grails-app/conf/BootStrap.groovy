@@ -45,31 +45,31 @@ class BootStrap {
 		
 		// Ejemplo de inserción de Cliente
 		def cliente = null
-		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", razonSocial: "Silvina Luna", direccion: "Las Heras 2850", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 				
-		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", razonSocial: "Jorge Rial", direccion: "Monroe 1501", latitud: -34.552929d, longitud: -58.451036d)
+		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", razonSocial: "Jorge Rial", direccion: "Jean Jaures 379", latitud: -34.605707d, longitud: -58.409504d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Av. Raúl Scalabrini Ortiz 1896", latitud: -34.589242d, longitud: -58.422554d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Tevez", nombre: "Carlos", email: "apache@hotmail.com", razonSocial: "Carlos Tevez", direccion: "Libertador 1052", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Tevez", nombre: "Carlos", email: "apache@hotmail.com", razonSocial: "Carlos Tevez", direccion: "Av. Santa Fe 3233", latitud: -34.588553d, longitud: -58.410603d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", razonSocial: "Florencia Peña", direccion: "Libertador 1090", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", razonSocial: "Florencia Peña", direccion: "Laprida 2025", latitud: -34.587662d, longitud: -58.399794d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", razonSocial: "Viviana Canosa", direccion: "Monroe 890", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", razonSocial: "Viviana Canosa", direccion: "Dr. Tomás Manuel de Anchorena 1676", latitud: -34.591166d, longitud: -58.402729d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
-		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", razonSocial: "Flavio Mendoza", direccion: "Blanco Encalada 390", latitud: -34.5887297d, longitud: -58.3966085d)
+		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
@@ -81,6 +81,8 @@ class BootStrap {
 
 		def cat2 = new Categoria(nombre: "Ropa Mujer", descripcion: "Vestidos y Faldas")
 		assert cat2.save(failOnError:true, flush:true, insert: true)
+
+		println "[OT-LOG] Finalizada carga de $Categoria.count categorías en la Base de Datos"
 
 		// Inserción de Marca y Producto
 		def marca = null
@@ -164,7 +166,6 @@ class BootStrap {
 		
 		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
-		println "[OT-LOG] Finalizada carga de $Categoria.count categorías en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Imagen.count imágenes en la Base de Datos"
 
 		println "[OT-LOG] Finalizada carga de datos de prueba en la Base de Datos"
