@@ -19,6 +19,10 @@ class UrlMappings {
 		"/categoria/buscar/$id"(controller:"categoria", action:"search")
 		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
 
+		"/pedido"(resources:"pedido")
+		"/pedido/buscar-cliente/$id"(controller:"pedido", action:"searchByCliente")
+		"/pedido/buscar-estado/$id"(controller:"pedido", action:"searchByEstado")
+
 		"/imagen/ver/$id"(controller:"imagen", action:"picture")
 		"/imagen/miniatura/$id"(controller:"imagen", action:"thumbnail")
 		"/imagen/subir"(controller:"imagen", action:"upload")

@@ -3,6 +3,7 @@ import ordertracker.Marshallers.CategoriaMarshaller
 import ordertracker.Marshallers.ClienteMarshaller
 import ordertracker.Marshallers.MarcaMarshaller
 import ordertracker.Marshallers.ProductoMarshaller
+import ordertracker.Marshallers.PedidoMarshaller
 
 // Place your Spring DSL code here
 beans = {
@@ -11,7 +12,8 @@ beans = {
 			new ClienteMarshaller(),
 			new ProductoMarshaller(),
 			new MarcaMarshaller(),
-			new CategoriaMarshaller()
+			new CategoriaMarshaller(),
+			new PedidoMarshaller()
 		]
 	}
 }
