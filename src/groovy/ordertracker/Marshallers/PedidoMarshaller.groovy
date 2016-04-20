@@ -11,6 +11,7 @@ class PedidoMarshaller {
             return [
                 id: p.id,
                 codigoCliente: p.cliente.id,
+                nombreCliente: p.cliente.nombreCompleto(),
                 fechaRealizado: p.fechaRealizado,
                 estado: p.estado.displayEnum(),
                 items: p.desplegarItems(),

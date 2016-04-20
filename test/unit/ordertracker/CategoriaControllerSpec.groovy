@@ -13,8 +13,8 @@ class CategoriaControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
+        params['nombre'] = "Ferreteria"
+        params['descripcion'] = "Herramientas de trabajo"
     }
 
     def populateCustomParams(params, value) {
@@ -88,17 +88,16 @@ class CategoriaControllerSpec extends Specification {
         response.status == OK.value
         response.text == ([] as JSON).toString()
     }
-    // OK (09/04/2016)
-    
-	
-	// TODO arreglar los tests unitarios de forma urgente
-	/*	
+
     void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
             def categoria = new Categoria()
+
+            request.method = 'POST'
+            response.format = 'json'
             controller.save(categoria)
 
         then:"The response status is NOT_ACCEPTABLE"
@@ -109,6 +108,8 @@ class CategoriaControllerSpec extends Specification {
             populateValidParams(params)
             categoria = new Categoria(params)
 
+            request.method = 'POST'
+            response.format = 'json'
             controller.save(categoria)
 
         then:"The response status is CREATED and the instance is returned"
@@ -118,6 +119,8 @@ class CategoriaControllerSpec extends Specification {
 
     void "Test the update action performs an update on a valid domain instance"() {
         when:"Update is called for a domain instance that doesn't exist"
+            request.method = 'PUT'
+            response.format = 'json'
             controller.update(null)
 
         then:"The response status is NOT_FOUND"
@@ -126,6 +129,9 @@ class CategoriaControllerSpec extends Specification {
         when:"An invalid domain instance is passed to the update action"
             response.reset()
             def categoria = new Categoria()
+
+            request.method = 'PUT'
+            response.format = 'json'
             controller.update(categoria)
 
         then:"The response status is NOT_ACCEPTABLE"
@@ -135,6 +141,9 @@ class CategoriaControllerSpec extends Specification {
             response.reset()
             populateValidParams(params)
             categoria = new Categoria(params).save(flush: true)
+
+            request.method = 'PUT'
+            response.format = 'json'
             controller.update(categoria)
 
         then:"The response status is OK and the updated instance is returned"
@@ -144,6 +153,8 @@ class CategoriaControllerSpec extends Specification {
 
     void "Test that the delete action deletes an instance if it exists"() {
         when:"The delete action is called for a null instance"
+            request.method = 'DELETE'
+            response.format = 'json'
             controller.delete(null)
 
         then:"A NOT_FOUND is returned"
@@ -158,11 +169,12 @@ class CategoriaControllerSpec extends Specification {
             Categoria.count() == 1
 
         when:"The domain instance is passed to the delete action"
+            request.method = 'DELETE'
+            response.format = 'json'
             controller.delete(categoria)
 
         then:"The instance is deleted"
             Categoria.count() == 0
             response.status == NO_CONTENT.value
     }
-    */
 }

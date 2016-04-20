@@ -31,5 +31,6 @@ class Pedido {
 
     static constraints = {
         cliente blank: false
+        elementos nullable: true
     }
 }

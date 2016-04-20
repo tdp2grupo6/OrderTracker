@@ -5,7 +5,6 @@ import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class ClienteController {
-
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
 
