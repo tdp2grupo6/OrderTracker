@@ -53,7 +53,8 @@ grails.project.dependency.resolution = {
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 		
 		// Dependencias extra de Order Tracker
-        //test "org.gebish:geb-spock:0.10.0"
+        test "org.codehaus.groovy.modules.http-builder:http-builder:0.7"
+        test "org.gebish:geb-spock:0.13.0"
 		compile "org.imgscalr:imgscalr-lib:4.2"
     }
 
@@ -78,7 +79,7 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
 
         // Plugins extra de Order Tracker
-        //test ":geb:0.10.0"
-        //compile "org.grails.plugins:rest-client-builder:2.1.1"
+        test "org.grails.plugins:geb:0.13.0"
+        compile "org.grails.plugins:rest-client-builder:2.1.1"
     }
 }

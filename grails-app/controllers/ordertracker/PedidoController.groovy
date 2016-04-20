@@ -3,8 +3,6 @@ package ordertracker
 import grails.rest.RestfulController
 import grails.transaction.Transactional
 
-import static org.springframework.http.HttpStatus.*
-
 @Transactional(readOnly = true)
 class PedidoController extends RestfulController {
     static responseFormats = ['json']
@@ -34,7 +32,7 @@ class PedidoController extends RestfulController {
     }
 }
 
-
+// dgacitua: Código deprecado
 /*
 @Transactional(readOnly = true)
 class PedidoController {
