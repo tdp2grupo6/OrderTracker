@@ -1,25 +1,22 @@
 package ordertracker
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.converters.JSON
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(CategoriaController)
-@Mock(Categoria)
-class CategoriaControllerSpec extends Specification {
+@TestFor(PedidoController)
+@Mock([Pedido,PedidoDetalle,Cliente,Producto,Marca])
+class PedidoControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        params['nombre'] = "Ferreteria"
-        params['descripcion'] = "Herramientas de trabajo"
-    }
-
-    def populateCustomParams(params, value) {
-        assert params != null
-        params['id'] = value
+        params['cliente'] = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
+        params['elementos'] = [
+            new PedidoDetalle(producto: new Producto(nombre: "Bolso de la Seleccion", marca: new Marca(nombre: "Reebok"), precio: 1002.99, stock: 34), cantidad: 10),
+            new PedidoDetalle(producto: new Producto(nombre: "Remera Deportiva", marca: new Marca(nombre: "Nike"), precio: 1433.99, stock: 12), cantidad: 25),
+            new PedidoDetalle(producto: new Producto(nombre: "Zapatillas de Running", marca: new Marca(nombre: "Adidas"), precio: 999.99, stock: 12), cantidad: 5)
+        ]
     }
 
     void "Test the index action returns the correct model"() {
@@ -32,73 +29,16 @@ class CategoriaControllerSpec extends Specification {
             response.text == ([] as JSON).toString()
     }
 
-    void "Testeando listado categorias"() {
-        given:
-        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
-        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
-        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
-
-        when:
-        controller.index()
-
-        then:
-        response.status == OK.value
-        response.text == ([c1, c2, c3] as JSON).toString()
-    }
-
-    void "Testeando listar un categoria"() {
-        given:
-        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
-        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
-        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
-
-        when:
-        def categoriaBuscada = c2		// Cambiar por c1, c2 o c3 (a gusto)
-        populateCustomParams(params, categoriaBuscada.id)
-        controller.show()
-
-        then:
-        response.status == OK.value
-        response.text == (categoriaBuscada as JSON).toString()
-    }
-
-    void "Testeando busqueda de un categoria"() {
-        given:
-        def c1 = new Categoria(nombre: "Ropa de Mujer").save(flush: true)
-        def c2 = new Categoria(nombre: "Indumentaria Deportiva").save(flush: true)
-        def c3 = new Categoria(nombre: "Zapatería").save(flush: true)
-
-        when: "Búsqueda normal"
-        def categoriaBuscado = c2		// Cambiar por c1, c2 o c3 (a gusto)
-        String query = categoriaBuscado.nombre.substring(0,3)
-        populateCustomParams(params, query)
-        controller.search()
-
-        then:
-        response.status == OK.value
-        response.text == ([categoriaBuscado] as JSON).toString()
-
-        when: "Búsqueda de algo que no existe"
-        response.reset()
-        query = "1234"
-        populateCustomParams(params, query)
-        controller.search()
-
-        then:
-        response.status == OK.value
-        response.text == ([] as JSON).toString()
-    }
-
     void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
-            def categoria = new Categoria()
+            def pedido = new Pedido()
 
             request.method = 'POST'
             response.format = 'json'
-            controller.save(categoria)
+            controller.save(pedido)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -106,15 +46,15 @@ class CategoriaControllerSpec extends Specification {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            categoria = new Categoria(params)
+            pedido = new Pedido(params)
 
             request.method = 'POST'
             response.format = 'json'
-            controller.save(categoria)
+            controller.save(pedido)
 
         then:"The response status is CREATED and the instance is returned"
             response.status == CREATED.value
-            response.text == (categoria as JSON).toString()
+            response.text == (pedido as JSON).toString()
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -128,11 +68,11 @@ class CategoriaControllerSpec extends Specification {
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def categoria = new Categoria()
+            def pedido = new Pedido()
 
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(categoria)
+            controller.update(pedido)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -140,15 +80,15 @@ class CategoriaControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            categoria = new Categoria(params).save(flush: true)
+            pedido = new Pedido(params).save(flush: true)
 
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(categoria)
+            controller.update(pedido)
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value
-            response.text == (categoria as JSON).toString()
+            response.text == (pedido as JSON).toString()
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
@@ -163,18 +103,18 @@ class CategoriaControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def categoria = new Categoria(params).save(flush: true)
+            def pedido = new Pedido(params).save(flush: true)
 
         then:"It exists"
-            Categoria.count() == 1
+            Pedido.count() == 1
 
         when:"The domain instance is passed to the delete action"
             request.method = 'DELETE'
             response.format = 'json'
-            controller.delete(categoria)
+            controller.delete(pedido)
 
         then:"The instance is deleted"
-            Categoria.count() == 0
+            Pedido.count() == 0
             response.status == NO_CONTENT.value
     }
 }

@@ -8,13 +8,15 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(ProductoController)
-@Mock(Producto)
+@Mock([Marca, Producto])
 class ProductoControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
+        params['nombre'] = "Mochila Deportiva Negra"
+		params['precio'] = 899.99
+		params['stock'] = 3
+		params['marca'] = new Marca(nombre: "Adidas")
     }
 	
 	def populateCustomParams(params, value) {
@@ -81,18 +83,6 @@ class ProductoControllerSpec extends Specification {
 		response.status == OK.value
 		response.text == ([productoBuscado] as JSON).toString()
 		
-		// TODO Arreglar
-		/*
-		when: "Búsqueda vacía"
-		response.reset()
-		query = ""
-		populateCustomParams(params, query)
-		controller.search()
-		
-		then:
-		response.status == OK.value
-		response.text == ([] as JSON).toString()
-			
 		when: "Búsqueda de algo que no existe"
 		response.reset()
 		query = "1234"
@@ -100,19 +90,19 @@ class ProductoControllerSpec extends Specification {
 		controller.search()
 		
 		then:
-		response.status == NOT_FOUND.value
-		*/
+		response.status == OK.value
+		response.text == ([] as JSON).toString()
 	}
-	
-	
-	// TODO arreglar los tests unitarios de forma urgente
-	/*
-    void "Test the save action correctly persists an instance"() {
+
+ 	void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
             def producto = new Producto()
+
+			request.method = 'POST'
+			response.format = 'json'
             controller.save(producto)
 
         then:"The response status is NOT_ACCEPTABLE"
@@ -123,6 +113,8 @@ class ProductoControllerSpec extends Specification {
             populateValidParams(params)
             producto = new Producto(params)
 
+			request.method = 'POST'
+			response.format = 'json'
             controller.save(producto)
 
         then:"The response status is CREATED and the instance is returned"
@@ -132,6 +124,8 @@ class ProductoControllerSpec extends Specification {
 
     void "Test the update action performs an update on a valid domain instance"() {
         when:"Update is called for a domain instance that doesn't exist"
+			request.method = 'PUT'
+			response.format = 'json'
             controller.update(null)
 
         then:"The response status is NOT_FOUND"
@@ -140,6 +134,9 @@ class ProductoControllerSpec extends Specification {
         when:"An invalid domain instance is passed to the update action"
             response.reset()
             def producto = new Producto()
+
+			request.method = 'PUT'
+			response.format = 'json'
             controller.update(producto)
 
         then:"The response status is NOT_ACCEPTABLE"
@@ -149,6 +146,9 @@ class ProductoControllerSpec extends Specification {
             response.reset()
             populateValidParams(params)
             producto = new Producto(params).save(flush: true)
+
+			request.method = 'PUT'
+			response.format = 'json'
             controller.update(producto)
 
         then:"The response status is OK and the updated instance is returned"
@@ -158,6 +158,8 @@ class ProductoControllerSpec extends Specification {
 
     void "Test that the delete action deletes an instance if it exists"() {
         when:"The delete action is called for a null instance"
+			request.method = 'DELETE'
+			response.format = 'json'
             controller.delete(null)
 
         then:"A NOT_FOUND is returned"
@@ -172,11 +174,12 @@ class ProductoControllerSpec extends Specification {
             Producto.count() == 1
 
         when:"The domain instance is passed to the delete action"
+			request.method = 'DELETE'
+			response.format = 'json'
             controller.delete(producto)
 
         then:"The instance is deleted"
             Producto.count() == 0
             response.status == NO_CONTENT.value
     }
-	*/
 }
