@@ -11,6 +11,9 @@ import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
 class ImagenController {
+	static final String nombreImagenRelleno = "sinfoto.jpg"
+	static final String nombreMiniaturaRelleno = "sinfoto-thumbnail.png"
+
 	def upload() {
 		switch(request.method){
 			case "GET":
@@ -85,7 +88,7 @@ class ImagenController {
 			}
 		}
 		else {
-			render "Imagen no encontrada!"
+			mostrarImagenRelleno()
 		}
 	}
 
@@ -103,7 +106,7 @@ class ImagenController {
 			}
 		}
 		else {
-			render "Imagen no encontrada!"
+			mostrarMiniaturaRelleno()
 		}
 	}
 
@@ -123,6 +126,28 @@ class ImagenController {
 		else {
 			def result = [success: false]
 			render result as JSON
+		}
+	}
+
+	def mostrarImagenRelleno() {
+		def picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${nombreImagenRelleno}")
+
+		if (picFile.exists()) {
+			File picture = new File("${obtenerRuta("uploads")?:'/tmp'}/${nombreImagenRelleno}")
+			response.contentType = 'image/jpeg'
+			response.outputStream << new FileInputStream(picture)
+			response.outputStream.flush()
+		}
+	}
+
+	def mostrarMiniaturaRelleno() {
+		def picFile = new File("${obtenerRuta("uploads")?:'/tmp'}/${nombreMiniaturaRelleno}")
+
+		if (picFile.exists()) {
+			File picture = new File("${obtenerRuta("uploads")?:'/tmp'}/${nombreMiniaturaRelleno}")
+			response.contentType = 'image/png'
+			response.outputStream << new FileInputStream(picture)
+			response.outputStream.flush()
 		}
 	}
 
