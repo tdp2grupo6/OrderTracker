@@ -28,7 +28,7 @@ class PedidoController {
         params.max = Math.min(max ?: 10, 100)
         def prod = Pedido.createCriteria()
         def result1 = prod.list(params) {
-            eq("codigoCliente", "$params.id")
+            eq("cliente.id", Long.parseLong("$params.id"))
         }
         respond result1, model:[totalResultados: result1.count]
     }
@@ -37,7 +37,7 @@ class PedidoController {
         params.max = Math.min(max ?: 10, 100)
         def prod = Pedido.createCriteria()
         def result1 = prod.list(params) {
-            eq("estado", "$params.id")
+            eq("estado", Integer.parseInt("$params.id"))
         }
         respond result1, model:[totalResultados: result1.count]
     }

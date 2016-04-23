@@ -8,22 +8,22 @@ enum EstadoPedido {
     ESTADO_CONFIRMADO("Confirmado", 1),
     ESTADO_ENVIADO("Enviado", 2),
     ESTADO_ACEPTADO("Aceptado", 3),
-    ESTADO_RECHAZADO("Rechazado", 4),
+    ESTADO_DESPACHADO("Despachado", 4),
     ESTADO_CANCELADO("Cancelado", 5)
 
     final String valor
-    final int id
+    final int num
 
-    EstadoPedido(String valor, int id) {
+    EstadoPedido(String valor, int num) {
         this.valor = valor
-        this.id = id
+        this.num = num
     }
 
-    int toId() { id }
+    int toNum() { num }
     String toString() { valor }
     String getKey() { name() }
 
     def displayEnum() {
-        return [ id: toId(), tipo: getKey(), nombre: toString() ]
+        return [ id: toNum(), tipo: getKey(), nombre: toString() ]
     }
 }

@@ -1,10 +1,12 @@
-import ordertracker.Categoria
 import org.springframework.web.context.support.WebApplicationContextUtils
 import grails.util.Environment
 import ordertracker.Cliente
 import ordertracker.Marca
 import ordertracker.Producto
 import ordertracker.Imagen
+import ordertracker.Categoria
+import ordertracker.Pedido
+import ordertracker.PedidoDetalle
 
 class BootStrap {
 	def init = { servletContext ->
@@ -167,6 +169,41 @@ class BootStrap {
 		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Imagen.count imágenes en la Base de Datos"
+
+		def pedido
+		def ped1, ped2, ped3, ped4
+
+		cliente = Cliente.findById(3)
+		ped1 = new PedidoDetalle(producto: producto, cantidad: 1)
+		pedido = new Pedido(cliente: cliente, elementos: [ped1])
+		assert pedido.save(failOnError:true, flush:true, insert: true)
+		pedido.errors = null
+
+		cliente = Cliente.findById(1)
+		ped1 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 3)
+		ped2 = new PedidoDetalle(producto: Producto.findById(2), cantidad: 4)
+		ped3 = new PedidoDetalle(producto: Producto.findById(3), cantidad: 5)
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3])
+		assert pedido.save(failOnError:true, flush:true, insert: true)
+		pedido.errors = null
+
+		cliente = Cliente.findById(4)
+		ped1 = new PedidoDetalle(producto: Producto.findById(5), cantidad: 3)
+		ped2 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 4)
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2])
+		assert pedido.save(failOnError:true, flush:true, insert: true)
+		pedido.errors = null
+
+		cliente = Cliente.findById(2)
+		ped1 = new PedidoDetalle(producto: Producto.findById(3), cantidad: 4)
+		ped2 = new PedidoDetalle(producto: Producto.findById(2), cantidad: 6)
+		ped3 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 5)
+		ped4 = new PedidoDetalle(producto: Producto.findById(4), cantidad: 2)
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4])
+		assert pedido.save(failOnError:true, flush:true, insert: true)
+		pedido.errors = null
+
+		println "[OT-LOG] Finalizada carga de $Pedido.count pedidos en la Base de Datos"
 
 		println "[OT-LOG] Finalizada carga de datos de prueba en la Base de Datos"
 	}
