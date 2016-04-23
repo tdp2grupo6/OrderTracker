@@ -8,8 +8,22 @@ class Marca {
 
 	static hasMany = [productos: Producto]
 
-	String rutaImagen() { "imagen/ver/$imagen.id" }
-	String rutaMiniatura() { "imagen/miniatura/$imagen.id" }
+	String rutaImagen() {
+		if (imagen!=null) {
+			return "imagen/ver/$imagen.id"
+		}
+		else {
+			return "imagen/miniatura/${ImagenController.nombreImagenRelleno}"
+		}
+	}
+	String rutaMiniatura() {
+		if (imagen!=null) {
+			return "imagen/miniatura/$imagen.id"
+		}
+		else {
+			return "imagen/miniatura/${ImagenController.nombreMiniaturaRelleno}"
+		}
+	}
 
 	static mapping = {
 		productos cascade: "all-delete-orphan"

@@ -3,7 +3,7 @@ package ordertracker
 class Pedido {
     Date fechaRealizado = new Date()
     float totalCompra = 0f
-    EstadoPedido estado = EstadoPedido.PEND
+    EstadoPedido estado = EstadoPedido.ESTADO_ENVIADO
 
     static belongsTo = [cliente: Cliente]
     static hasMany = [elementos: PedidoDetalle]
