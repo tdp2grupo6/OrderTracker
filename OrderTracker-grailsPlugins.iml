@@ -165,6 +165,13 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.2.1/httpclient-4.2.1.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/modules/http-builder/http-builder/0.7/http-builder-0.7.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/grails/grails-datastore-rest-client/3.1.4.RELEASE/grails-datastore-rest-client-3.1.4.RELEASE.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-implicit-assertions/0.13.0/geb-implicit-assertions-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-exceptions/0.13.0/geb-exceptions-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-waiting/0.13.0/geb-waiting-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-ast/0.13.0/geb-ast-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-core/0.13.0/geb-core-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-test-common/0.13.0/geb-test-common-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-spock/0.13.0/geb-spock-0.13.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
