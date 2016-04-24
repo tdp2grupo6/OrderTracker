@@ -6,68 +6,68 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class ComentarioController {
+class VisitaController {
 
     static responseFormats = ['json']
     static allowedMethods = [show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Comentario.list(params), [status: OK]
+        respond Visita.list(params), [status: OK]
     }
 
-    def show(Comentario c) {
-        if (!c) {
+    def show(Visita v) {
+        if (!v) {
             render status: NOT_FOUND
         }
         else {
-            respond c
+            respond v
         }
     }
 
     @Transactional
-    def save(Comentario comentarioInstance) {
-        if (comentarioInstance == null) {
+    def save(Visita visitaInstance) {
+        if (visitaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
-        comentarioInstance.validate()
-        if (comentarioInstance.hasErrors()) {
+        visitaInstance.validate()
+        if (visitaInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
             return
         }
 
-        comentarioInstance.save flush:true
-        respond comentarioInstance, [status: CREATED]
+        visitaInstance.save flush:true
+        respond visitaInstance, [status: CREATED]
     }
 
     @Transactional
-    def update(Comentario comentarioInstance) {
-        if (comentarioInstance == null) {
+    def update(Visita visitaInstance) {
+        if (visitaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
-        comentarioInstance.validate()
-        if (comentarioInstance.hasErrors()) {
+        visitaInstance.validate()
+        if (visitaInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
             return
         }
 
-        comentarioInstance.save flush:true
-        respond comentarioInstance, [status: OK]
+        visitaInstance.save flush:true
+        respond visitaInstance, [status: OK]
     }
 
     @Transactional
-    def delete(Comentario comentarioInstance) {
+    def delete(Visita visitaInstance) {
 
-        if (comentarioInstance == null) {
+        if (visitaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
-        comentarioInstance.delete flush:true
+        visitaInstance.delete flush:true
         render status: NO_CONTENT
     }
 }

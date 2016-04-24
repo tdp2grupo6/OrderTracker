@@ -20,8 +20,7 @@ class ProductoController {
 	
 	def show(Producto prod) {
 		if (!prod) {
-            def result = []
-            respond result
+            render status: NOT_FOUND
 		}
 		else {
 			respond prod

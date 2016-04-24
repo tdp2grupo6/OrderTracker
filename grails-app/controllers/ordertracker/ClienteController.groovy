@@ -17,7 +17,7 @@ class ClienteController {
 	
 	def show(Cliente cl) {
 		if (!cl) {
-			respond null, [status: NOT_FOUND]
+            render status: NOT_FOUND
 		}
 		else {
 			respond cl

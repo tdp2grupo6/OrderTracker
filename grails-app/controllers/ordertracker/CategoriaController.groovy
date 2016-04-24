@@ -21,7 +21,7 @@ class CategoriaController {
 	
 	def show(Categoria cat) {
 		if (!cat) {
-			respond null, [status: NOT_FOUND]
+            render status: NOT_FOUND
 		}
 		else {
 			respond cat

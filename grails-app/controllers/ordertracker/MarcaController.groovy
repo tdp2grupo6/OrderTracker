@@ -20,7 +20,7 @@ class MarcaController {
 
 	def show(Marca tm) {
 		if (!tm) {
-			respond null, [status: NOT_FOUND]
+            render status: NOT_FOUND
 		}
 		else {
 			respond tm
