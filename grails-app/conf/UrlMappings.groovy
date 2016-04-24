@@ -26,7 +26,11 @@ class UrlMappings {
 		"/imagen/ver/$id"(controller:"imagen", action:"picture")
 		"/imagen/miniatura/$id"(controller:"imagen", action:"thumbnail")
 		"/imagen/subir"(controller:"imagen", action:"upload")
-		"/imagen/borrar/$id"(controller:"imagen", action:"delete")		
+		"/imagen/borrar/$id"(controller:"imagen", action:"delete")
+
+		"/comentario"(resources:"comentario")
+
+		"/visita"(resources:"visita")
 		
 		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{

@@ -10,7 +10,7 @@ class PedidoController {
                              searchByCliente: "GET", searchByEstado: "GET"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        //params.max = Math.min(max ?: 10, 100)
         respond Pedido.list(params), [status: OK]
     }
 
@@ -24,7 +24,7 @@ class PedidoController {
     }
 
     def searchByCliente(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        //params.max = Math.min(max ?: 10, 100)
         def prod = Pedido.createCriteria()
         def result1 = prod.list(params) {
             eq("cliente.id", Long.parseLong("$params.id"))

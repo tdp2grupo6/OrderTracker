@@ -9,7 +9,7 @@ class ClienteController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        //params.max = Math.min(max ?: 10, 100)
 		def result1 = Cliente.list(params)
 		def result2 = result1
         respond result2, [status: OK]

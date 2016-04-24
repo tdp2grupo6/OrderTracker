@@ -13,7 +13,7 @@ class CategoriaController {
                              searchInProducto: "GET"]
 
 	def index(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
+		//params.max = Math.min(max ?: 10, 100)
 		def result1 = Categoria.list(params)
        	def result2 = result1
 		respond result2, [status: OK]

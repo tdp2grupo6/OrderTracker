@@ -12,7 +12,7 @@ class ProductoController {
                              searchInCategoria: "GET", searchInMarca: "GET"]
 	
 	def index(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
+		//params.max = Math.min(max ?: 10, 100)
 		def result1 = Producto.list(params)
 		def result2 = result1
 		respond result2, [status: OK]
@@ -28,7 +28,7 @@ class ProductoController {
 	}
 	
 	def search(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
+		//params.max = Math.min(max ?: 10, 100)
 		def prod = Producto.createCriteria()
 		def result1 = prod.list(params) {
 			ilike("nombre", "$params.id%")
