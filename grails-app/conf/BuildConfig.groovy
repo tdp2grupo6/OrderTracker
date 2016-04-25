@@ -81,5 +81,6 @@ grails.project.dependency.resolution = {
         // Plugins extra de Order Tracker
         test "org.grails.plugins:geb:0.13.0"
         compile "org.grails.plugins:rest-client-builder:2.1.1"
+        runtime "org.grails.plugins:cors:1.1.8"
     }
 }

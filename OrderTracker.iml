@@ -162,6 +162,8 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-core/0.13.0/geb-core-0.13.0.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-test-common/0.13.0/geb-test-common-0.13.0.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/gebish/geb-spock/0.13.0/geb-spock-0.13.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/3.0.7.RELEASE/spring-security-core-3.0.7.RELEASE.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/3.0.7.RELEASE/spring-security-web-3.0.7.RELEASE.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
