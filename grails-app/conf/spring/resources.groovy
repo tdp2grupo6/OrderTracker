@@ -1,4 +1,5 @@
 import ordertracker.CustomObjectMarshallers
+import ordertracker.FiltroResultado
 import ordertracker.Marshallers.CategoriaMarshaller
 import ordertracker.Marshallers.ClienteMarshaller
 import ordertracker.Marshallers.ComentarioMarshaller
@@ -7,6 +8,7 @@ import ordertracker.Marshallers.ProductoMarshaller
 import ordertracker.Marshallers.PedidoMarshaller
 import ordertracker.Marshallers.PedidoDetalleMarshaller
 import ordertracker.Marshallers.VisitaMarshaller
+import ordertracker.Marshallers.FiltroResultadoMarshaller
 
 // Place your Spring DSL code here
 beans = {
@@ -19,7 +21,8 @@ beans = {
 			new PedidoMarshaller(),
 			new PedidoDetalleMarshaller(),
 			new ComentarioMarshaller(),
-			new VisitaMarshaller()
+			new VisitaMarshaller(),
+			new FiltroResultadoMarshaller()
 		]
 	}
 }

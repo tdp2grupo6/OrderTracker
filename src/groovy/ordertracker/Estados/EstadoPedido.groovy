@@ -3,12 +3,12 @@ package ordertracker.Estados
  * Created by dgacitua on 18-04-16.
  */
 enum EstadoPedido {
-    ESTADO_NUEVO("Nuevo", 0),
-    ESTADO_CONFIRMADO("Confirmado", 1),
-    ESTADO_ENVIADO("Enviado", 2),
-    ESTADO_ACEPTADO("Aceptado", 3),
-    ESTADO_DESPACHADO("Despachado", 4),
-    ESTADO_CANCELADO("Cancelado", 5)
+    ESTADO_NUEVO("Nuevo", 1),
+    ESTADO_CONFIRMADO("Confirmado", 2),
+    ESTADO_ENVIADO("Enviado", 3),
+    ESTADO_ACEPTADO("Aceptado", 4),
+    ESTADO_DESPACHADO("Despachado", 5),
+    ESTADO_CANCELADO("Cancelado", 6)
 
     final String valor
     final int num
@@ -26,11 +26,14 @@ enum EstadoPedido {
         return [id: toNum(), tipo: getKey(), nombre: toString()]
     }
 
-    static EstadoPedido int2enum(int num) {
-        values().each {
-            if (num == it.num) { return it }
-        }
+    static EstadoPedido obtenerEstado(int valor) {
+        EstadoPedido resp = null
 
-        return ESTADO_NUEVO
+        values().each {
+            if (it.num == valor) {
+                resp = it
+            }
+        }
+        return resp
     }
 }

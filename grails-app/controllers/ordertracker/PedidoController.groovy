@@ -1,7 +1,9 @@
 package ordertracker
 
+import grails.converters.JSON
 import grails.transaction.Transactional
 import ordertracker.Estados.EstadoPedido
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 import static org.springframework.http.HttpStatus.*
 
@@ -44,12 +46,13 @@ class PedidoController {
     }
 
     def filtroAdmin(FiltroPedido fp) {
-        // FIXME Arreglar query estado
+        int offset = fp.primerValor()
+        int maxPage = Constants.RESULTADOS_POR_PAGINA
         def prod = Pedido.createCriteria()
-        def result = prod.list(params) {
+        def result = prod.list (max: maxPage, offset: offset) {
             and {
                 if (fp.estado) {
-                    eq("estado", EstadoPedido.int2enum(fp.estado))
+                    eq("estado", EstadoPedido.obtenerEstado(fp.estado))
                 }
                 if (fp.idCliente) {
                     eq("cliente", Cliente.findById(fp.idCliente))
@@ -69,10 +72,10 @@ class PedidoController {
                     le("fechaRealizado", fp.fechaFin)
                 }
             }
-            maxResults Constants.RESULTADOS_POR_PAGINA
-            firstResult fp.primerValor()
         }
-        respond result, model:[status: OK, totalResultados: result.count]
+        int pagina = fp.pagina? fp.pagina : 1
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }
 
     @Transactional

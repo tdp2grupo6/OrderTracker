@@ -16,6 +16,6 @@ class FiltroPedido {
     int pagina
 
     int primerValor() {
-        return pagina ? ((pagina-1)*Constants.RESULTADOS_POR_PAGINA+1) : 0
+        return pagina ? ((pagina-1)*Constants.RESULTADOS_POR_PAGINA) : 0
     }
 }
