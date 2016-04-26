@@ -1,25 +1,27 @@
 package ordertracker
 
 import grails.transaction.Transactional
+import ordertracker.Estados.EstadoPedido
+
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class PedidoController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                             searchByCliente: "GET", searchByEstado: "GET"]
+                             searchByCliente: "GET", searchByEstado: "GET", filtroAdmin: "POST"]
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
         respond Pedido.list(params), [status: OK]
     }
 
-    def show(Producto prod) {
-        if (!prod) {
+    def show(Pedido p) {
+        if (!p) {
             render status: NOT_FOUND
         }
         else {
-            respond prod, [status: OK]
+            respond p, [status: OK]
         }
     }
 
@@ -37,6 +39,38 @@ class PedidoController {
         def prod = Pedido.createCriteria()
         def result = prod.list(params) {
             eq("estado", Integer.parseInt("$params.id"))
+        }
+        respond result, model:[status: OK, totalResultados: result.count]
+    }
+
+    def filtroAdmin(FiltroPedido fp) {
+        // FIXME Arreglar query estado
+        def prod = Pedido.createCriteria()
+        def result = prod.list(params) {
+            and {
+                if (fp.estado) {
+                    eq("estado", EstadoPedido.int2enum(fp.estado))
+                }
+                if (fp.idCliente) {
+                    eq("cliente", Cliente.findById(fp.idCliente))
+                }
+                /*
+                if (fp.idVendedor) {
+                    eq("vendedor", Cliente.findById(fp.idVendedor))
+                }
+                 */
+                if (fp.fechaInicio && fp.fechaFin) {
+                    between("fechaRealizado", fp.fechaInicio, fp.fechaFin)
+                }
+                else if (fp.fechaInicio) {
+                    ge("fechaRealizado", fp.fechaInicio)
+                }
+                else if (fp.fechaFin) {
+                    le("fechaRealizado", fp.fechaFin)
+                }
+            }
+            maxResults Constants.RESULTADOS_POR_PAGINA
+            firstResult fp.primerValor()
         }
         respond result, model:[status: OK, totalResultados: result.count]
     }

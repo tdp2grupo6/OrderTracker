@@ -4,7 +4,9 @@ class PedidoDetalle {
     Producto producto
     int cantidad
 
-    //static belongsTo = [pedido: Pedido]
+    float obtenerSubtotal() {
+        return producto.precio * cantidad
+    }
 
     static constraints = {
         producto blank: false

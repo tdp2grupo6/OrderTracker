@@ -2,6 +2,7 @@ package ordertracker
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import ordertracker.Estados.EstadoProducto
 import spock.lang.Specification
 
 /**

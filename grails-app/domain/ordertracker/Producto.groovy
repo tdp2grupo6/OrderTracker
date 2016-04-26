@@ -1,5 +1,7 @@
 package ordertracker
 
+import ordertracker.Estados.EstadoProducto
+
 class Producto {
 	String nombre
 	String codigo = ""

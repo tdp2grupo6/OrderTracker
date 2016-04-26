@@ -1,5 +1,7 @@
 package ordertracker
 
+import ordertracker.Estados.EstadoCliente
+
 class Cliente {
 	String nombre
 	String apellido

@@ -1,5 +1,7 @@
 package ordertracker
 
+import ordertracker.Estados.EstadoPedido
+
 class Pedido {
     Date fechaRealizado = new Date()
     float totalCompra = 0f
@@ -17,16 +19,6 @@ class Pedido {
 
         totalCompra = acum
         return totalCompra
-    }
-
-    def desplegarItems() {
-        return elementos.collect() {
-            [
-                codigoProducto: it.producto.id,
-                nombre: it.producto.nombre,
-                cantidad: it.cantidad
-            ]
-        }
     }
 
     static constraints = {

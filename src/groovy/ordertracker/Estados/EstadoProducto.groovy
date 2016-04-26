@@ -1,4 +1,4 @@
-package ordertracker
+package ordertracker.Estados
 
 public enum EstadoProducto{
 	DISP("Disponible"), NODISP("No disponible"), SUSP("Suspendido")

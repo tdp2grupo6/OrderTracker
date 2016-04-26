@@ -1,5 +1,7 @@
 import org.springframework.web.context.support.WebApplicationContextUtils
+
 import grails.util.Environment
+
 import ordertracker.Cliente
 import ordertracker.Marca
 import ordertracker.Producto
@@ -8,12 +10,17 @@ import ordertracker.Categoria
 import ordertracker.Pedido
 import ordertracker.PedidoDetalle
 
+import java.text.SimpleDateFormat
+
 class BootStrap {
 	def init = { servletContext ->
 		// Importando Marshallers
 		def springContext = WebApplicationContextUtils.getWebApplicationContext( servletContext )
 		springContext.getBean( "customObjectMarshallers" ).register()
-		
+
+		// Fijando la zona horaria del servidor
+		//setTimeZone()
+
 		// Código separado por Ambiente de Deploy
 		def result = 'Corriendo en otro modo!'
 		println "[OT-LOG] Iniciando Order Tracker..."
@@ -44,6 +51,7 @@ class BootStrap {
 	
 	private void seedDevData() {
 		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos"
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 		
 		// Ejemplo de inserción de Cliente
 		def cliente = null
@@ -175,7 +183,7 @@ class BootStrap {
 
 		cliente = Cliente.findById(3)
 		ped1 = new PedidoDetalle(producto: producto, cantidad: 1)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1])
+		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: sdf.parse("2016-04-21T14:45:00Z"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -183,14 +191,14 @@ class BootStrap {
 		ped1 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 3)
 		ped2 = new PedidoDetalle(producto: Producto.findById(2), cantidad: 4)
 		ped3 = new PedidoDetalle(producto: Producto.findById(3), cantidad: 5)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3])
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: sdf.parse("2016-04-22T16:15:00Z"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
 		cliente = Cliente.findById(4)
 		ped1 = new PedidoDetalle(producto: Producto.findById(5), cantidad: 3)
 		ped2 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 4)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2])
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: sdf.parse("2016-04-25T13:00:00Z"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -199,7 +207,7 @@ class BootStrap {
 		ped2 = new PedidoDetalle(producto: Producto.findById(2), cantidad: 6)
 		ped3 = new PedidoDetalle(producto: Producto.findById(1), cantidad: 5)
 		ped4 = new PedidoDetalle(producto: Producto.findById(4), cantidad: 2)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4])
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: sdf.parse("2016-04-26T11:30:00Z"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -215,5 +223,12 @@ class BootStrap {
 	
 	private void seedOpenshiftData() {
 		seedDevData()
+	}
+
+	private void setTimeZone() {
+		String tz = "UTC-3"
+		TimeZone.setDefault(TimeZone.getTimeZone(tz))
+		println "[OT-LOG] Configurando zona horaria del servidor a $tz"
+		println "[OT-LOG] La hora actual es ${new Date()}"
 	}
 }

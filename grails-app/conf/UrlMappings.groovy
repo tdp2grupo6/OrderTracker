@@ -20,6 +20,7 @@ class UrlMappings {
 		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
 
 		"/pedido"(resources:"pedido")
+		"/pedido/filtro"(controller:"pedido", action:"filtroAdmin")
 		"/pedido/buscar-cliente/$id"(controller:"pedido", action:"searchByCliente")
 		"/pedido/buscar-estado/$id"(controller:"pedido", action:"searchByEstado")
 

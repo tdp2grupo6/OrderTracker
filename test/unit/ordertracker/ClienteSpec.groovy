@@ -1,6 +1,7 @@
 package ordertracker
 
 import grails.test.mixin.TestFor
+import ordertracker.Estados.EstadoCliente
 import spock.lang.Specification
 
 /**

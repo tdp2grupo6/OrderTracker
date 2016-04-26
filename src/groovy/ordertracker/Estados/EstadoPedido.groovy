@@ -1,5 +1,4 @@
-package ordertracker
-
+package ordertracker.Estados
 /**
  * Created by dgacitua on 18-04-16.
  */
@@ -24,6 +23,14 @@ enum EstadoPedido {
     String getKey() { name() }
 
     def displayEnum() {
-        return [ id: toNum(), tipo: getKey(), nombre: toString() ]
+        return [id: toNum(), tipo: getKey(), nombre: toString()]
+    }
+
+    static EstadoPedido int2enum(int num) {
+        values().each {
+            if (num == it.num) { return it }
+        }
+
+        return ESTADO_NUEVO
     }
 }
