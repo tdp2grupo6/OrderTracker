@@ -1,7 +1,10 @@
-package ordertracker
+package ordertracker.DomainTests
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import ordertracker.Imagen
+import ordertracker.Marca
+import ordertracker.Producto
 import spock.lang.Specification
 
 /**

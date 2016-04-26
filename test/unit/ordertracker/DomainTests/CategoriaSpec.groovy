@@ -1,10 +1,11 @@
-package ordertracker
+package ordertracker.DomainTests
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import org.apache.catalina.valves.Constants
+import ordertracker.Categoria
+import ordertracker.Marca
+import ordertracker.Producto
 import spock.lang.Specification
-
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
