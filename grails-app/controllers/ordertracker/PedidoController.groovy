@@ -1,9 +1,7 @@
 package ordertracker
 
-import grails.converters.JSON
 import grails.transaction.Transactional
 import ordertracker.Estados.EstadoPedido
-import org.codehaus.groovy.grails.web.json.JSONObject
 
 import static org.springframework.http.HttpStatus.*
 
@@ -47,7 +45,7 @@ class PedidoController {
 
     def filtroAdmin(FiltroPedido fp) {
         int offset = fp.primerValor()
-        int maxPage = Constants.RESULTADOS_POR_PAGINA
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
         def prod = Pedido.createCriteria()
         def result = prod.list (max: maxPage, offset: offset) {
             and {

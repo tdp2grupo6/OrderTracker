@@ -12,8 +12,8 @@ class FiltroResultado {
 
     FiltroResultado(int pagina, int totalRes, List res) {
         paginaActual = pagina
-        totalPaginas = Math.ceil(totalRes / (double)Constants.RESULTADOS_POR_PAGINA)
-        resultadosPorPagina = Constants.RESULTADOS_POR_PAGINA
+        totalPaginas = Math.ceil(totalRes / (double)Utils.RESULTADOS_POR_PAGINA)
+        resultadosPorPagina = Utils.RESULTADOS_POR_PAGINA
         totalResultados = totalRes
         resultados = res
     }
