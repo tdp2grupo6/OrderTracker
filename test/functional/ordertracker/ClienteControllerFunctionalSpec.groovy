@@ -73,7 +73,7 @@ class ClienteControllerFunctionalSpec extends Specification { //IntegrationSpec 
                 contentType: ContentType.JSON)
 
         then:
-        response.status == 201     // CREATED
+        response.status == 200     // OK
         response.data.nombre == "Marcelo"
         Cliente.count == (numClientes + 1)
     }
@@ -105,7 +105,7 @@ class ClienteControllerFunctionalSpec extends Specification { //IntegrationSpec 
         def response = restClient.delete(path: "${consulta}/${targetId}")
 
         then:
-        response.status == 204     // NO_CONTENT
+        response.status == 200     // OK
         Cliente.count == (numClientes - 1)
     }
 }

@@ -117,8 +117,8 @@ class ProductoControllerSpec extends Specification {
 			response.format = 'json'
             controller.save(producto)
 
-        then:"The response status is CREATED and the instance is returned"
-            response.status == CREATED.value
+        then:"The response status is OK and the instance is returned"
+            response.status == OK.value
             response.text == (producto as JSON).toString()
     }
 
@@ -180,6 +180,6 @@ class ProductoControllerSpec extends Specification {
 
         then:"The instance is deleted"
             Producto.count() == 0
-            response.status == NO_CONTENT.value
+            response.status == OK.value
     }
 }

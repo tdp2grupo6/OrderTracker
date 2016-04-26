@@ -14,9 +14,8 @@ class CategoriaController {
 
 	def index(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
-		def result1 = Categoria.list(params)
-       	def result2 = result1
-		respond result2, [status: OK]
+		def result = Categoria.list(params)
+		respond result, [status: OK]
 	}
 	
 	def show(Categoria cat) {
@@ -24,18 +23,17 @@ class CategoriaController {
             render status: NOT_FOUND
 		}
 		else {
-			respond cat
+			respond cat, [status: OK]
 		}
 	}
 	
 	def search(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		def c = Categoria.createCriteria()
-		def result1 = c.list(params) {
+		def result = c.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1
-		respond result2, model:[totalResultados: result2.totalCount]
+		respond result, model:[status: OK, totalResultados: result.count]
 	}
 
     def searchInProducto(Integer max) {
@@ -44,11 +42,10 @@ class CategoriaController {
             long idFiltro = StringGroovyMethods.toLong(params.id)
             def prod = Producto.findById(idFiltro)
             def res = prod.categorias.toList()
-            respond res, model: [totalResultados: res.count]
+            respond res, model: [status: OK, totalResultados: res.count]
         }
         else {
-            def result = []
-            respond result
+            render status: NOT_ACCEPTABLE
         }
     }
 	
@@ -66,7 +63,7 @@ class CategoriaController {
         }
 
         categoriaInstance.save flush:true
-        respond categoriaInstance, [status: CREATED]
+        respond categoriaInstance, [status: OK]
     }
 
     @Transactional
@@ -88,13 +85,12 @@ class CategoriaController {
 
     @Transactional
     def delete(Categoria categoriaInstance) {
-
         if (categoriaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         categoriaInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

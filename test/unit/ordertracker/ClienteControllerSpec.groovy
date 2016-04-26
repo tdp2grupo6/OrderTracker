@@ -145,7 +145,7 @@ class ClienteControllerSpec extends Specification {
 		controller.delete()
 
 		then:
-		response.status == NO_CONTENT.value
+		response.status == OK.value
 		Cliente.count == (cuenta - 1)
 	}
 
@@ -170,8 +170,8 @@ class ClienteControllerSpec extends Specification {
 			response.format = 'json'
             controller.save(cliente)
 
-        then:"The response status is CREATED and the instance is returned"
-            response.status == CREATED.value
+        then:"The response status is OK and the instance is returned"
+            response.status == OK.value
             response.text == (cliente as JSON).toString()
     }
 
@@ -235,6 +235,6 @@ class ClienteControllerSpec extends Specification {
 
         then:"The instance is deleted"
             Cliente.count() == 0
-            response.status == NO_CONTENT.value
+            response.status == OK.value
     }
 }

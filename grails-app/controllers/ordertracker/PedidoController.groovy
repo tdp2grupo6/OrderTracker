@@ -19,26 +19,26 @@ class PedidoController {
             render status: NOT_FOUND
         }
         else {
-            respond prod
+            respond prod, [status: OK]
         }
     }
 
     def searchByCliente(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
         def prod = Pedido.createCriteria()
-        def result1 = prod.list(params) {
+        def result = prod.list(params) {
             eq("cliente.id", Long.parseLong("$params.id"))
         }
-        respond result1, model:[totalResultados: result1.count]
+        respond result, model:[status: OK, totalResultados: result.count]
     }
 
     def searchByEstado(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         def prod = Pedido.createCriteria()
-        def result1 = prod.list(params) {
+        def result = prod.list(params) {
             eq("estado", Integer.parseInt("$params.id"))
         }
-        respond result1, model:[totalResultados: result1.count]
+        respond result, model:[status: OK, totalResultados: result.count]
     }
 
     @Transactional
@@ -55,7 +55,7 @@ class PedidoController {
         }
 
         pedidoInstance.save flush:true
-        respond pedidoInstance, [status: CREATED]
+        respond pedidoInstance, [status: OK]
     }
 
     @Transactional
@@ -77,13 +77,12 @@ class PedidoController {
 
     @Transactional
     def delete(Pedido pedidoInstance) {
-
         if (pedidoInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         pedidoInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

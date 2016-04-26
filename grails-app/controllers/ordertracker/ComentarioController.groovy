@@ -21,7 +21,7 @@ class ComentarioController {
             render status: NOT_FOUND
         }
         else {
-            respond c
+            respond c, [status: OK]
         }
     }
 
@@ -39,7 +39,7 @@ class ComentarioController {
         }
 
         comentarioInstance.save flush:true
-        respond comentarioInstance, [status: CREATED]
+        respond comentarioInstance, [status: OK]
     }
 
     @Transactional
@@ -68,6 +68,6 @@ class ComentarioController {
         }
 
         comentarioInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

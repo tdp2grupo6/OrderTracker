@@ -21,7 +21,7 @@ class VisitaController {
             render status: NOT_FOUND
         }
         else {
-            respond v
+            respond v, [status: OK]
         }
     }
 
@@ -39,7 +39,7 @@ class VisitaController {
         }
 
         visitaInstance.save flush:true
-        respond visitaInstance, [status: CREATED]
+        respond visitaInstance, [status: OK]
     }
 
     @Transactional
@@ -61,13 +61,12 @@ class VisitaController {
 
     @Transactional
     def delete(Visita visitaInstance) {
-
         if (visitaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         visitaInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

@@ -10,9 +10,8 @@ class ClienteController {
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
-		def result1 = Cliente.list(params)
-		def result2 = result1
-        respond result2, [status: OK]
+		def result = Cliente.list(params)
+		respond result, [status: OK]
     }
 	
 	def show(Cliente cl) {
@@ -20,22 +19,21 @@ class ClienteController {
             render status: NOT_FOUND
 		}
 		else {
-			respond cl
+			respond cl, [status: OK]
 		}		
 	}
 	
 	def search(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		def c = Cliente.createCriteria()
-		def result1 = c.list(params) {
+		def result = c.list(params) {
 			or {
 				ilike("nombre", "$params.id%")
 				ilike("apellido", "$params.id%")
 				ilike("razonSocial", "$params.id%")
 			}
 		}
-		def result2 = result1
-		respond result2, model:[totalResultados: result2.totalCount]
+		respond result, model:[status: OK, totalResultados: result.totalCount]
 	}
 
     @Transactional
@@ -52,7 +50,7 @@ class ClienteController {
         }
 
         clienteInstance.save flush:true
-        respond clienteInstance, [status: CREATED]
+        respond clienteInstance, [status: OK]
     }
 
     @Transactional
@@ -74,13 +72,12 @@ class ClienteController {
 
     @Transactional
     def delete(Cliente clienteInstance) {
-
         if (clienteInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         clienteInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

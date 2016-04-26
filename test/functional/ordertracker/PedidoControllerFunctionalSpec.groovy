@@ -71,7 +71,7 @@ class PedidoControllerFunctionalSpec extends Specification { //IntegrationSpec {
                 contentType: ContentType.JSON)
 
         then:
-        response.status == 201     // CREATED
+        response.status == 200     // OK
         response.data.totalCompra > 0
         Pedido.count == (numPedidos + 1)
     }
@@ -103,7 +103,7 @@ class PedidoControllerFunctionalSpec extends Specification { //IntegrationSpec {
         def response = restClient.delete(path: "${consulta}/${targetId}")
 
         then:
-        response.status == 204     // NO_CONTENT
+        response.status == 200     // OK
         Pedido.count == (numPedidos - 1)
     }
     */

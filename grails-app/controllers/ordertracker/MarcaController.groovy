@@ -13,9 +13,8 @@ class MarcaController {
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
-        def result1 = Marca.list(params)
-       	def result2 = result1
-		respond result2, [status: OK]
+        def result = Marca.list(params)
+		respond result, [status: OK]
     }
 
 	def show(Marca tm) {
@@ -23,18 +22,17 @@ class MarcaController {
             render status: NOT_FOUND
 		}
 		else {
-			respond tm
+			respond tm, [status: OK]
 		}
 	}
 	
 	def search(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
 		def tm = Marca.createCriteria()
-		def result1 = tm.list(params) {
+		def result = tm.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1
-		respond result2, model:[totalResultados: result2.totalCount]
+		respond result, model:[status: OK, totalResultados: result.totalCount]
 	}
 	
     @Transactional
@@ -51,7 +49,7 @@ class MarcaController {
         }
 
         marcaInstance.save flush:true
-        respond marcaInstance, [status: CREATED]
+        respond marcaInstance, [status: OK]
     }
 
     @Transactional
@@ -73,13 +71,12 @@ class MarcaController {
 
     @Transactional
     def delete(Marca marcaInstance) {
-
         if (marcaInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         marcaInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }

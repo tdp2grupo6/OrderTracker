@@ -13,9 +13,8 @@ class ProductoController {
 	
 	def index(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
-		def result1 = Producto.list(params)
-		def result2 = result1
-		respond result2, [status: OK]
+		def result = Producto.list(params)
+		respond result, [status: OK]
 	}
 	
 	def show(Producto prod) {
@@ -23,18 +22,17 @@ class ProductoController {
             render status: NOT_FOUND
 		}
 		else {
-			respond prod
+			respond prod, [status: OK]
 		}
 	}
 	
 	def search(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
 		def prod = Producto.createCriteria()
-		def result1 = prod.list(params) {
+		def result = prod.list(params) {
 			ilike("nombre", "$params.id%")
 		}
-		def result2 = result1
-		respond result2, model:[totalResultados: result2.count]
+		respond result, model:[status: OK, totalResultados: result.count]
 	}
 
     def searchInCategoria(Integer max) {
@@ -46,11 +44,10 @@ class ProductoController {
                         idEq(idFiltro)
                     }
                 }
-            respond res, model: [totalResultados: res.count]
+            respond res, model: [status: OK, totalResultados: res.count]
         }
         else {
-            def result = []
-            respond result
+            render status: NOT_ACCEPTABLE
         }
     }
 
@@ -60,11 +57,10 @@ class ProductoController {
             long idFiltro = StringGroovyMethods.toLong(params.id)
             def marSet = [Marca.findById(idFiltro)] as Set
             def result = Producto.findAllByMarca(marSet)
-            respond result, model:[totalResultados: result.count]
+            respond result, model:[status: OK, totalResultados: result.count]
         }
         else {
-            def result = []
-            respond result
+            render status: NOT_ACCEPTABLE
         }
     }
 
@@ -82,7 +78,7 @@ class ProductoController {
         }
 
         productoInstance.save flush:true
-        respond productoInstance, [status: CREATED]
+        respond productoInstance, [status: OK]
     }
 
     @Transactional
@@ -104,13 +100,12 @@ class ProductoController {
 
     @Transactional
     def delete(Producto productoInstance) {
-
         if (productoInstance == null) {
             render status: NOT_FOUND
             return
         }
 
         productoInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }
