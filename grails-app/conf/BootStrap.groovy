@@ -222,13 +222,13 @@ class BootStrap {
 		imagen.errors = null
 		marca.errors = null
 
-		imagen = new Imagen(originalFilename: "09.jpg", thumbnailFilename: "prod11-thumbnail.png", newFilename: "prod11.jpg", size: 512)
+		imagen = new Imagen(originalFilename: "09.jpg", thumbnailFilename: "prod09-thumbnail.png", newFilename: "prod09.jpg", size: 512)
 		producto = new Producto(nombre: "Zapatillas Outdoor", caracteristicas: "Modelo Reebok The Stone", marca: marca, precio: 1399.00, stock: 7, imagen: imagen).addToCategorias(cat5)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		imagen.errors = null
 		producto.errors = null
 
-		imagen = new Imagen(originalFilename: "10.jpg", thumbnailFilename: "prod11-thumbnail.png", newFilename: "prod11.jpg", size: 512)
+		imagen = new Imagen(originalFilename: "10.jpg", thumbnailFilename: "prod10-thumbnail.png", newFilename: "prod10.jpg", size: 512)
 		producto = new Producto(nombre: "Conjunto Delta Suit", caracteristicas: "Varios colores disponibles", marca: marca, precio: 1319.00, stock: 9, imagen: imagen).addToCategorias(cat1)
 		assert producto.save(failOnError:true, flush:true, insert: true)
 		imagen.errors = null
