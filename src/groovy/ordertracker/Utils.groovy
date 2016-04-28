@@ -17,14 +17,14 @@ class Utils {
     static Pedido crearPedidoAleatorio() {
         Cliente cl = Cliente.findById(Utils.enteroAleatorio(1, Cliente.count))
         int numProductos = Utils.enteroAleatorio(1, 3)
-        ArrayList<PedidoDetalle> pd = new ArrayList<PedidoDetalle>()
+        ArrayList<PedidoElemento> pd = new ArrayList<PedidoElemento>()
         Date fin = new Date()
         Date ini = fin - 15
 
         for (int i=1; i<=numProductos; i++) {
             Producto p = Producto.findById(Utils.enteroAleatorio(1, Producto.count))
             int numItems = Utils.enteroAleatorio(1, 5)
-            pd.add(new PedidoDetalle(producto: p, cantidad: numItems))
+            pd.add(new PedidoElemento(producto: p, cantidad: numItems))
         }
 
         return new Pedido(cliente: cl, elementos: pd, fechaRealizado: Utils.fechaAleatoria(ini..fin))

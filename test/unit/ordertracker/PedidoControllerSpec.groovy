@@ -6,16 +6,16 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(PedidoController)
-@Mock([Pedido,PedidoDetalle,Cliente,Producto,Marca])
+@Mock([Pedido,PedidoElemento,Cliente,Producto,Marca])
 class PedidoControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
         params['cliente'] = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
         params['elementos'] = [
-            new PedidoDetalle(producto: new Producto(nombre: "Bolso de la Seleccion", marca: new Marca(nombre: "Reebok"), precio: 1002.99, stock: 34), cantidad: 10),
-            new PedidoDetalle(producto: new Producto(nombre: "Remera Deportiva", marca: new Marca(nombre: "Nike"), precio: 1433.99, stock: 12), cantidad: 25),
-            new PedidoDetalle(producto: new Producto(nombre: "Zapatillas de Running", marca: new Marca(nombre: "Adidas"), precio: 999.99, stock: 12), cantidad: 5)
+                new PedidoElemento(producto: new Producto(nombre: "Bolso de la Seleccion", marca: new Marca(nombre: "Reebok"), precio: 1002.99, stock: 34), cantidad: 10),
+                new PedidoElemento(producto: new Producto(nombre: "Remera Deportiva", marca: new Marca(nombre: "Nike"), precio: 1433.99, stock: 12), cantidad: 25),
+                new PedidoElemento(producto: new Producto(nombre: "Zapatillas de Running", marca: new Marca(nombre: "Adidas"), precio: 999.99, stock: 12), cantidad: 5)
         ]
     }
 

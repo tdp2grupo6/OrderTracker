@@ -8,7 +8,7 @@ class Pedido {
     EstadoPedido estado = EstadoPedido.ESTADO_ENVIADO
 
     static belongsTo = [cliente: Cliente]
-    static hasMany = [elementos: PedidoDetalle]
+    static hasMany = [elementos: PedidoElemento]
 
     float actualizarTotal() {
         float acum = 0f

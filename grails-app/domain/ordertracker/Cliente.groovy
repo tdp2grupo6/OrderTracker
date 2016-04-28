@@ -20,6 +20,8 @@ class Cliente {
 	String direccion = ""
 	double latitud
 	double longitud
+
+	List<Integer> agendaCliente = []
 	
 	Date fechaRegistro = new Date()
 	

@@ -1,6 +1,6 @@
 package ordertracker
 
-class PedidoDetalle {
+class PedidoElemento {
     Producto producto
     int cantidad
 
