@@ -30,7 +30,7 @@ class ProductoController {
 		//params.max = Math.min(max ?: 10, 100)
 		def prod = Producto.createCriteria()
 		def result = prod.list(params) {
-			ilike("nombre", "$params.id%")
+			ilike("nombre", "$params.term%")
 		}
 		respond result, model:[status: OK, totalResultados: result.count]
 	}

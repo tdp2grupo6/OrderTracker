@@ -90,6 +90,10 @@ class PedidoController {
         }
 
         pedidoInstance.save flush:true
+
+        Visita v = new Visita(cliente: pedidoInstance.cliente, fechaVisita: pedidoInstance.fechaRealizado, pedido: pedidoInstance)
+        v.save flush: true
+
         respond pedidoInstance, [status: OK]
     }
 

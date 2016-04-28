@@ -10,7 +10,7 @@ class Cliente {
 	String email
 	String contrasena = ""
 	
-	String identificador = UUID.randomUUID().toString()
+	String clienteQR = UUID.randomUUID().toString()
 	
 	String razonSocial = ""
 	String codigoUnico = ""

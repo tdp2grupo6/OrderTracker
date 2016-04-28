@@ -13,9 +13,9 @@ class VisitaMarshaller {
                 id: v.id,
                 idCliente: v.cliente.id,
                 nombreCliente: v.cliente.nombreCompleto(),
-                fechaProgramada: v.fechaProgramada,
-                fechaVisitada: v.fechaVisitada,
-                visitaConcretada: v.visitaConcretada
+                fechaProgramada: v.fechaVisita,
+                pedido: v.pedido,
+                comentario: v.comentario
             ]
         }
     }

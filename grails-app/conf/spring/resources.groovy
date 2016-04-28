@@ -1,5 +1,5 @@
 import ordertracker.CustomObjectMarshallers
-import ordertracker.FiltroResultado
+import ordertracker.Marshallers.DateMarshaller
 import ordertracker.Marshallers.CategoriaMarshaller
 import ordertracker.Marshallers.ClienteMarshaller
 import ordertracker.Marshallers.ComentarioMarshaller
@@ -14,6 +14,7 @@ import ordertracker.Marshallers.FiltroResultadoMarshaller
 beans = {
 	customObjectMarshallers( CustomObjectMarshallers ) {
 		marshallers = [
+			new DateMarshaller(),
 			new ClienteMarshaller(),
 			new ProductoMarshaller(),
 			new MarcaMarshaller(),

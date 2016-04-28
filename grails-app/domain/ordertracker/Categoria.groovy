@@ -5,7 +5,6 @@ class Categoria {
 	String descripcion = ""
 
 	static hasMany = [productos: Producto]
-	//static belongsTo = Producto
 
     static constraints = {
 		nombre blank: false

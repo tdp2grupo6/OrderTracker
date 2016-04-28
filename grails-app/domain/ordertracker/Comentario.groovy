@@ -8,5 +8,6 @@ class Comentario {
     static belongsTo = [cliente: Cliente]
 
     static constraints = {
+        cliente blank: false
     }
 }

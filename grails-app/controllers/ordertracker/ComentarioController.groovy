@@ -39,6 +39,10 @@ class ComentarioController {
         }
 
         comentarioInstance.save flush:true
+
+        Visita v = new Visita(cliente: comentarioInstance.cliente, fechaVisita: comentarioInstance.fechaComentario, comentario: comentarioInstance)
+        v.save flush: true
+
         respond comentarioInstance, [status: OK]
     }
 

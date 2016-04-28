@@ -22,6 +22,7 @@ class ProductoControllerSpec extends Specification {
 	def populateCustomParams(params, value) {
 		assert params != null
 		params['id'] = value
+		params['term'] = value
 	}
 
     void "Test the index action returns the correct model"() {

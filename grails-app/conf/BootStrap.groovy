@@ -10,6 +10,7 @@ import ordertracker.Imagen
 import ordertracker.Categoria
 import ordertracker.Pedido
 import ordertracker.PedidoElemento
+import ordertracker.Visita
 
 import java.text.SimpleDateFormat
 
@@ -52,8 +53,7 @@ class BootStrap {
 	
 	private void seedDevData() {
 		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos"
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-		
+
 		// Ejemplo de inserción de Cliente
 		def cliente = null, agenda = null
 		agenda = [Utils.LUNES, Utils.MIERCOLES, Utils.VIERNES]
@@ -291,7 +291,7 @@ class BootStrap {
 
 		cliente = Cliente.findById(3)
 		ped1 = new PedidoElemento(producto: producto, cantidad: 1)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: sdf.parse("2016-04-21T14:45:00Z"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: Utils.parsearFechaEntrada("2016-04-21T14:45:00-0300"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -299,14 +299,14 @@ class BootStrap {
 		ped1 = new PedidoElemento(producto: Producto.findById(1), cantidad: 3)
 		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 4)
 		ped3 = new PedidoElemento(producto: Producto.findById(3), cantidad: 5)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: sdf.parse("2016-04-22T16:15:00Z"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-22T16:15:00-0300"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
 		cliente = Cliente.findById(4)
 		ped1 = new PedidoElemento(producto: Producto.findById(5), cantidad: 3)
 		ped2 = new PedidoElemento(producto: Producto.findById(1), cantidad: 4)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: sdf.parse("2016-04-25T13:00:00Z"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: Utils.parsearFechaEntrada("2016-04-25T13:00:00-0300"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -315,7 +315,7 @@ class BootStrap {
 		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 6)
 		ped3 = new PedidoElemento(producto: Producto.findById(1), cantidad: 5)
 		ped4 = new PedidoElemento(producto: Producto.findById(4), cantidad: 2)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: sdf.parse("2016-04-26T11:30:00Z"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T11:30:00-0300"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -323,7 +323,7 @@ class BootStrap {
 		ped1 = new PedidoElemento(producto: Producto.findById(13), cantidad: 1)
 		ped2 = new PedidoElemento(producto: Producto.findById(8), cantidad: 8)
 		ped3 = new PedidoElemento(producto: Producto.findById(7), cantidad: 3)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: sdf.parse("2016-04-26T18:30:00Z"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T18:30:00-0300"))
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 

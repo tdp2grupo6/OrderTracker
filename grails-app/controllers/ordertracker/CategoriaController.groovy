@@ -31,7 +31,7 @@ class CategoriaController {
 		params.max = Math.min(max ?: 10, 100)
 		def c = Categoria.createCriteria()
 		def result = c.list(params) {
-			ilike("nombre", "$params.id%")
+			ilike("nombre", "$params.term%")
 		}
 		respond result, model:[status: OK, totalResultados: result.count]
 	}

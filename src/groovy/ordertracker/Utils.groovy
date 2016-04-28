@@ -16,6 +16,9 @@ class Utils {
 
     static public final List SEMANA = [DOMINGO, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO]
 
+    static public final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    static public final TimeZone timeZone = TimeZone.getTimeZone("America/Buenos_Aires")
+
     static int enteroAleatorio(int min, int max) {
         return Math.abs(new Random().nextInt() % max) + min
     }
@@ -38,5 +41,10 @@ class Utils {
         }
 
         return new Pedido(cliente: cl, elementos: pd, fechaRealizado: fechaAleatoria(ini..fin))
+    }
+
+    static Date parsearFechaEntrada(String fecha) {
+        Date ahora = new Date()
+        return ahora.parse(dateFormat, fecha)       // http://snipplr.com/view/10814/
     }
 }

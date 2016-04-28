@@ -8,15 +8,15 @@ class UrlMappings {
 		"/cliente/buscar/$id"(controller:"cliente", action:"search")
 		
 		"/producto"(resources:"producto")
-		"/producto/buscar/$id"(controller:"producto", action:"search")
+		"/producto/buscar/$term"(controller:"producto", action:"search")
 		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
 		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
 
 		"/marca"(resources:"marca")
-		"/marca/buscar/$id"(controller:"marca", action:"search")
+		"/marca/buscar/$term"(controller:"marca", action:"search")
 
 		"/categoria"(resources:"categoria")
-		"/categoria/buscar/$id"(controller:"categoria", action:"search")
+		"/categoria/buscar/$term"(controller:"categoria", action:"search")
 		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
 
 		"/pedido"(resources:"pedido")

@@ -1,17 +1,18 @@
 package ordertracker
 
 class Visita {
-    Date fechaProgramada
-    Date fechaVisitada
-
-    boolean visitaConcretada = false
-    //boolean pedidoConcretado = false
+    Date fechaVisita = new Date()
 
     static belongsTo = [cliente: Cliente]
 
+    //static hasOne = [comentario: Comentario, pedido: Pedido]
+    Comentario comentario
+    Pedido pedido
+
     static constraints = {
         cliente blank: false
-        fechaProgramada blank: false
-        fechaVisitada nullable: true
+        fechaVisita blank: false
+        comentario nullable: true
+        pedido nullable: true
     }
 }

@@ -6,7 +6,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(PedidoController)
-@Mock([Pedido,PedidoElemento,Cliente,Producto,Marca])
+@Mock([Pedido,PedidoElemento,Cliente,Producto,Marca,Visita])
 class PedidoControllerSpec extends Specification {
 
     def populateValidParams(params) {

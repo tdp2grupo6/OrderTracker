@@ -129,3 +129,6 @@ cors.headers = [
     'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS',
     'Access-Control-Max-Age': 3600
 ]
+
+// dgacitua: Formatos de ingreso de fecha
+grails.databinding.dateFormats = ["yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd"]

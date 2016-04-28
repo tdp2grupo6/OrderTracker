@@ -8,7 +8,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(ComentarioController)
-@Mock([Comentario,Cliente])
+@Mock([Comentario,Cliente,Visita])
 class ComentarioControllerSpec extends Specification {
 
     def populateValidParams(params) {

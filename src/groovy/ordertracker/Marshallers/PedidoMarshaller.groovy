@@ -15,7 +15,7 @@ class PedidoMarshaller {
                 fechaRealizado: p.fechaRealizado,
                 estado: p.estado.displayEnum(),
                 totalCompra: p.actualizarTotal(),
-                items: p.elementos
+                elementos: p.elementos
             ]
         }
     }
