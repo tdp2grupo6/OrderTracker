@@ -1,9 +1,8 @@
-import ordertracker.PedidoElemento
-import ordertracker.Utils
 import org.springframework.web.context.support.WebApplicationContextUtils
 
 import grails.util.Environment
 
+import ordertracker.Utils
 import ordertracker.Cliente
 import ordertracker.Marca
 import ordertracker.Producto
@@ -56,31 +55,37 @@ class BootStrap {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 		
 		// Ejemplo de inserción de Cliente
-		def cliente = null
-		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", telefono: "11 2233-4455", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d)
+		def cliente = null, agenda = null
+		agenda = [Utils.LUNES, Utils.MIERCOLES, Utils.VIERNES]
+		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", telefono: "11 2233-4455", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d, agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-				
-		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", telefono: "11 2233-4456", razonSocial: "Jorge Rial", direccion: "Jean Jaures 379", latitud: -34.605707d, longitud: -58.409504d)
+
+		agenda = [Utils.MARTES, Utils.JUEVES, Utils.VIERNES]
+		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", telefono: "11 2233-4456", razonSocial: "Jorge Rial", direccion: "Jean Jaures 379", latitud: -34.605707d, longitud: -58.409504d, agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-		
-		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", telefono: "11 2233-9900", razonSocial: "Videoclub El Match", direccion: "Av. Raúl Scalabrini Ortiz 1896", latitud: -34.589242d, longitud: -58.422554d)
+
+		agenda = [Utils.MARTES, Utils.MIERCOLES, Utils.JUEVES]
+		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", telefono: "11 2233-9900", razonSocial: "Videoclub El Match", direccion: "Av. Raúl Scalabrini Ortiz 1896", latitud: -34.589242d, longitud: -58.422554d,  agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-		
-		cliente = new Cliente(apellido: "Tévez", nombre: "Carlos", email: "apache@hotmail.com", telefono: "11 2233-0303", razonSocial: "Kioscos Apache", direccion: "Av. Santa Fe 3233", latitud: -34.588553d, longitud: -58.410603d)
+
+		agenda = [Utils.LUNES, Utils.MARTES, Utils.MIERCOLES]
+		cliente = new Cliente(apellido: "Tévez", nombre: "Carlos", email: "apache@hotmail.com", telefono: "11 2233-0303", razonSocial: "Kioscos Apache", direccion: "Av. Santa Fe 3233", latitud: -34.588553d, longitud: -58.410603d,  agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-		
-		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", telefono: "11 2233-0666", razonSocial: "Florencia Peña", direccion: "Laprida 2025", latitud: -34.587662d, longitud: -58.399794d)
+
+		agenda = [Utils.MARTES, Utils.JUEVES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", telefono: "11 2233-0666", razonSocial: "Florencia Peña", direccion: "Laprida 2025", latitud: -34.587662d, longitud: -58.399794d,  agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-		
-		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", telefono: "11 2233-7777", razonSocial: "Viviana Canosa", direccion: "Dr. Tomás Manuel de Anchorena 1676", latitud: -34.591166d, longitud: -58.402729d)
+
+		agenda = [Utils.MIERCOLES, Utils.JUEVES, Utils.VIERNES]
+		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", telefono: "11 2233-7777", razonSocial: "Viviana Canosa", direccion: "Dr. Tomás Manuel de Anchorena 1676", latitud: -34.591166d, longitud: -58.402729d,  agendaCliente: agenda)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
-		
+
 		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", telefono: "11 2233-4111", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d)
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null

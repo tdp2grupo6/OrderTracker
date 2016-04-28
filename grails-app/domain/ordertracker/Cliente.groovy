@@ -10,7 +10,7 @@ class Cliente {
 	String email
 	String contrasena = ""
 	
-	String identificador = ""
+	String identificador = UUID.randomUUID().toString()
 	
 	String razonSocial = ""
 	String codigoUnico = ""
@@ -21,7 +21,7 @@ class Cliente {
 	double latitud
 	double longitud
 
-	List<Integer> agendaCliente = []
+	ArrayList<Integer> agendaCliente = []
 	
 	Date fechaRegistro = new Date()
 	

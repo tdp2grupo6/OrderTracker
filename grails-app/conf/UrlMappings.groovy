@@ -29,6 +29,9 @@ class UrlMappings {
 		"/imagen/subir"(controller:"imagen", action:"upload")
 		"/imagen/borrar/$id"(controller:"imagen", action:"delete")
 
+		"/agenda/dia/$codigoDia"(controller:"agenda", action:"agendaDia")
+		"/agenda/semana"(controller:"agenda", action:"agendaSemana")
+
 		"/comentario"(resources:"comentario")
 
 		"/visita"(resources:"visita")

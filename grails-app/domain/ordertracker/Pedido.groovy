@@ -13,8 +13,8 @@ class Pedido {
     float actualizarTotal() {
         float acum = 0f
 
-        for (e in elementos) {
-            acum += e.producto.precio * e.cantidad
+        elementos.each {
+            acum += it.producto.precio * it.cantidad
         }
 
         totalCompra = acum
