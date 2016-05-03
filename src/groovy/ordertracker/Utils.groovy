@@ -47,4 +47,28 @@ class Utils {
         Date ahora = new Date()
         return ahora.parse(dateFormat, fecha)       // http://snipplr.com/view/10814/
     }
+
+    static int retornarCodigoDia(Date fecha) {
+        switch (fecha[Calendar.DAY_OF_WEEK]) {
+            case Calendar.SUNDAY:
+                return DOMINGO
+            case Calendar.MONDAY:
+                return LUNES
+            case Calendar.TUESDAY:
+                return MARTES
+            case Calendar.WEDNESDAY:
+                return MIERCOLES
+            case Calendar.THURSDAY:
+                return JUEVES
+            case Calendar.FRIDAY:
+                return VIERNES
+            case Calendar.SATURDAY:
+                return SABADO
+            default:
+                return -1
+        }
+    }
+    static boolean verificarDia(Date fecha, int codigoDia) {
+        return (SEMANA.contains(codigoDia) && retornarCodigoDia(fecha)==codigoDia)
+    }
 }

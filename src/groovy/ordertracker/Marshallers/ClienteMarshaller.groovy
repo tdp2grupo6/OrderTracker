@@ -17,6 +17,7 @@ class ClienteMarshaller {
 				email: c.email,
 				latitud: c.latitud,
 				longitud: c.longitud,
+				validador: c.validador,
 				estado: c.estado.displayEnum()
 			]
 		}

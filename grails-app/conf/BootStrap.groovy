@@ -52,73 +52,73 @@ class BootStrap {
 	}
 	
 	private void seedDevData() {
-		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos"
+		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos..."
 
 		// Ejemplo de inserción de Cliente
 		def cliente = null, agenda = null
 		agenda = [Utils.LUNES, Utils.MIERCOLES, Utils.VIERNES]
-		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", telefono: "11 2233-4455", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d, agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", telefono: "11 2233-4455", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d, agendaCliente: agenda, validador: "ff5a6227-e6d5-481d-85d4-9684d728f7a2")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
 		agenda = [Utils.MARTES, Utils.JUEVES, Utils.VIERNES]
-		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", telefono: "11 2233-4456", razonSocial: "Jorge Rial", direccion: "Jean Jaures 379", latitud: -34.605707d, longitud: -58.409504d, agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Rial", nombre: "Jorge", email: "jrial@hotmail.com", telefono: "11 2233-4456", razonSocial: "Jorge Rial", direccion: "Jean Jaures 379", latitud: -34.605707d, longitud: -58.409504d, agendaCliente: agenda, validador: "f40cbd4c-9428-40d8-9a1b-11a62f79c513")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
 		agenda = [Utils.MARTES, Utils.MIERCOLES, Utils.JUEVES]
-		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", telefono: "11 2233-9900", razonSocial: "Videoclub El Match", direccion: "Av. Raúl Scalabrini Ortiz 1896", latitud: -34.589242d, longitud: -58.422554d,  agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", telefono: "11 2233-9900", razonSocial: "Videoclub El Match", direccion: "Av. Raúl Scalabrini Ortiz 1896", latitud: -34.589242d, longitud: -58.422554d, agendaCliente: agenda, validador: "c66c9507-c11e-4b85-9a65-8bd17c234e1c")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
 		agenda = [Utils.LUNES, Utils.MARTES, Utils.MIERCOLES]
-		cliente = new Cliente(apellido: "Tévez", nombre: "Carlos", email: "apache@hotmail.com", telefono: "11 2233-0303", razonSocial: "Kioscos Apache", direccion: "Av. Santa Fe 3233", latitud: -34.588553d, longitud: -58.410603d,  agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Tévez", nombre: "Carlos", email: "apache@hotmail.com", telefono: "11 2233-0303", razonSocial: "Kioscos Apache", direccion: "Av. Santa Fe 3233", latitud: -34.588553d, longitud: -58.410603d, agendaCliente: agenda, validador: "80d45a49-29a0-46e3-a3b4-4cf3ea6f0808")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
 		agenda = [Utils.MARTES, Utils.JUEVES, Utils.SABADO]
-		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", telefono: "11 2233-0666", razonSocial: "Florencia Peña", direccion: "Laprida 2025", latitud: -34.587662d, longitud: -58.399794d,  agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Peña", nombre: "Florencia", email: "pena@gmail.com", telefono: "11 2233-0666", razonSocial: "Florencia Peña", direccion: "Laprida 2025", latitud: -34.587662d, longitud: -58.399794d, agendaCliente: agenda, validador: "b5d5cdfd-b790-4c18-987a-1ae73368685a")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
 		agenda = [Utils.MIERCOLES, Utils.JUEVES, Utils.VIERNES]
-		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", telefono: "11 2233-7777", razonSocial: "Viviana Canosa", direccion: "Dr. Tomás Manuel de Anchorena 1676", latitud: -34.591166d, longitud: -58.402729d,  agendaCliente: agenda)
+		cliente = new Cliente(apellido: "Canosa", nombre: "Viviana", email: "vivicanosa@gmail.com", telefono: "11 2233-7777", razonSocial: "Viviana Canosa", direccion: "Dr. Tomás Manuel de Anchorena 1676", latitud: -34.591166d, longitud: -58.402729d, agendaCliente: agenda, validador: "383cc558-16f2-49ea-b8a9-804fd7f11fe5")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", telefono: "11 2233-4111", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d)
+		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", telefono: "11 2233-4111", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d, validador: "7fa98ddd-a1fe-4ef1-b4df-258c8cfd98dd")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Lanzelotta", nombre: "Brian", email: "brianista@hotmail.com", telefono: "11 2233-4169", razonSocial: "Tiendas Gran Hermano", direccion: "Av. Santa Fe 2385", latitud: -34.594764d, longitud: -58.400834d)
+		cliente = new Cliente(apellido: "Lanzelotta", nombre: "Brian", email: "brianista@hotmail.com", telefono: "11 2233-4169", razonSocial: "Tiendas Gran Hermano", direccion: "Av. Santa Fe 2385", latitud: -34.594764d, longitud: -58.400834d, validador: "d4ac8fa4-f15d-4449-a668-04596e5b135e")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Nara", nombre: "Wanda", email: "wanda@gmail.com", telefono: "11 2233-4169", razonSocial: "Boutique Le Amour", direccion: "Av. Pueyrredón 1368", latitud: -34.595068d, longitud: -58.402616d)
+		cliente = new Cliente(apellido: "Nara", nombre: "Wanda", email: "wanda@gmail.com", telefono: "11 2233-4169", razonSocial: "Boutique Le Amour", direccion: "Av. Pueyrredón 1368", latitud: -34.595068d, longitud: -58.402616d, validador: "4efa300e-bc12-4c51-9e51-bf1423f2686c")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Maradona", nombre: "Diego", email: "d10s@gmail.com", telefono: "11 2233-1010", razonSocial: "Fotografías El Pibe de Oro", direccion: "Caminito S/N", latitud: -34.639436d, longitud: -58.361991d)
+		cliente = new Cliente(apellido: "Maradona", nombre: "Diego", email: "d10s@gmail.com", telefono: "11 2233-1010", razonSocial: "Fotografías El Pibe de Oro", direccion: "Caminito S/N", latitud: -34.639436d, longitud: -58.361991d, validador: "51239661-48aa-4968-b552-906cc72188ed")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Legrand", nombre: "Mirtha", email: "legrand@gmail.com", telefono: "11 4512-5069", razonSocial: "Mirtha Legrand", direccion: "Defensa 1060", latitud: -34.620147d, longitud: -58.371383d)
+		cliente = new Cliente(apellido: "Legrand", nombre: "Mirtha", email: "legrand@gmail.com", telefono: "11 4512-5069", razonSocial: "Mirtha Legrand", direccion: "Defensa 1060", latitud: -34.620147d, longitud: -58.371383d, validador: "62e910ae-aedf-44e1-af40-19c8685a9458")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Suárez", nombre: "María Eugenia", email: "lachina@gmail.com", telefono: "11 4512-1736", razonSocial: "Vicuña Producciones", direccion: "Florida 145", latitud: -34.606465d, longitud: -58.375165d)
+		cliente = new Cliente(apellido: "Suárez", nombre: "María Eugenia", email: "lachina@gmail.com", telefono: "11 4512-1736", razonSocial: "Vicuña Producciones", direccion: "Florida 145", latitud: -34.606465d, longitud: -58.375165d, validador: "9f189515-1f9e-4a8d-8962-406202819f89")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Revilla", nombre: "Ángel David", email: "drossrotzank@yahoo.com", telefono: "11 4512-1712", razonSocial: "Productora Top 7", direccion: "Av. Pres. Roque Sáenz Peña 865", latitud: -34.605222d, longitud: -58.378619d)
+		cliente = new Cliente(apellido: "Revilla", nombre: "Ángel David", email: "drossrotzank@yahoo.com", telefono: "11 4512-1712", razonSocial: "Productora Top 7", direccion: "Av. Pres. Roque Sáenz Peña 865", latitud: -34.605222d, longitud: -58.378619d, validador: "46b5f0f3-8f45-4ed2-885a-21f4dbd89fa2")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Giménez", nombre: "Susana", email: "sgimenez@gmail.com", telefono: "11 4512-1765", razonSocial: "Susana Giménez", direccion: "Carlos Pellegrini 301", latitud: -34.604896d, longitud: -58.38082d)
+		cliente = new Cliente(apellido: "Giménez", nombre: "Susana", email: "sgimenez@gmail.com", telefono: "11 4512-1765", razonSocial: "Susana Giménez", direccion: "Carlos Pellegrini 301", latitud: -34.604896d, longitud: -58.38082d, validador: "60567712-ca75-4fed-9c19-6eded83fe6b9")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Páez", nombre: "Fito", email: "fitopaez@gmail.com", telefono: "11 4512-1787", razonSocial: "Fito Páez", direccion: "Av. Corrientes 1197", latitud: -34.603723d, longitud: -58.383567d)
+		cliente = new Cliente(apellido: "Páez", nombre: "Fito", email: "fitopaez@gmail.com", telefono: "11 4512-1787", razonSocial: "Fito Páez", direccion: "Av. Corrientes 1197", latitud: -34.603723d, longitud: -58.383567d, validador: "36e8a390-9461-4a06-92ff-451aa0a35674")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		

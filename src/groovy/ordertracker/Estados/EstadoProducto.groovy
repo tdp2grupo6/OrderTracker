@@ -1,16 +1,34 @@
 package ordertracker.Estados
 
 public enum EstadoProducto{
-	DISP("Disponible"), NODISP("No disponible"), SUSP("Suspendido")
-	
+	SUSP("Suspendido", 1),
+	NODISP("No disponible", 2),
+	DISP("Disponible", 3)
+
 	final String valor
-	
-	EstadoProducto(String valor) { this.valor = valor }
-	
+	final int num
+
+	EstadoProducto(String valor, int num) {
+		this.valor = valor
+		this.num = num
+	}
+
+	int toNum() { num }
 	String toString() { valor }
 	String getKey() { name() }
 
 	def displayEnum() {
-		return [ tipo: getKey(), nombre: toString() ]
+		return [id: toNum(), tipo: getKey(), nombre: toString()]
+	}
+
+	static EstadoProducto obtenerEstado(int valor) {
+		EstadoProducto resp = null
+
+		values().each {
+			if (it.num == valor) {
+				resp = it
+			}
+		}
+		return resp
 	}
 }
