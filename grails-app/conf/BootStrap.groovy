@@ -1,18 +1,9 @@
-import org.springframework.web.context.support.WebApplicationContextUtils
-
 import grails.util.Environment
-
-import ordertracker.Utils
-import ordertracker.Cliente
-import ordertracker.Marca
-import ordertracker.Producto
-import ordertracker.Imagen
-import ordertracker.Categoria
-import ordertracker.Pedido
-import ordertracker.PedidoElemento
-import ordertracker.Visita
-
-import java.text.SimpleDateFormat
+import ordertracker.*
+import ordertracker.Security.Rol
+import ordertracker.Security.Usuario
+import ordertracker.Security.UsuarioRol
+import org.springframework.web.context.support.WebApplicationContextUtils
 
 class BootStrap {
 	def init = { servletContext ->
@@ -22,6 +13,9 @@ class BootStrap {
 
 		// Fijando la zona horaria del servidor
 		//setTimeZone()
+
+		// Cargando Roles y Usuarios
+		seedUserRoles()
 
 		// Código separado por Ambiente de Deploy
 		def result = 'Corriendo en otro modo!'
@@ -44,13 +38,43 @@ class BootStrap {
 			}
 		}
 		println "[OT-LOG] Ambiente actual: $Environment.current"
-		println "[OT-LOG] $result"	
+		println "[OT-LOG] $result"
 	}
-	
+
 	def destroy = {
 		println "[OT-LOG] Terminando Order Tracker... "
 	}
-	
+
+	private void seedUserRoles() {
+		// Roles
+		println "[OT-LOG] Iniciando carga de Roles en la Base de Datos..."
+
+		def rolAdmin = new Rol('ROLE_ADMIN').save(flush:true)
+		def rolVendedor = new Rol('ROLE_VENDEDOR').save(flush:true)
+		def rolCliente = new Rol('ROLE_CLIENTE').save(flush:true)
+
+		assert Rol.count == 3
+		println "[OT-LOG] Finalizada carga de $Rol.count roles en la Base de Datos"
+
+		// Usuarios de prueba
+		println "[OT-LOG] Iniciando carga de usuarios en la Base de Datos..."
+
+		def vend1 = new Usuario(username: 'bbeltran', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
+		UsuarioRol.create vend1, rolVendedor, true
+
+		def vend2 = new Usuario(username: 'dgacitua', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
+		UsuarioRol.create vend2, rolVendedor, true
+
+		def vend3 = new Usuario(username: 'poddo', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
+		UsuarioRol.create vend3, rolVendedor, true
+
+		def vend4 = new Usuario(username: 'mroitman', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
+		UsuarioRol.create vend4, rolVendedor, true
+
+		assert Usuario.count == 4
+		println "[OT-LOG] Finalizada carga de $Usuario.count usuarios en la Base de Datos"
+	}
+
 	private void seedDevData() {
 		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos..."
 

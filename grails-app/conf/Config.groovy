@@ -119,16 +119,33 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 }
 
+// dgacitua: Formatos de ingreso de fecha
+grails.databinding.dateFormats = ["yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd"]
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'ordertracker.Security.Usuario'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'ordertracker.Security.UsuarioRol'
+grails.plugin.springsecurity.authority.className = 'ordertracker.Security.Rol'
+grails.plugin.springsecurity.requestMap.className = 'ordertracker.Security.RequestMap'
+grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
 // dgacitua: Configuración de CORS
 cors.enabled = true
 cors.url.pattern = '/*'
 cors.headers = [
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-    'Access-Control-Allow-Headers': 'origin, authorization, accept, content-type, x-requested-with',
-    'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS',
-    'Access-Control-Max-Age': 3600
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'origin, authorization, accept, content-type, x-requested-with',
+        'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS',
+        'Access-Control-Max-Age': 3600
 ]
-
-// dgacitua: Formatos de ingreso de fecha
-grails.databinding.dateFormats = ["yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd"]
