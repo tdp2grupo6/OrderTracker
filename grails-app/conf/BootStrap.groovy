@@ -81,7 +81,7 @@ class BootStrap {
 		def vend4 = new Vendedor(username: 'mroitman', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend4, rolVendedor, true
 
-		assert Usuario.count == 5
+		assert Usuario.count == 6
 		println "[OT-LOG] Finalizada carga de $Usuario.count usuarios en la Base de Datos"
 	}
 

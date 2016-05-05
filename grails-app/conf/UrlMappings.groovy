@@ -37,6 +37,9 @@ class UrlMappings {
 		"/visita"(resources:"visita")
 
 		"/login-test"(controller: "secureTest")
+		"/login-test/usuario"(controller: "secureTest", action: "datosUsuario")
+		"/login-test/lista-vendedores"(controller: "secureTest", action: "listaVendedores")
+		"/login-test/lista-admins"(controller: "secureTest", action: "listaAdmins")
 		
 		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{

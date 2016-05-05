@@ -149,6 +149,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
     '/**/favicon.ico':  ['permitAll'],
     '/login/**':        ['permitAll'],
     '/logout/**':       ['permitAll'],
+    '/oauth/access_token/**': ['permitAll'],
     '/login-test/**':   ['IS_AUTHENTICATED_REMEMBERED'],
     '/cliente/**':      ['permitAll'],
     '/pedido/**':       ['permitAll'],
@@ -177,15 +178,19 @@ grails.plugin.springsecurity.rest.login.passwordPropertyName = 'password'
 //logout
 grails.plugin.springsecurity.rest.logout.endpointUrl = '/logout'
 //token generation
-grails.plugin.springsecurity.rest.token.generation.useSecureRandom = true
-grails.plugin.springsecurity.rest.token.generation.useUUID = false
+//grails.plugin.springsecurity.rest.token.generation.useSecureRandom = true
+//grails.plugin.springsecurity.rest.token.generation.useUUID = false
+//Json Web Token
+grails.plugin.springsecurity.rest.token.storage.useJwt = true
+grails.plugin.springsecurity.rest.token.storage.jwt.useSignedJwt = true
+grails.plugin.springsecurity.rest.token.storage.jwt.secret = 'c0rlhqelhas8m2agg8ttg10lqk2e7smn'
+grails.plugin.springsecurity.rest.token.storage.jwt.expiration = 3600
 //use cache as storage
-grails.plugin.springsecurity.rest.token.storage.useGrailsCache = true
-grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'xauth-token'
+//grails.plugin.springsecurity.rest.token.storage.useGrailsCache = true
+//grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'xauth-token'
 //token rendering
 grails.plugin.springsecurity.rest.token.rendering.usernamePropertyName = 'username'
 grails.plugin.springsecurity.rest.token.rendering.authoritiesPropertyName = 'roles'
-grails.plugin.springsecurity.rest.token.rendering.tokenPropertyName = 'token'
 //token validate
 grails.plugin.springsecurity.rest.token.validation.useBearerToken = true
 grails.plugin.springsecurity.rest.token.validation.active = true
@@ -196,6 +201,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         '/login/**':        'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/logout/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/validate/**':     'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/oauth/access_token/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/cliente/**':      'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/producto/**':     'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/marca/**':        'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
