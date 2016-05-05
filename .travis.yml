@@ -6,9 +6,19 @@ jdk:
 before_script:
   - chmod +x grailsw
 
-script: ./grailsw clean
-  && ./grailsw refresh-dependencies
-  && ./grailsw "test-app unit:"
+script: 
+  - "./grailsw clean --non-interactive"
+  - "./grailsw refresh-dependencies --non-interactive"
+  - "./grailsw test-app unit: --non-interactive"
+  - "./grailsw compile --non-interactive"
+  - "./grailsw -Dgrails.env=openshift war --non-interactive webapps/ROOT.war"
+
+before_deploy:
+  - git config --global user.email 'bot@travis-ci.com'
+  - git config --global user.name 'Bot - Travis CI'
+  - git checkout $TRAVIS_BRANCH
+  - git add -f webapps/*
+  - git commit -am '[Travis] Deploy'
 
 deploy:
   provider: openshift
@@ -17,5 +27,6 @@ deploy:
     secure: IG61K+lSUcUSQ2vNxiX8oESp5piqjpxJA1z0SsCCIuRZCVS3S+0KpqiR2V6g7mm77Z/c+dIfn9uer0lR88bSiM6hrCpffkKj2vuITwU9weAiUEjkeT1oAvG3UkWy3+QPgne2iwFsESlvTFio0Y1Uu0Z1s2aWS+9HmyDQUuYxkK4GFfJKcJzkvoZPtqGbOkcZAZyR1gGG1fPN9IP7wwfurs5GRzqtDe9UCxQv4LIKygPI043Fse1VtT8G2zOktldmorhCwGAPqFifY6bH6IaBP32/ahQRbc4CZ3V7O6jrMXUAtON42Ng3D0BMVS43aLG40TjqdtfqHpQxaA9k3WHugbolYj6F6PEPnVqU+UYyHdOHWaydXlyZrMBFbNQ2lMQC/9Rh8IUUiExPjxghpKFccTCR4U+FtCKCixVVEmq8xtiUlRXN7sR7TQHiSEjEKqvPvrSpyJKb70LIJMKzYUByONXq+4rH4zTrirjKr+AtnKxNITdFxzPyizAkXpAWOHeZunkTPko7Ht+5dbhkiNS4SzMvP3RGGpS594siNFK52gi0XE3Lg0nOfSH3wr+bGl3uzKOpG2Aw2CTKm6h9R8THvDbHX0WkehSGRDzTI8sfD7ewYcngaxXqDV8ePCY0Nl0ZPeN2IHOKcJqbTquK/necfBgVYHnzxyEPZ3GMg+rFYgw=
   app: ordertracker
   domain: tdp2grupo6
+  skip_cleanup: true
   on:
     repo: tdp2grupo6/OrderTracker

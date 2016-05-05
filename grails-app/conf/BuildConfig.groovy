@@ -85,7 +85,7 @@ grails.project.dependency.resolution = {
         // Dependencias de Login
         compile "org.grails.plugins:spring-security-core:2.0.0"
         compile "org.grails.plugins:spring-security-rest:1.5.3"
-        //compile "org.grails.plugins:spring-security-ui:1.0-RC3"
+        compile "org.grails.plugins:spring-security-ui:1.0-RC3"
 
         // CORS para consultas desde Frontend
         runtime "org.grails.plugins:cors:1.1.8"
