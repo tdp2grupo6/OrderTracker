@@ -1,4 +1,4 @@
-package ordertracker.DomainTests
+package ordertracker.Domain
 
 import grails.test.mixin.TestFor
 import ordertracker.Cliente

@@ -1,11 +1,15 @@
 package ordertracker
 
+import ordertracker.Security.Perfil
+
 /**
  * Created by dgacitua on 26-04-16.
  */
 class Utils {
+    // Paginación
     static public final int RESULTADOS_POR_PAGINA = 20
 
+    // Códigos de días de la semana
     static public final int DOMINGO = 0
     static public final int LUNES = 1
     static public final int MARTES = 2
@@ -14,11 +18,19 @@ class Utils {
     static public final int VIERNES = 5
     static public final int SABADO = 6
 
+    // Verificador de semana
     static public final List SEMANA = [DOMINGO, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO]
 
+    // Formatos de Fecha y Hora
     static public final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     static public final TimeZone timeZone = TimeZone.getTimeZone("America/Buenos_Aires")
 
+    // Permisos de perfiles de Usuario
+    static public final String ADMIN = Perfil.ADMIN.valor
+    static public final String VENDEDOR = Perfil.VENDEDOR.valor
+    static public final String CLIENTE = Perfil.CLIENTE.valor
+
+    // Funciones auxiliares
     static int enteroAleatorio(int min, int max) {
         return Math.abs(new Random().nextInt() % max) + min
     }

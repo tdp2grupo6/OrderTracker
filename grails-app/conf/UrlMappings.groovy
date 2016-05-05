@@ -35,6 +35,8 @@ class UrlMappings {
 		"/comentario"(resources:"comentario")
 
 		"/visita"(resources:"visita")
+
+		"/login-test"(controller: "secureTest")
 		
 		// UrlMappings por defecto
         "/$controller/$action?/$id?(.$format)?"{

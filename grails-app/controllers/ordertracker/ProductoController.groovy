@@ -1,8 +1,7 @@
 package ordertracker
 
-import org.codehaus.groovy.runtime.StringGroovyMethods
-
 import static org.springframework.http.HttpStatus.*
+import org.codehaus.groovy.runtime.StringGroovyMethods
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)

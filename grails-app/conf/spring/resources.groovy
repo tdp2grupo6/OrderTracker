@@ -1,7 +1,6 @@
 import ordertracker.CustomObjectMarshallers
 import ordertracker.Marshallers.*
 
-
 // Place your Spring DSL code here
 beans = {
 	customObjectMarshallers( CustomObjectMarshallers ) {
@@ -16,7 +15,8 @@ beans = {
 			new ComentarioMarshaller(),
 			new VisitaMarshaller(),
 			new FiltroResultadoMarshaller(),
-			new UsuarioMarshaller()
+			new UsuarioMarshaller(),
+			new VendedorMarshaller()
 		]
 	}
 }

@@ -127,7 +127,7 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'ordertracker.Secu
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'ordertracker.Security.UsuarioRol'
 grails.plugin.springsecurity.authority.className = 'ordertracker.Security.Rol'
 grails.plugin.springsecurity.requestMap.className = 'ordertracker.Security.RequestMap'
-grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
 	'/index':           ['permitAll'],
@@ -137,6 +137,22 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':       ['permitAll'],
 	'/**/images/**':    ['permitAll'],
 	'/**/favicon.ico':  ['permitAll']
+]
+grails.plugin.springsecurity.interceptUrlMap = [
+    '/':                ['permitAll'],
+    '/index':           ['permitAll'],
+    '/index.gsp':       ['permitAll'],
+    '/assets/**':       ['permitAll'],
+    '/**/js/**':        ['permitAll'],
+    '/**/css/**':       ['permitAll'],
+    '/**/images/**':    ['permitAll'],
+    '/**/favicon.ico':  ['permitAll'],
+    '/login/**':        ['permitAll'],
+    '/logout/**':       ['permitAll'],
+    '/login-test/**':   ['IS_AUTHENTICATED_REMEMBERED'],
+    '/cliente/**':      ['permitAll'],
+    '/pedido/**':       ['permitAll'],
+    '/**':              ['IS_AUTHENTICATED_REMEMBERED']
 ]
 
 // dgacitua: Configuración de CORS
@@ -149,3 +165,47 @@ cors.headers = [
         'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS',
         'Access-Control-Max-Age': 3600
 ]
+
+//Config for Spring Security REST plugin
+//login
+grails.plugin.springsecurity.rest.login.active = true
+grails.plugin.springsecurity.rest.login.endpointUrl = "/login"
+grails.plugin.springsecurity.rest.login.failureStatusCode = 401
+grails.plugin.springsecurity.rest.login.useJsonCredentials = true
+grails.plugin.springsecurity.rest.login.usernamePropertyName = 'username'
+grails.plugin.springsecurity.rest.login.passwordPropertyName = 'password'
+//logout
+grails.plugin.springsecurity.rest.logout.endpointUrl = '/logout'
+//token generation
+grails.plugin.springsecurity.rest.token.generation.useSecureRandom = true
+grails.plugin.springsecurity.rest.token.generation.useUUID = false
+//use cache as storage
+grails.plugin.springsecurity.rest.token.storage.useGrailsCache = true
+grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'xauth-token'
+//token rendering
+grails.plugin.springsecurity.rest.token.rendering.usernamePropertyName = 'username'
+grails.plugin.springsecurity.rest.token.rendering.authoritiesPropertyName = 'roles'
+grails.plugin.springsecurity.rest.token.rendering.tokenPropertyName = 'token'
+//token validate
+grails.plugin.springsecurity.rest.token.validation.useBearerToken = true
+grails.plugin.springsecurity.rest.token.validation.active = true
+grails.plugin.springsecurity.rest.token.validation.endpointUrl = '/validate'
+//filter chain
+grails.plugin.springsecurity.filterChain.chainMap = [
+        //'/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/login/**':        'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/logout/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/validate/**':     'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/cliente/**':      'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/producto/**':     'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/marca/**':        'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/categoria/**':    'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/pedido/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/agenda/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/comentario/**':   'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/visita/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/imagen/**':       'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/login-test/**':   'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/**':              'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'                                                                      // Traditional chain
+]
+grails.plugin.springsecurity.rest.token.validation.enableAnonymousAccess = true

@@ -1,20 +1,26 @@
 package ordertracker
 
-import grails.plugin.springsecurity.annotation.Secured
+import ordertracker.Perfiles.Admin
+import ordertracker.Perfiles.Vendedor
+
+import static org.springframework.http.HttpStatus.OK
 
 class SecureTestController {
-    @Secured('ROLE_VENDEDOR')
-    def indexVendedor() {
-        render 'Acceso a vendedor'
+    static responseFormats = ['json']
+    static allowedMethods = [index: "GET", listaVendedores: "GET", listaAdmins: "GET"]
+
+    def index() {
+        String res = "Acceso a zona logeada"
+        render res
     }
 
-    @Secured('ROLE_ADMIN')
-    def indexAdmin() {
-        render 'Acceso a admin'
+    def listaVendedores() {
+        def res = Vendedor.list()
+        respond res, [status: OK]
     }
 
-    @Secured('ROLE_CLIENTE')
-    def indexCliente() {
-        render 'Acceso a cliente'
+    def listaAdmins() {
+        def res = Admin.list()
+        respond res, [status: OK]
     }
 }

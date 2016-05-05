@@ -1,8 +1,12 @@
 import grails.util.Environment
 import ordertracker.*
+import ordertracker.Perfiles.Vendedor
+import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
 import ordertracker.Security.Usuario
 import ordertracker.Security.UsuarioRol
+import ordertracker.Perfiles.Admin
+import ordertracker.Perfiles.Vendedor
 import org.springframework.web.context.support.WebApplicationContextUtils
 
 class BootStrap {
@@ -14,7 +18,7 @@ class BootStrap {
 		// Fijando la zona horaria del servidor
 		//setTimeZone()
 
-		// Cargando Roles y Usuarios
+		// Cargando Perfil y Usuarios
 		seedUserRoles()
 
 		// Código separado por Ambiente de Deploy
@@ -46,12 +50,12 @@ class BootStrap {
 	}
 
 	private void seedUserRoles() {
-		// Roles
+		// Perfil
 		println "[OT-LOG] Iniciando carga de Roles en la Base de Datos..."
 
-		def rolAdmin = new Rol('ROLE_ADMIN').save(flush:true)
-		def rolVendedor = new Rol('ROLE_VENDEDOR').save(flush:true)
-		def rolCliente = new Rol('ROLE_CLIENTE').save(flush:true)
+		def rolAdmin = new Rol(Perfil.ADMIN.valor).save(flush:true)
+		def rolVendedor = new Rol(Perfil.VENDEDOR.valor).save(flush:true)
+		def rolCliente = new Rol(Perfil.CLIENTE.valor).save(flush:true)
 
 		assert Rol.count == 3
 		println "[OT-LOG] Finalizada carga de $Rol.count roles en la Base de Datos"
@@ -59,19 +63,25 @@ class BootStrap {
 		// Usuarios de prueba
 		println "[OT-LOG] Iniciando carga de usuarios en la Base de Datos..."
 
-		def vend1 = new Usuario(username: 'bbeltran', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
-		UsuarioRol.create vend1, rolVendedor, true
+		def admin = new Admin(username: 'admin', password: 'admin', nombre: 'Administrador', apellido: 'OrderTracker', email: 'admin@ordertracker.com.ar').habilitarUsuario()		//.save(failOnError:true, flush:true, insert: true)
+		//UsuarioRol.create admin, rolAdmin, true
 
-		def vend2 = new Usuario(username: 'dgacitua', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
-		UsuarioRol.create vend2, rolVendedor, true
+		def vend = new Vendedor(username: 'vendedor', password: 'vendedor', nombre: 'Vendedor', apellido: 'OrderTracker', email: 'vendedor@ordertracker.com.ar').habilitarUsuario()
+		//UsuarioRol.create vend, rolVendedor, true
 
-		def vend3 = new Usuario(username: 'poddo', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
-		UsuarioRol.create vend3, rolVendedor, true
+		def vend1 = new Vendedor(username: 'bbeltran', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').habilitarUsuario()
+		//UsuarioRol.create vend1, rolVendedor, true
 
-		def vend4 = new Usuario(username: 'mroitman', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').save(failOnError:true, flush:true, insert: true)
-		UsuarioRol.create vend4, rolVendedor, true
+		def vend2 = new Vendedor(username: 'dgacitua', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').habilitarUsuario()
+		//UsuarioRol.create vend2, rolVendedor, true
 
-		assert Usuario.count == 4
+		def vend3 = new Vendedor(username: 'poddo', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').habilitarUsuario()
+		//UsuarioRol.create vend3, rolVendedor, true
+
+		def vend4 = new Vendedor(username: 'mroitman', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').habilitarUsuario()
+		//UsuarioRol.create vend4, rolVendedor, true
+
+		assert Usuario.count == 5
 		println "[OT-LOG] Finalizada carga de $Usuario.count usuarios en la Base de Datos"
 	}
 

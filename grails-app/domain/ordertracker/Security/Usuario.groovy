@@ -47,8 +47,6 @@ class Usuario implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-	String nombreCompleto() { "$apellido, $nombre" }
-
 	static transients = ['springSecurityService']
 
 	static constraints = {
@@ -62,5 +60,12 @@ class Usuario implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
+	}
+
+	// Métodos Custom
+	String nombreCompleto() { "$apellido, $nombre" }
+
+	void habilitarUsuario() {
+		this.save(flush: true)
 	}
 }

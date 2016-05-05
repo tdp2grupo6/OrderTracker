@@ -1,10 +1,8 @@
 package ordertracker.Security
 
-import grails.plugin.springsecurity.Secured
-import grails.plugin.springsecurity.annotation.Secured
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import ordertracker.Cliente
+import org.springframework.security.core.GrantedAuthority
 
 @EqualsAndHashCode(includes='authority')
 @ToString(includes='authority', includeNames=true, includePackage=false)
