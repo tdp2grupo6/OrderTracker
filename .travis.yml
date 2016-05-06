@@ -28,5 +28,3 @@ deploy:
   app: ordertracker
   domain: tdp2grupo6
   skip_cleanup: true
-  on:
-    repo: tdp2grupo6/OrderTracker
