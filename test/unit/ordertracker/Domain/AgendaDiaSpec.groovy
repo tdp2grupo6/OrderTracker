@@ -1,6 +1,7 @@
-package ordertracker
+package ordertracker.Domain
 
 import grails.test.mixin.TestFor
+import ordertracker.AgendaDia
 import spock.lang.Specification
 
 /**

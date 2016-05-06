@@ -83,7 +83,7 @@ class AgendaController {
         }
 
         agendaInstance.save flush:true
-        respond agendaInstance, [status: CREATED]
+        respond agendaInstance, [status: OK]
     }
 
     @Transactional
@@ -112,6 +112,6 @@ class AgendaController {
         }
 
         agendaInstance.delete flush:true
-        render status: NO_CONTENT
+        render status: OK
     }
 }
