@@ -18,7 +18,7 @@ before_deploy:
   - git config --global user.name 'Bot - Travis CI'
   - git checkout $TRAVIS_BRANCH
   - git add -f webapps/*
-  - git commit -am '[Travis] Deploy'
+  - git commit -am "[Travis] Deploy"
 
 deploy:
   provider: openshift
