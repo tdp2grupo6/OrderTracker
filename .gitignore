@@ -18,3 +18,4 @@ stacktrace.log
 /target-eclipse/
 /lib/*
 /.slcache
+/webapps

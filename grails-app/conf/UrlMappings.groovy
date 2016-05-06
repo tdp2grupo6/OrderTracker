@@ -1,5 +1,3 @@
-import java.awt.Desktop.Action;
-
 class UrlMappings {
 
 	static mappings = {
@@ -29,6 +27,7 @@ class UrlMappings {
 		"/imagen/subir"(controller:"imagen", action:"upload")
 		"/imagen/borrar/$id"(controller:"imagen", action:"delete")
 
+		"/agenda"(resources:"agenda")
 		"/agenda/dia/$codigoDia"(controller:"agenda", action:"agendaDia")
 		"/agenda/semana"(controller:"agenda", action:"agendaSemana")
 

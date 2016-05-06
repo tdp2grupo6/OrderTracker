@@ -16,7 +16,8 @@ beans = {
 			new VisitaMarshaller(),
 			new FiltroResultadoMarshaller(),
 			new UsuarioMarshaller(),
-			new VendedorMarshaller()
+			new VendedorMarshaller(),
+			new AgendaMarshaller()
 		]
 	}
 }

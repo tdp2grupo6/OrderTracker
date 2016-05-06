@@ -30,8 +30,8 @@ class Cliente {
 	static constraints = {
 		nombre blank: false
 		apellido blank: false
-		email blank: false, mail: true
-		latitud blank: false, nullable: true
-		longitud blank: false, nullable: true
+		email blank: false, email: true
+		latitud blank: false, nullable: true, min: -90d, max: 90d
+		longitud blank: false, nullable: true, min: -180d, max: 180d
     }
 }

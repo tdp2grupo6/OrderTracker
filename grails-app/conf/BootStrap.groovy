@@ -28,6 +28,7 @@ class BootStrap {
 			development {
 				result = 'Corriendo en modo DEVELOPMENT!'
 				seedDevData()
+				linkClients()
 			}
 			test {
 				result = 'Corriendo en modo TEST!'
@@ -39,6 +40,7 @@ class BootStrap {
 			openshift {
 				result = 'Corriendo en modo OPENSHIFT!'
 				seedOpenshiftData()
+				linkClients()
 			}
 		}
 		println "[OT-LOG] Ambiente actual: $Environment.current"
@@ -379,6 +381,41 @@ class BootStrap {
 	
 	private void seedOpenshiftData() {
 		seedDevData()
+	}
+
+	private void linkClients() {
+		Vendedor v
+		Cliente cl1, cl2, cl3
+
+		v = Vendedor.findByUsername('dgacitua')
+		cl1 = Cliente.findById(1)
+		cl2 = Cliente.findById(3)
+		cl3 = Cliente.findById(5)
+		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
+
+		v = Vendedor.findByUsername('bbeltran')
+		cl1 = Cliente.findById(2)
+		cl2 = Cliente.findById(4)
+		cl3 = Cliente.findById(6)
+		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
+
+		v = Vendedor.findByUsername('poddo')
+		cl1 = Cliente.findById(7)
+		cl2 = Cliente.findById(8)
+		cl3 = Cliente.findById(9)
+		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
+
+		v = Vendedor.findByUsername('mroitman')
+		cl1 = Cliente.findById(10)
+		cl2 = Cliente.findById(13)
+		cl3 = Cliente.findById(14)
+		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
+
+		v = Vendedor.findByUsername('vendedor')
+		cl1 = Cliente.findById(11)
+		cl2 = Cliente.findById(12)
+		cl3 = Cliente.findById(15)
+		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
 	}
 
 	private void setTimeZone() {

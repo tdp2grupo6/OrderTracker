@@ -52,7 +52,7 @@ class Usuario implements Serializable {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-		email blank: false, unique: true
+		email blank: false, email: true, unique: true
 		telefono blank: true
 		nombre blank: false
 		apellido blank: false

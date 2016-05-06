@@ -139,21 +139,21 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':  ['permitAll']
 ]
 grails.plugin.springsecurity.interceptUrlMap = [
-    '/':                ['permitAll'],
-    '/index':           ['permitAll'],
-    '/index.gsp':       ['permitAll'],
-    '/assets/**':       ['permitAll'],
-    '/**/js/**':        ['permitAll'],
-    '/**/css/**':       ['permitAll'],
-    '/**/images/**':    ['permitAll'],
-    '/**/favicon.ico':  ['permitAll'],
-    '/login/**':        ['permitAll'],
-    '/logout/**':       ['permitAll'],
-    '/oauth/access_token/**': ['permitAll'],
-    '/login-test/**':   ['IS_AUTHENTICATED_REMEMBERED'],
-    '/cliente/**':      ['permitAll'],
-    '/pedido/**':       ['permitAll'],
-    '/**':              ['IS_AUTHENTICATED_REMEMBERED']
+    '/':                        ['permitAll'],
+    '/index':                   ['permitAll'],
+    '/index.gsp':               ['permitAll'],
+    '/assets/**':               ['permitAll'],
+    '/**/js/**':                ['permitAll'],
+    '/**/css/**':               ['permitAll'],
+    '/**/images/**':            ['permitAll'],
+    '/**/favicon.ico':          ['permitAll'],
+    '/login/**':                ['permitAll'],
+    '/logout/**':               ['permitAll'],
+    '/oauth/access_token/**':   ['permitAll'],
+    '/login-test/**':           ['IS_AUTHENTICATED_REMEMBERED'],
+    '/cliente/**':              ['permitAll'],
+    '/pedido/**':               ['permitAll'],
+    '/**':                      ['IS_AUTHENTICATED_REMEMBERED']
 ]
 
 // dgacitua: Configuración de CORS
