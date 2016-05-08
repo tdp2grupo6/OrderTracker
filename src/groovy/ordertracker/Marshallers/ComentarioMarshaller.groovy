@@ -12,6 +12,8 @@ class ComentarioMarshaller {
         JSON.registerObjectMarshaller(Comentario) { Comentario c ->
             return [
                 id: c.id,
+                idVendedor: c.vendedor? c.vendedor.id : 0,
+                nombreVendedor: c.vendedor? c.vendedor.nombreCompleto() : "No existe",
                 idCliente: c.cliente.id,
                 nombreCliente: c.cliente.nombreCompleto(),
                 fechaComentario: c.fechaComentario,

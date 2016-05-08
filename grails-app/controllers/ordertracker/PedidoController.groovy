@@ -1,15 +1,19 @@
 package ordertracker
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
 import ordertracker.Estados.EstadoPedido
+import ordertracker.Perfiles.Vendedor
 
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class PedidoController {
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
+    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
                              searchByCliente: "GET", searchByEstado: "GET", filtroAdmin: "POST"]
+
+    def springSecurityService
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -55,11 +59,9 @@ class PedidoController {
                 if (fp.idCliente) {
                     eq("cliente", Cliente.findById(fp.idCliente))
                 }
-                /*
                 if (fp.idVendedor) {
-                    eq("vendedor", Cliente.findById(fp.idVendedor))
+                    eq("vendedor", Vendedor.findById(fp.idVendedor))
                 }
-                 */
                 if (fp.fechaInicio && fp.fechaFin) {
                     between("fechaRealizado", fp.fechaInicio, fp.fechaFin)
                 }
@@ -81,6 +83,11 @@ class PedidoController {
         if (pedidoInstance == null) {
             render status: NOT_FOUND
             return
+        }
+
+        if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR) && !(pedidoInstance.vendedor)) {
+            Vendedor v = springSecurityService.currentUser
+            pedidoInstance.vendedor = v
         }
 
         pedidoInstance.validate()

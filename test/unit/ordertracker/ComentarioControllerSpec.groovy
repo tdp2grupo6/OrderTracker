@@ -1,6 +1,7 @@
 package ordertracker
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -10,6 +11,8 @@ import static org.springframework.http.HttpStatus.*
 @TestFor(ComentarioController)
 @Mock([Comentario,Cliente,Visita])
 class ComentarioControllerSpec extends Specification {
+
+    //def springSecurityService = [currentUser:[id:1], roles:[Utils.VENDEDOR, Utils.ADMIN], asdfs: []]
 
     def populateValidParams(params) {
         assert params != null

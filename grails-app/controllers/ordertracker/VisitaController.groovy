@@ -1,6 +1,7 @@
 package ordertracker
 
-
+import grails.plugin.springsecurity.SpringSecurityUtils
+import ordertracker.Perfiles.Vendedor
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -10,6 +11,8 @@ class VisitaController {
 
     static responseFormats = ['json']
     static allowedMethods = [show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
+
+    def springSecurityService
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -30,6 +33,19 @@ class VisitaController {
         if (visitaInstance == null) {
             render status: NOT_FOUND
             return
+        }
+
+        if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR) && !(visitaInstance.vendedor)) {
+            Vendedor v = springSecurityService.currentUser
+            visitaInstance.vendedor = v
+        }
+
+        if (visitaInstance.pedido) {
+            visitaInstance.pedido.save()
+        }
+
+        if (visitaInstance.comentario) {
+            visitaInstance.comentario.save()
         }
 
         visitaInstance.validate()

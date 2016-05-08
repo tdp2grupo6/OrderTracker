@@ -11,6 +11,8 @@ class VisitaMarshaller {
         JSON.registerObjectMarshaller(Visita) { Visita v ->
             return [
                 id: v.id,
+                idVendedor: v.vendedor? v.vendedor.id : 0,
+                nombreVendedor: v.vendedor? v.vendedor.nombreCompleto() : "No existe",
                 idCliente: v.cliente.id,
                 nombreCliente: v.cliente.nombreCompleto(),
                 fechaProgramada: v.fechaVisita,

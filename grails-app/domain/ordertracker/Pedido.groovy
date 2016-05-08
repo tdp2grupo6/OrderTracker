@@ -1,13 +1,14 @@
 package ordertracker
 
 import ordertracker.Estados.EstadoPedido
+import ordertracker.Perfiles.Vendedor
 
 class Pedido {
     Date fechaRealizado = new Date()
     float totalCompra = 0f
     EstadoPedido estado = EstadoPedido.ESTADO_ENVIADO
 
-    static belongsTo = [cliente: Cliente]
+    static belongsTo = [cliente: Cliente, vendedor: Vendedor]
     static hasMany = [elementos: PedidoElemento]
 
     float actualizarTotal() {
@@ -23,6 +24,7 @@ class Pedido {
 
     static constraints = {
         cliente blank: false
+        vendedor blank: true, nullable: true
         elementos nullable: true
     }
 }

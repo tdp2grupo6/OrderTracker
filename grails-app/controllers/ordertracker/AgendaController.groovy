@@ -22,8 +22,8 @@ class AgendaController {
             if (StringGroovyMethods.isInteger(params.codigoDia) && Utils.SEMANA.contains(params.int('codigoDia'))) {
                 Vendedor user = springSecurityService.currentUser
                 Agenda ag = user.agenda
-                ag.poblarAgendaClientes()
-                JSONObject resp = ag.mostrarDia(params.int('codigoDia'))
+                if (!ag.ordenada) { ag.poblarAgendaClientes() }
+                JSONObject resp = ag.mostrarAgendaDia(params.int('codigoDia'))
 
                 respond resp, [status: OK]
             }
@@ -44,10 +44,10 @@ class AgendaController {
 
     def agendaSemana() {
         if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
-            Vendedor user = springSecurityService.currentUser
-            def ag = user.agenda
-            ag.poblarAgendaClientes()
-            def resp = ag.mostrarCitas()
+            Vendedor v = springSecurityService.currentUser
+            def ag = v.agenda
+            if (!ag.ordenada) { ag.poblarAgendaClientes() }
+            def resp = ag.mostrarAgendaSemana()
             respond resp, [status: OK]
         }
         else {

@@ -10,7 +10,9 @@ class PedidoMarshaller {
         JSON.registerObjectMarshaller(Pedido) { Pedido p ->
             return [
                 id: p.id,
-                codigoCliente: p.cliente.id,
+                idVendedor: p.vendedor? p.vendedor.id : 0,
+                nombreVendedor: p.vendedor? p.vendedor.nombreCompleto() : "No existe",
+                idCliente: p.cliente.id,
                 nombreCliente: p.cliente.nombreCompleto(),
                 fechaRealizado: p.fechaRealizado,
                 estado: p.estado.displayEnum(),

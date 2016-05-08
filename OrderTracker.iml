@@ -35,6 +35,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test/unit/ordertracker" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/unit/ordertracker/Domain" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/unit/ordertracker/Perfiles" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/gspcompile" />

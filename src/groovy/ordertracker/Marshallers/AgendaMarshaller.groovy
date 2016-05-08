@@ -12,9 +12,9 @@ class AgendaMarshaller {
             return [
                     id: ag.id,
                     idVendedor: ag.vendedor.id,
-                    nombreCliente: ag.vendedor.nombreCompleto(),
+                    nombreVendedor: ag.vendedor.nombreCompleto(),
                     agendaOrdenada: ag.ordenada,
-                    agenda: ag.mostrarCitas()
+                    agenda: ag.agendaDia
             ]
         }
     }

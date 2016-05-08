@@ -22,9 +22,8 @@ class Vendedor extends Usuario {
         this.save()
         UsuarioRol.create(this, rol, true)
 
-        Agenda ag = new Agenda(vendedor: this)
+        Agenda ag = new Agenda(vendedor: this).save(flush:true)
         this.agenda = ag
         ag.poblarAgendaVacia()
-        ag.save(flush:true, insert:true)
     }
 }

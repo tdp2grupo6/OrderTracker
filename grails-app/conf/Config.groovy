@@ -88,13 +88,26 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
 		grails.logging.jul.usebridge = true
+        grails.plugin.springsecurity.mock.active = false
+    }
+    test {
+        grails.logging.jul.usebridge = true
+        // Spring Security Mock
+        grails.plugin.springsecurity.mock.active = true
+        grails.plugin.springsecurity.mock.fullName = "Vendedor Ordertracker"
+        grails.plugin.springsecurity.mock.email = "vendedor@ordertracker.com.ar"
+        grails.plugin.springsecurity.mock.username =  "vendedor"
+        grails.plugin.springsecurity.mock.roles = [ 'ROLE_ADMIN', 'ROLE_VENDEDOR' ]
+        grails.plugin.springsecurity.ipRestrictions = [ '/**': ['127.0.0.0/8', '::1/128'] ]
     }
     production {
 		grails.logging.jul.usebridge = false
+        grails.plugin.springsecurity.mock.active = false
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 	openshift {
 		grails.logging.jul.usebridge = false
+        grails.plugin.springsecurity.mock.active = false
 	}
 }
 

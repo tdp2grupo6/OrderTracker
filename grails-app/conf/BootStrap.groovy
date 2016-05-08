@@ -91,7 +91,7 @@ class BootStrap {
 		println "[OT-LOG] Iniciando carga de datos de prueba en la Base de Datos..."
 
 		// Ejemplo de inserción de Cliente
-		def cliente = null, agenda = null
+		def cliente, agenda
 		agenda = [Utils.LUNES, Utils.MIERCOLES, Utils.VIERNES]
 		cliente = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", telefono: "11 2233-4455", razonSocial: "Silvina Luna", direccion: "Av. Gral. Las Heras 2214", latitud: -34.588446d, longitud: -58.39601d, agendaCliente: agenda, validador: "ff5a6227-e6d5-481d-85d4-9684d728f7a2")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
@@ -122,39 +122,48 @@ class BootStrap {
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", telefono: "11 2233-4111", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d, validador: "7fa98ddd-a1fe-4ef1-b4df-258c8cfd98dd")
+		agenda = [Utils.LUNES, Utils.MARTES, Utils.JUEVES]
+		cliente = new Cliente(apellido: "Mendoza", nombre: "Flavio", email: "fmendoza@gmail.com", telefono: "11 2233-4111", razonSocial: "Flavio Mendoza", direccion: "Azcuénaga 1517", latitud: -34.591316d, longitud: -58.397939d, agendaCliente: agenda, validador: "7fa98ddd-a1fe-4ef1-b4df-258c8cfd98dd")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Lanzelotta", nombre: "Brian", email: "brianista@hotmail.com", telefono: "11 2233-4169", razonSocial: "Tiendas Gran Hermano", direccion: "Av. Santa Fe 2385", latitud: -34.594764d, longitud: -58.400834d, validador: "d4ac8fa4-f15d-4449-a668-04596e5b135e")
+		agenda = [Utils.MARTES, Utils.MIERCOLES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Lanzelotta", nombre: "Brian", email: "brianista@hotmail.com", telefono: "11 2233-4169", razonSocial: "Tiendas Gran Hermano", direccion: "Av. Santa Fe 2385", latitud: -34.594764d, longitud: -58.400834d, agendaCliente: agenda, validador: "d4ac8fa4-f15d-4449-a668-04596e5b135e")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Nara", nombre: "Wanda", email: "wanda@gmail.com", telefono: "11 2233-4169", razonSocial: "Boutique Le Amour", direccion: "Av. Pueyrredón 1368", latitud: -34.595068d, longitud: -58.402616d, validador: "4efa300e-bc12-4c51-9e51-bf1423f2686c")
+		agenda = [Utils.MIERCOLES, Utils.JUEVES, Utils.VIERNES]
+		cliente = new Cliente(apellido: "Nara", nombre: "Wanda", email: "wanda@gmail.com", telefono: "11 2233-4169", razonSocial: "Boutique Le Amour", direccion: "Av. Pueyrredón 1368", latitud: -34.595068d, longitud: -58.402616d, agendaCliente: agenda, validador: "4efa300e-bc12-4c51-9e51-bf1423f2686c")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Maradona", nombre: "Diego", email: "d10s@gmail.com", telefono: "11 2233-1010", razonSocial: "Fotografías El Pibe de Oro", direccion: "Caminito S/N", latitud: -34.639436d, longitud: -58.361991d, validador: "51239661-48aa-4968-b552-906cc72188ed")
+		agenda = [Utils.MARTES, Utils.VIERNES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Maradona", nombre: "Diego", email: "d10s@gmail.com", telefono: "11 2233-1010", razonSocial: "Fotografías El Pibe de Oro", direccion: "Caminito S/N", latitud: -34.639436d, longitud: -58.361991d, agendaCliente: agenda, validador: "51239661-48aa-4968-b552-906cc72188ed")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Legrand", nombre: "Mirtha", email: "legrand@gmail.com", telefono: "11 4512-5069", razonSocial: "Mirtha Legrand", direccion: "Defensa 1060", latitud: -34.620147d, longitud: -58.371383d, validador: "62e910ae-aedf-44e1-af40-19c8685a9458")
+		agenda = [Utils.MIERCOLES, Utils.JUEVES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Legrand", nombre: "Mirtha", email: "legrand@gmail.com", telefono: "11 4512-5069", razonSocial: "Mirtha Legrand", direccion: "Defensa 1060", latitud: -34.620147d, longitud: -58.371383d, agendaCliente: agenda, validador: "62e910ae-aedf-44e1-af40-19c8685a9458")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Suárez", nombre: "María Eugenia", email: "lachina@gmail.com", telefono: "11 4512-1736", razonSocial: "Vicuña Producciones", direccion: "Florida 145", latitud: -34.606465d, longitud: -58.375165d, validador: "9f189515-1f9e-4a8d-8962-406202819f89")
+		agenda = [Utils.LUNES, Utils.MARTES, Utils.JUEVES]
+		cliente = new Cliente(apellido: "Suárez", nombre: "María Eugenia", email: "lachina@gmail.com", telefono: "11 4512-1736", razonSocial: "Vicuña Producciones", direccion: "Florida 145", latitud: -34.606465d, longitud: -58.375165d, agendaCliente: agenda, validador: "9f189515-1f9e-4a8d-8962-406202819f89")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Revilla", nombre: "Ángel David", email: "drossrotzank@yahoo.com", telefono: "11 4512-1712", razonSocial: "Productora Top 7", direccion: "Av. Pres. Roque Sáenz Peña 865", latitud: -34.605222d, longitud: -58.378619d, validador: "46b5f0f3-8f45-4ed2-885a-21f4dbd89fa2")
+		agenda = [Utils.MIERCOLES, Utils.VIERNES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Revilla", nombre: "Ángel David", email: "drossrotzank@yahoo.com", telefono: "11 4512-1712", razonSocial: "Productora Top 7", direccion: "Av. Pres. Roque Sáenz Peña 865", latitud: -34.605222d, agendaCliente: agenda, longitud: -58.378619d, validador: "46b5f0f3-8f45-4ed2-885a-21f4dbd89fa2")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Giménez", nombre: "Susana", email: "sgimenez@gmail.com", telefono: "11 4512-1765", razonSocial: "Susana Giménez", direccion: "Carlos Pellegrini 301", latitud: -34.604896d, longitud: -58.38082d, validador: "60567712-ca75-4fed-9c19-6eded83fe6b9")
+		agenda = [Utils.MARTES, Utils.JUEVES, Utils.VIERNES]
+		cliente = new Cliente(apellido: "Giménez", nombre: "Susana", email: "sgimenez@gmail.com", telefono: "11 4512-1765", razonSocial: "Susana Giménez", direccion: "Carlos Pellegrini 301", latitud: -34.604896d, longitud: -58.38082d, agendaCliente: agenda, validador: "60567712-ca75-4fed-9c19-6eded83fe6b9")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 
-		cliente = new Cliente(apellido: "Páez", nombre: "Fito", email: "fitopaez@gmail.com", telefono: "11 4512-1787", razonSocial: "Fito Páez", direccion: "Av. Corrientes 1197", latitud: -34.603723d, longitud: -58.383567d, validador: "36e8a390-9461-4a06-92ff-451aa0a35674")
+		agenda = [Utils.JUEVES, Utils.VIERNES, Utils.SABADO]
+		cliente = new Cliente(apellido: "Páez", nombre: "Fito", email: "fitopaez@gmail.com", telefono: "11 4512-1787", razonSocial: "Fito Páez", direccion: "Av. Corrientes 1197", latitud: -34.603723d, longitud: -58.383567d, agendaCliente: agenda, validador: "36e8a390-9461-4a06-92ff-451aa0a35674")
 		assert cliente.save(failOnError:true, flush:true, insert: true)
 		cliente.errors = null
 		
@@ -322,12 +331,14 @@ class BootStrap {
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Imagen.count imágenes en la Base de Datos"
 
-		def pedido
+		def pedido, vendedor
 		def ped1, ped2, ped3, ped4
+
+		vendedor = Vendedor.findByUsername('vendedor')
 
 		cliente = Cliente.findById(3)
 		ped1 = new PedidoElemento(producto: producto, cantidad: 1)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: Utils.parsearFechaEntrada("2016-04-21T14:45:00-0300"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: Utils.parsearFechaEntrada("2016-04-21T14:45:00-0300"), vendedor: vendedor)
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -335,14 +346,14 @@ class BootStrap {
 		ped1 = new PedidoElemento(producto: Producto.findById(1), cantidad: 3)
 		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 4)
 		ped3 = new PedidoElemento(producto: Producto.findById(3), cantidad: 5)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-22T16:15:00-0300"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-22T16:15:00-0300"), vendedor: vendedor)
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
 		cliente = Cliente.findById(4)
 		ped1 = new PedidoElemento(producto: Producto.findById(5), cantidad: 3)
 		ped2 = new PedidoElemento(producto: Producto.findById(1), cantidad: 4)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: Utils.parsearFechaEntrada("2016-04-25T13:00:00-0300"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: Utils.parsearFechaEntrada("2016-04-25T13:00:00-0300"), vendedor: vendedor)
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -351,7 +362,7 @@ class BootStrap {
 		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 6)
 		ped3 = new PedidoElemento(producto: Producto.findById(1), cantidad: 5)
 		ped4 = new PedidoElemento(producto: Producto.findById(4), cantidad: 2)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T11:30:00-0300"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T11:30:00-0300"), vendedor: vendedor)
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 
@@ -359,7 +370,7 @@ class BootStrap {
 		ped1 = new PedidoElemento(producto: Producto.findById(13), cantidad: 1)
 		ped2 = new PedidoElemento(producto: Producto.findById(8), cantidad: 8)
 		ped3 = new PedidoElemento(producto: Producto.findById(7), cantidad: 3)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T18:30:00-0300"))
+		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T18:30:00-0300"), vendedor: vendedor)
 		assert pedido.save(failOnError:true, flush:true, insert: true)
 		pedido.errors = null
 

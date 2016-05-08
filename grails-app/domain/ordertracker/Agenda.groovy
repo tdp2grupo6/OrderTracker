@@ -24,7 +24,8 @@ class Agenda {
         // Agrega los dias que faltan
         Utils.SEMANA.each {
             if (!agendaDia.codigoDia.contains(it)) {
-                agendaDia.add(new AgendaDia(codigoDia: (int)it))
+                AgendaDia ad = new AgendaDia(codigoDia:(int)it, agenda:this).save()
+                agendaDia.add(ad)
             }
         }
         assert agendaDia.size() == 7
@@ -33,8 +34,11 @@ class Agenda {
     void poblarAgendaVacia() {
         agendaDia = []
         Utils.SEMANA.each {
-            agendaDia.add(new AgendaDia(codigoDia: (int)it))
+            //println "Agenda vendedor ${vendedor.id} dia ${it}"
+            AgendaDia ad = new AgendaDia(codigoDia:it, agenda:this).save()
+            agendaDia.add(ad)
         }
+        verificarAgenda()
         assert agendaDia.size() == 7
     }
 
@@ -47,24 +51,23 @@ class Agenda {
         verificarAgenda()
     }
 
-    def mostrarCitas() {
-        List res = []
+    def mostrarAgendaDia(int codigoDia) {
+        AgendaDia ad = AgendaDia.findByAgendaAndCodigoDia(this, codigoDia)
 
-        agendaDia.each {
-            res.add([
-                codigoDia: it.codigoDia,
-                listaClientes: it.listaClientes
-            ])
-        }
+        def res = [
+                codigoDia: ad.codigoDia,
+                listaClientes: ad.listaClientes
+        ]
 
         return res
     }
 
-    def mostrarDia(int codigoDia) {
-        AgendaDia ad = agendaDia.find { it.codigoDia = codigoDia }
-        JSONObject res = new JSONObject()
-        res.put("codigoDia", ad.codigoDia)
-        res.put("listaClientes", ad.listaClientes)
+    def mostrarAgendaSemana() {
+        List res = []
+
+        Utils.SEMANA.each {
+            res.add(mostrarAgendaDia((int)it))
+        }
 
         return res
     }

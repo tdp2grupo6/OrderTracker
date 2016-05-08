@@ -1,6 +1,7 @@
 package ordertracker
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification

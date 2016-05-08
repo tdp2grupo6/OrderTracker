@@ -1,6 +1,10 @@
 package ordertracker
 
+import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
+import ordertracker.Security.Rol
+import ordertracker.Security.Usuario
+import ordertracker.Security.UsuarioRol
 
 /**
  * Created by dgacitua on 26-04-16.
@@ -19,7 +23,7 @@ class Utils {
     static public final int SABADO = 6
 
     // Verificador de semana
-    static public final List SEMANA = [DOMINGO, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO]
+    static public final List<Integer> SEMANA = [DOMINGO, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO]
 
     // Formatos de Fecha y Hora
     static public final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -41,6 +45,7 @@ class Utils {
 
     static Pedido crearPedidoAleatorio() {
         Cliente cl = Cliente.findById(enteroAleatorio(1, Cliente.count))
+        Vendedor v = vendedorAleatorio()
         int numProductos = enteroAleatorio(1, 3)
         ArrayList<PedidoElemento> pd = new ArrayList<PedidoElemento>()
         Date fin = new Date()
@@ -48,11 +53,19 @@ class Utils {
 
         for (int i=1; i<=numProductos; i++) {
             Producto p = Producto.findById(enteroAleatorio(1, Producto.count))
-            int numItems = enteroAleatorio(1, 5)
-            pd.add(new PedidoElemento(producto: p, cantidad: numItems))
+            if (!(pd.producto).contains(p)) {
+                int numItems = enteroAleatorio(1, 5)
+                pd.add(new PedidoElemento(producto: p, cantidad: numItems))
+            }
         }
 
-        return new Pedido(cliente: cl, elementos: pd, fechaRealizado: fechaAleatoria(ini..fin))
+        return new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fechaAleatoria(ini..fin))
+    }
+
+    static Vendedor vendedorAleatorio() {
+        Rol rol = Rol.findByAuthority(VENDEDOR)
+        def vends = UsuarioRol.findAllByRol(rol).usuario
+        return (Vendedor)(vends.sort{new Random()}?.take(1)[0])
     }
 
     static Date parsearFechaEntrada(String fecha) {
