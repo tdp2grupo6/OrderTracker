@@ -3,6 +3,13 @@ language: groovy
 jdk:
   - openjdk7
 
+env:
+  - OPENSHIFT_APP_NAME=ordertracker
+  - OPENSHIFT_MYSQL_DB_HOST=127.8.235.130
+  - OPENSHIFT_MYSQL_DB_PORT=3306
+  - OPENSHIFT_MYSQL_DB_USERNAME=adminHAtgnJY
+  - OPENSHIFT_MYSQL_DB_PASSWORD=Bkax6gjQp7R2
+
 before_script:
   - chmod +x grailsw
 

@@ -31,7 +31,7 @@ class Cliente {
 		nombre blank: false
 		apellido blank: false
 		email blank: false, email: true
-		latitud blank: false, nullable: true, min: -90d, max: 90d
-		longitud blank: false, nullable: true, min: -180d, max: 180d
+		latitud blank: true, nullable: true, min: -90d, max: 90d
+		longitud blank: true, nullable: true, min: -180d, max: 180d
     }
 }

@@ -55,13 +55,6 @@ environments {
         }
     }
 	openshift {
-		def credentials = [
-			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
-			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
-			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
-			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
-			name: System.getenv("OPENSHIFT_APP_NAME")
-		]
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
@@ -87,6 +80,13 @@ environments {
             }
         }
 		/*
+		def credentials = [
+			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
+			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
+			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
+			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
+			name: System.getenv("OPENSHIFT_APP_NAME")
+		]
         dataSource {
 			dbCreate = "create-drop"
 			driverClassName = "com.mysql.jdbc.Driver"

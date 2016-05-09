@@ -30,6 +30,8 @@ class UrlMappings {
 		"/agenda"(resources:"agenda")
 		"/agenda/dia/$codigoDia"(controller:"agenda", action:"agendaDia")
 		"/agenda/semana"(controller:"agenda", action:"agendaSemana")
+		"/agenda/admin-dia/$idVendedor/$codigoDia"(controller:"agenda", action:"agendaAdminDia")
+		"/agenda/admin-semana/$idVendedor"(controller:"agenda", action:"agendaAdminSemana")
 
 		"/comentario"(resources:"comentario")
 

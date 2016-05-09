@@ -11,12 +11,12 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class AgendaController {
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", agendaDia: "GET", agendaSemana: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", agendaDia: "GET", agendaSemana: "GET",
+                            agendaAdminDia: "GET", agendaAdminSemana: "GET"]
 
     def springSecurityService
 
-    // Métodos de Negocio
-
+    // Métodos de Negocio //
     def agendaDia() {
         if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
             if (StringGroovyMethods.isInteger(params.codigoDia) && Utils.SEMANA.contains(params.int('codigoDia'))) {
@@ -61,11 +61,45 @@ class AgendaController {
         }
     }
 
+    def agendaAdminDia() {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            if (StringGroovyMethods.isLong(params.idVendedor) && StringGroovyMethods.isInteger(params.codigoDia) && Utils.SEMANA.contains(params.int('codigoDia'))) {
+                Vendedor v = Vendedor.findById(params.long('idVendedor'))
+                def ag = v.agenda
+                if (!ag.ordenada) { ag.poblarAgendaClientes() }
+                def resp = AgendaDia.findByAgendaAndCodigoDia(ag, params.int('codigoDia'))
+                respond resp, [status: OK]
+            }
+            else {
+                render status: NOT_ACCEPTABLE
+            }
+        }
+        else {
+            render status: NOT_FOUND
+        }
+    }
 
-    // Métodos RESTful
+    def agendaAdminSemana() {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            if (StringGroovyMethods.isLong(params.idVendedor)) {
+                Vendedor v = Vendedor.findById(params.long('idVendedor'))
+                def ag = v.agenda
+                if (!ag.ordenada) { ag.poblarAgendaClientes() }
+                respond ag, [status: OK]
+            }
+            else {
+                render status: NOT_ACCEPTABLE
+            }
+        }
+        else {
+            render status: NOT_FOUND
+        }
+    }
 
+
+    // Métodos RESTful //
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        //params.max = Math.min(max ?: 10, 100)
         respond Agenda.list(params), [status: OK]
     }
 
