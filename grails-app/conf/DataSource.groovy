@@ -55,6 +55,7 @@ environments {
         }
     }
 	openshift {
+        /*
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
@@ -79,13 +80,14 @@ environments {
                 defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
         }
-		/*
+        */
+        
 		def credentials = [
-			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
-			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
-			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
-			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
-			name: System.getenv("OPENSHIFT_APP_NAME")
+			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST")?: "127.8.235.130",
+			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT")?: "3306",
+			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME")?: "adminHAtgnJY",
+			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD")?: "Bkax6gjQp7R2",
+			name: System.getenv("OPENSHIFT_APP_NAME")?: "ordertracker"
 		]
         dataSource {
 			dbCreate = "create-drop"
@@ -96,6 +98,5 @@ environments {
 			password = credentials.password
 			pooled = true
 		}
-		*/
 	}
 }
