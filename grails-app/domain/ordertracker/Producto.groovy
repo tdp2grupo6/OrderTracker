@@ -50,4 +50,24 @@ class Producto {
 		categorias nullable: true
 		imagen nullable: true
 	}
+
+	void eliminarInstancias() {
+		this.marca = null
+		this.categorias = null
+		this.imagen = null
+
+		this.save(flush: true)
+
+		Categoria.list().each {
+			if (it.productos.contains(this)) {
+				it.removeFromProductos(this)
+			}
+		}
+
+		Marca.list().each {
+			if (it.productos.contains(this)) {
+				it.removeFromProductos(this)
+			}
+		}
+	}
 }

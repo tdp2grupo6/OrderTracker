@@ -119,6 +119,8 @@ class ClienteController {
             return
         }
 
+        clienteInstance.eliminarInstancias()
+
         clienteInstance.delete flush:true
         render status: OK
     }

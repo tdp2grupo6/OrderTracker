@@ -2,6 +2,7 @@ package ordertracker.Perfiles
 
 import ordertracker.Agenda
 import ordertracker.Cliente
+import ordertracker.Pedido
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
 import ordertracker.Security.Usuario
@@ -25,5 +26,17 @@ class Vendedor extends Usuario {
         Agenda ag = new Agenda(vendedor: this).save(flush:true)
         this.agenda = ag
         ag.poblarAgendaVacia()
+    }
+
+    void eliminarInstancias() {
+        def ag = this.agenda
+
+        this.agenda = null
+        this.clientes = null
+        this.save()
+
+        ag.delete(flush: true)
+        Pedido.findAllByVendedor(this)*.vendedor = null
+        UsuarioRol.findAllByUsuario((Usuario)this)*.delete(flush: true)
     }
 }

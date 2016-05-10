@@ -35,7 +35,7 @@ class Agenda {
         agendaDia = []
         Utils.SEMANA.each {
             //println "Agenda vendedor ${vendedor.id} dia ${it}"
-            AgendaDia ad = new AgendaDia(codigoDia:it, agenda:this).save()
+            AgendaDia ad = new AgendaDia(codigoDia:it, agenda:this).save(flush: true)
             agendaDia.add(ad)
         }
         verificarAgenda()

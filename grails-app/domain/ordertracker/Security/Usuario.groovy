@@ -59,6 +59,7 @@ class Usuario implements Serializable {
 	}
 
 	static mapping = {
+		tablePerHierarchy false
 		password column: '`password`'
 	}
 
@@ -67,5 +68,9 @@ class Usuario implements Serializable {
 
 	void habilitarUsuario() {
 		this.save(flush: true)
+	}
+
+	void eliminarInstancias() {
+		UsuarioRol.findAllByUsuario(this)*.delete()
 	}
 }

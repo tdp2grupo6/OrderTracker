@@ -30,6 +30,7 @@ class VendedorController {
         }
 
         vendedorInstance.save flush:true
+        vendedorInstance.habilitarUsuario()
         respond vendedorInstance, [status: OK]
     }
 
@@ -57,6 +58,8 @@ class VendedorController {
             render status: NOT_FOUND
             return
         }
+
+        vendedorInstance.eliminarInstancias()
 
         vendedorInstance.delete flush:true
         render status: OK

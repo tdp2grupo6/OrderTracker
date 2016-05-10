@@ -104,6 +104,8 @@ class ProductoController {
             return
         }
 
+        productoInstance.eliminarInstancias()
+
         productoInstance.delete flush:true
         render status: OK
     }

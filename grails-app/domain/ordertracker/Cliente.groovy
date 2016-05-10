@@ -1,6 +1,7 @@
 package ordertracker
 
 import ordertracker.Estados.EstadoCliente
+import ordertracker.Perfiles.Vendedor
 
 class Cliente {
 	String nombre
@@ -35,4 +36,14 @@ class Cliente {
 		latitud blank: true, nullable: true, min: -90d, max: 90d
 		longitud blank: true, nullable: true, min: -180d, max: 180d
     }
+
+	void eliminarInstancias() {
+		Pedido.findAllByCliente(this)*.cliente = null
+
+		Vendedor.list().each {
+			if (it.clientes.contains(this)) {
+				it.removeFromClientes(this)
+			}
+		}
+	}
 }

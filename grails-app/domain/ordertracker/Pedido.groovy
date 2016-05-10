@@ -23,8 +23,8 @@ class Pedido {
     }
 
     static constraints = {
-        cliente blank: false
+        cliente blank: false, nullable: true
         vendedor blank: true, nullable: true
-        elementos nullable: true
+        elementos blank: false, nullable: true
     }
 }
