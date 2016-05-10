@@ -22,4 +22,4 @@ export HOME=$OPENSHIFT_DATA_DIR
 cd $OPENSHIFT_REPO_DIR
 rm -rf $OPENSHIFT_JBOSSEWS_DIR/webapps/ROOT*
 GRAILS_ENV=${GRAILS_ENV-prod}
-grails $GRAILS_ENV war $OPENSHIFT_JBOSSEWS_DIR/webapps/ROOT.war
+grails $GRAILS_ENV -Dgrails.env=openshift war --non-interactive $OPENSHIFT_JBOSSEWS_DIR/webapps/ROOT.war
