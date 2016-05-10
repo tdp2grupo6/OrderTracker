@@ -3,25 +3,22 @@ language: groovy
 jdk:
   - openjdk7
 
-env:
-  - OPENSHIFT_APP_NAME=ordertracker OPENSHIFT_MYSQL_DB_HOST=127.8.235.130 OPENSHIFT_MYSQL_DB_PORT=3306 OPENSHIFT_MYSQL_DB_USERNAME=adminHAtgnJY OPENSHIFT_MYSQL_DB_PASSWORD=Bkax6gjQp7R2
-
 before_script:
   - chmod +x grailsw
 
 script: 
   - "./grailsw clean --non-interactive"
   - "./grailsw refresh-dependencies --non-interactive"
-  # - "./grailsw test-app unit: --non-interactive"
-  - "./grailsw -Dgrails.env=openshift compile --non-interactive"
-  - "./grailsw -Dgrails.env=openshift war --non-interactive webapps/ROOT.war"
+#  - "./grailsw test-app unit: --non-interactive"
+#  - "./grailsw -Dgrails.env=openshift compile --non-interactive"
+#  - "./grailsw -Dgrails.env=openshift war --non-interactive webapps/ROOT.war"
 
-before_deploy:
-  - git config --global user.email 'bot@travis-ci.com'
-  - git config --global user.name 'Bot - Travis CI'
-  - git checkout $TRAVIS_BRANCH
-  - git add -f webapps/*
-  - git commit -am "[Travis] Deploy"
+#before_deploy:
+#  - git config --global user.email 'bot@travis-ci.com'
+#  - git config --global user.name 'Bot - Travis CI'
+#  - git checkout $TRAVIS_BRANCH
+#  - git add -f webapps/*
+#  - git commit -am "[Travis] Deploy"
 
 deploy:
   provider: openshift

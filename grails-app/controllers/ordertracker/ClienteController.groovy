@@ -1,17 +1,31 @@
 package ordertracker
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
+import ordertracker.Estados.EstadoPedido
+import ordertracker.Perfiles.Vendedor
+
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class ClienteController {
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
+                            filtroAdmin: "POST"]
+
+    def springSecurityService
 
     def index(Integer max) {
-        //params.max = Math.min(max ?: 10, 100)
-		def result = Cliente.list(params)
-		respond result, [status: OK]
+        if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
+            Vendedor user = springSecurityService.currentUser
+            List<Cliente> lista = user.clientes.toList()
+            respond lista, [status: OK]
+        }
+        else {
+            //params.max = Math.min(max ?: 10, 100)
+            def result = Cliente.list(params)
+            respond result, [status: OK]
+        }
     }
 	
 	def show(Cliente cl) {
@@ -28,13 +42,41 @@ class ClienteController {
 		def c = Cliente.createCriteria()
 		def result = c.list(params) {
 			or {
-				ilike("nombre", "$params.id%")
-				ilike("apellido", "$params.id%")
-				ilike("razonSocial", "$params.id%")
+				ilike("nombre", "${params.id}%")
+				ilike("apellido", "${params.id}%")
+				ilike("razonSocial", "${params.id}%")
 			}
 		}
 		respond result, model:[status: OK, totalResultados: result.totalCount]
 	}
+
+    def filtroAdmin(FiltroCliente fc) {
+        int offset = fc.primerValor()
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
+        def prod = Cliente.createCriteria()
+        def result = prod.list (max: maxPage, offset: offset) {
+            and {
+                if (fc.idCliente) {
+                    eq("id", fc.idCliente)
+                }
+                if (fc.nombre) {
+                    ilike("nombre", "${fc.nombre}%")
+                }
+                if (fc.apellido) {
+                    ilike("apellido", "${fc.apellido}%")
+                }
+                if (fc.email) {
+                    ilike("email", "${fc.email}%")
+                }
+                if (fc.direccion) {
+                    ilike("direccion", "${fc.direccion}%")
+                }
+            }
+        }
+        int pagina = fc.pagina? fc.pagina : 1
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+    }
 
     @Transactional
     def save(Cliente clienteInstance) {

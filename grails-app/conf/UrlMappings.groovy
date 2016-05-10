@@ -4,6 +4,7 @@ class UrlMappings {
 		// TODO Declarar nuevos Endpoints de esta forma en el UrlMapping
 		"/cliente"(resources:"cliente")
 		"/cliente/buscar/$id"(controller:"cliente", action:"search")
+		"/cliente/filtro"(controller:"cliente", action:"filtroAdmin")
 		
 		"/producto"(resources:"producto")
 		"/producto/buscar/$term"(controller:"producto", action:"search")
@@ -36,6 +37,10 @@ class UrlMappings {
 		"/comentario"(resources:"comentario")
 
 		"/visita"(resources:"visita")
+
+		"/vendedor"(resources:"vendedor")
+
+		"/persona"(controller: "persona")
 
 		"/login-test"(controller: "secureTest")
 		"/login-test/usuario"(controller: "secureTest", action: "datosUsuario")

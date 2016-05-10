@@ -14,6 +14,7 @@ class Cliente {
 	
 	String razonSocial = ""
 	String codigoUnico = ""
+	String disponibilidad = ""
 
 	EstadoCliente estado = EstadoCliente.ROJO
 

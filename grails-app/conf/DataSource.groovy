@@ -81,13 +81,13 @@ environments {
             }
         }
         */
-        
+
 		def credentials = [
-			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST")?: "127.8.235.130",
-			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT")?: "3306",
-			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME")?: "adminHAtgnJY",
-			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD")?: "Bkax6gjQp7R2",
-			name: System.getenv("OPENSHIFT_APP_NAME")?: "ordertracker"
+			hostname: System.getenv("OPENSHIFT_MYSQL_DB_HOST"),
+			port: System.getenv("OPENSHIFT_MYSQL_DB_PORT"),
+			username: System.getenv("OPENSHIFT_MYSQL_DB_USERNAME"),
+			password: System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD"),
+			name: System.getenv("OPENSHIFT_APP_NAME")
 		]
         dataSource {
 			dbCreate = "create-drop"

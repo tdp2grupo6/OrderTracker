@@ -80,6 +80,7 @@ grails.project.dependency.resolution = {
 
         // Plugins extra de Order Tracker
         test "org.grails.plugins:geb:0.13.0"
+        compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:rest-client-builder:2.1.1"
 
         // Dependencias de Login

@@ -159,7 +159,8 @@ class ImagenController {
 				ruta = ServletContextHolder.servletContext.getRealPath(rutaRelativa)
 			}
 			openshift {
-				ruta = System.getenv("OPENSHIFT_DATA_DIR") + rutaRelativa
+				def dir = System.getenv("OPENSHIFT_DATA_DIR")
+				ruta = dir + rutaRelativa
 			}
 		}
 
