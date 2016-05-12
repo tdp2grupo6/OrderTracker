@@ -1,6 +1,7 @@
 package ordertracker
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 
 import static org.springframework.http.HttpStatus.*
@@ -52,6 +53,10 @@ class VisitaController {
         if (visitaInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
             return
+        }
+
+        if (visitaInstance.cliente) {
+            visitaInstance.cliente.estado = EstadoCliente.VERDE
         }
 
         visitaInstance.save flush:true

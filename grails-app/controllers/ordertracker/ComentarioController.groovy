@@ -46,15 +46,11 @@ class ComentarioController {
             return
         }
 
-        comentarioInstance.save flush:true
-
-        //Visita v = new Visita(cliente: comentarioInstance.cliente, vendedor: comentarioInstance.vendedor, fechaVisita: comentarioInstance.fechaComentario, comentario: comentarioInstance)
-        //v.save flush: true
-
         if (comentarioInstance.visita) {
             comentarioInstance.visita.comentario = comentarioInstance
         }
 
+        comentarioInstance.save flush:true
         respond comentarioInstance, [status: OK]
     }
 
@@ -69,6 +65,10 @@ class ComentarioController {
         if (comentarioInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
             return
+        }
+
+        if (comentarioInstance.visita) {
+            comentarioInstance.visita.comentario = comentarioInstance
         }
 
         comentarioInstance.save flush:true

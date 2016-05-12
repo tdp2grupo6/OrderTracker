@@ -66,10 +66,10 @@ class PedidoController {
                     between("fechaRealizado", fp.fechaInicio, fp.fechaFin)
                 }
                 else if (fp.fechaInicio) {
-                    ge("fechaRealizado", fp.fechaInicio)
+                    ge("fechaRealizado", fp.fechaInicio.clearTime())
                 }
                 else if (fp.fechaFin) {
-                    le("fechaRealizado", fp.fechaFin)
+                    lt("fechaRealizado", fp.fechaFin.clearTime()+1)
                 }
             }
         }
@@ -119,6 +119,10 @@ class PedidoController {
         if (pedidoInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
             return
+        }
+
+        if (pedidoInstance.visita) {
+            pedidoInstance.visita.pedido = pedidoInstance
         }
 
         pedidoInstance.save flush:true

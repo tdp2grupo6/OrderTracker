@@ -1,5 +1,6 @@
 package ordertracker
 
+import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
@@ -45,7 +46,7 @@ class Utils {
 
     static Pedido crearPedidoAleatorio() {
         Cliente cl = Cliente.findById(enteroAleatorio(1, Cliente.count))
-        Vendedor v = vendedorAleatorio()
+        Vendedor v = vendedorCliente(cl)
         int numProductos = enteroAleatorio(1, 3)
         ArrayList<PedidoElemento> pd = new ArrayList<PedidoElemento>()
         Date fin = new Date()
@@ -59,13 +60,30 @@ class Utils {
             }
         }
 
-        return new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fechaAleatoria(ini..fin))
+        Date fecha = fechaAleatoria(ini..fin)
+        Visita vis = new Visita(cliente: cl, vendedor: v, fechaVisita: fecha).save(flush: true)
+        return new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fecha, visita: vis)
     }
 
     static Vendedor vendedorAleatorio() {
         Rol rol = Rol.findByAuthority(VENDEDOR)
         def vends = UsuarioRol.findAllByRol(rol).usuario
         return (Vendedor)(vends.sort{new Random()}?.take(1)[0])
+    }
+
+    static Vendedor vendedorCliente(Cliente cl) {
+        Vendedor resp = null
+        Rol rol = Rol.findByAuthority(VENDEDOR)
+        def vends = UsuarioRol.findAllByRol(rol).usuario
+
+        vends.each {
+            Vendedor temp = (Vendedor)it
+            if (temp.clientes.contains(cl)) {
+                resp = it
+            }
+        }
+
+        return resp? resp : vendedorAleatorio()
     }
 
     static Date parsearFechaEntrada(String fecha) {
@@ -95,5 +113,54 @@ class Utils {
     }
     static boolean verificarDia(Date fecha, int codigoDia) {
         return (SEMANA.contains(codigoDia) && retornarCodigoDia(fecha)==codigoDia)
+    }
+
+    static void actualizarClientesInicio() {
+        println "[OT-LOG] Actualizando estados de los Clientes..."
+
+        Date hoy = new Date()
+        int codigoHoy = Utils.retornarCodigoDia(hoy)
+
+        def crit1 = Visita.createCriteria()
+        List<Visita> visitas = crit1.list() {
+            and {
+                ge('fechaVisita', hoy.clearTime())
+                lt('fechaVisita', hoy.clearTime()+1)
+            }
+        }
+
+        Cliente.list().each {
+            if (visitas*.cliente.contains(it)) {
+                it.estado = EstadoCliente.VERDE
+            }
+            else {
+                if (it.agendaCliente.contains(codigoHoy)) {
+                    it.estado = EstadoCliente.AMARILLO
+                }
+                else {
+                    it.estado = EstadoCliente.ROJO
+                }
+            }
+        }
+    }
+
+    static void actualizarClientesServicio() {
+        println "[OT-LOG] Ejecutando servicio de actualización de clientes..."
+
+        Date hoy = new Date().clearTime()
+        Date ayer = hoy - 1
+        int codigoHoy = Utils.retornarCodigoDia(hoy)
+        int codigoAyer =  Utils.retornarCodigoDia(ayer)
+
+        Cliente.list().each {
+            if (it.estado == EstadoCliente.VERDE) {
+                if (it.agendaCliente.contains(codigoHoy)) {
+                    it.estado = EstadoCliente.AMARILLO
+                }
+            }
+            else if (it.estado == EstadoCliente.AMARILLO) {
+                it.estado = EstadoCliente.ROJO
+            }
+        }
     }
 }
