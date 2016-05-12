@@ -6,6 +6,7 @@ class Visita {
     Date fechaVisita = new Date()
 
     static belongsTo = [cliente: Cliente, vendedor: Vendedor]
+    //static hasOne = [comentario: Comentario, pedido: Pedido]
 
     Comentario comentario
     Pedido pedido
@@ -14,7 +15,7 @@ class Visita {
         cliente blank: false
         vendedor blank: true, nullable: true
         fechaVisita blank: false
-        comentario nullable: true
-        pedido nullable: true
+        comentario blank: true, nullable: true
+        pedido blank: true, nullable: true
     }
 }

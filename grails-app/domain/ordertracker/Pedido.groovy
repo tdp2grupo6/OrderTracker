@@ -8,7 +8,7 @@ class Pedido {
     float totalCompra = 0f
     EstadoPedido estado = EstadoPedido.ESTADO_ENVIADO
 
-    static belongsTo = [cliente: Cliente, vendedor: Vendedor]
+    static belongsTo = [cliente: Cliente, vendedor: Vendedor, visita: Visita]
     static hasMany = [elementos: PedidoElemento]
 
     float actualizarTotal() {
@@ -26,5 +26,6 @@ class Pedido {
         cliente blank: false, nullable: true
         vendedor blank: true, nullable: true
         elementos blank: false, nullable: true
+        visita blank: true, nullable: true
     }
 }
