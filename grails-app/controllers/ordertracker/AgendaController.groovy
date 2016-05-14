@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.*
 class AgendaController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", agendaDia: "GET", agendaSemana: "GET",
-                            agendaAdminDia: "GET", agendaAdminSemana: "GET"]
+                            agendaAdminDia: "GET", agendaAdminSemana: "GET", agendaEditar: "POST"]
 
     def springSecurityService
 
@@ -62,7 +62,7 @@ class AgendaController {
     }
 
     def agendaAdminDia() {
-        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+        //if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
             if (StringGroovyMethods.isLong(params.idVendedor) && StringGroovyMethods.isInteger(params.codigoDia) && Utils.SEMANA.contains(params.int('codigoDia'))) {
                 Vendedor v = Vendedor.findById(params.long('idVendedor'))
                 def ag = v.agenda
@@ -73,14 +73,14 @@ class AgendaController {
             else {
                 render status: NOT_ACCEPTABLE
             }
-        }
-        else {
-            render status: NOT_FOUND
-        }
+        //}
+        //else {
+        //    render status: NOT_FOUND
+        //}
     }
 
     def agendaAdminSemana() {
-        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+        //if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
             if (StringGroovyMethods.isLong(params.idVendedor)) {
                 Vendedor v = Vendedor.findById(params.long('idVendedor'))
                 def ag = v.agenda
@@ -90,12 +90,90 @@ class AgendaController {
             else {
                 render status: NOT_ACCEPTABLE
             }
-        }
-        else {
-            render status: NOT_FOUND
-        }
+        //}
+        //else {
+        //    render status: NOT_FOUND
+        //}
     }
 
+    @Transactional
+    def agendaEditar(AgendaUpdate au) {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            render status: NOT_FOUND
+        }
+        else {
+            // TODO Mover código al 'if' de arriba
+            if (au == null) {
+                render status: NOT_FOUND
+                return
+            }
+
+            Vendedor v = Vendedor.findById(au.idVendedor)
+            v.clientes = []
+
+            au.clientes.each {
+                v.addToClientes(Cliente.findById(it))
+            }
+
+            v.save flush:true
+
+            def listaClientes = v.clientes
+            Agenda agenda = v.agenda
+
+            for (Cliente cl: listaClientes) {
+                cl.agendaCliente = []
+                cl.save flush:true
+
+                List vendedores = Utils.otrosVendedoresAsociados(v, cl)
+
+                for (Vendedor v2: vendedores) {
+                    v2.agenda.agendaDia*.listaClientes.remove(cl.id)
+                }
+            }
+
+            /*
+            for (AgendaUpdate.AgendaSimple ag: au.agenda) {
+                if (Utils.SEMANA.contains(ag.codigoDia)) {
+                    AgendaDia ad = AgendaDia.findByAgendaAndCodigoDia(agenda, ag.codigoDia)
+                    Utils.copiarAgendaSimple(ag, ad)
+                    ad.save(flush: true)
+
+                    for (int idCliente: ag.listaClientes) {
+                        Cliente cl = Cliente.findById(idCliente)
+                        cl.agendaCliente.add(ag.codigoDia)
+                        cl.save(flush: true)
+                    }
+                }
+            }
+            */
+
+            for (AgendaUpdate.AgendaSimple ag: au.agenda) {
+                for (Long idCliente: ag.listaClientes) {
+                    Cliente cl = Cliente.findById(idCliente)
+                    cl.agendaCliente.add(ag.codigoDia)
+                    cl.save flush:true
+
+                    List vendedores = Utils.otrosVendedoresAsociados(v, cl)
+
+                    for (Vendedor v2: vendedores) {
+                        AgendaDia ad2 = AgendaDia.findByAgendaAndCodigoDia(v2.agenda, ag.codigoDia)
+                        ad2.listaClientes.add(cl.id)
+                    }
+                }
+
+                AgendaDia ad = AgendaDia.findByAgendaAndCodigoDia(agenda, ag.codigoDia)
+                Utils.copiarAgendaSimple(ag, ad)
+                ad.save(flush: true)
+            }
+
+
+            //agenda.poblarAgendaClientes()
+            agenda.ordenada = au.agendaOrdenada
+            agenda.save flush:true
+
+            respond agenda, [status: OK]
+        }
+    }
 
     // Métodos RESTful //
     def index(Integer max) {

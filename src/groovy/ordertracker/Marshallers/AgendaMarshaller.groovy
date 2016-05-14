@@ -13,6 +13,7 @@ class AgendaMarshaller {
                     id: ag.id,
                     idVendedor: ag.vendedor.id,
                     nombreVendedor: ag.vendedor.nombreCompleto(),
+                    clientes: ag.vendedor.clientes,
                     agendaOrdenada: ag.ordenada,
                     agenda: ag.agendaDia
             ]

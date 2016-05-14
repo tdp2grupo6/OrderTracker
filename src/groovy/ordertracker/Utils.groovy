@@ -4,8 +4,9 @@ import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
-import ordertracker.Security.Usuario
 import ordertracker.Security.UsuarioRol
+
+import static org.grails.datastore.gorm.GormStaticApi.executeQuery
 
 /**
  * Created by dgacitua on 26-04-16.
@@ -162,5 +163,19 @@ class Utils {
                 it.estado = EstadoCliente.ROJO
             }
         }
+    }
+
+    static void copiarAgendaSimple(AgendaUpdate.AgendaSimple asim, AgendaDia adia) {
+        if (SEMANA.contains(asim.codigoDia) && asim.codigoDia==adia.codigoDia) {
+            adia.listaClientes = []
+            adia.listaClientes = asim.listaClientes
+        }
+    }
+
+    static List<Vendedor> otrosVendedoresAsociados(Vendedor v, Cliente cl) {
+        def ls = Vendedor.executeQuery("from Vendedor v where :cliente in elements(v.clientes)", [cliente: cl])
+        //List<Vendedor> ls = Vendedor.findAll { it.clientes.contains(cl) }
+        if (ls.contains(v)) { ls.remove(v) }
+        return ls
     }
 }

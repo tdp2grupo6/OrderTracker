@@ -2,7 +2,7 @@ package ordertracker
 
 class AgendaDia {
     int codigoDia
-    ArrayList<Integer> listaClientes = []
+    ArrayList<Long> listaClientes = []
 
     static belongsTo = [agenda: Agenda]
 

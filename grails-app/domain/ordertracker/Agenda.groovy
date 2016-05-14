@@ -43,10 +43,8 @@ class Agenda {
     }
 
     void poblarAgendaClientes() {
-        if (!ordenada) {
-            agendaDia.each {
-                obtenerClientes(it)
-            }
+        agendaDia.each {
+            obtenerClientes(it)
         }
         verificarAgenda()
     }

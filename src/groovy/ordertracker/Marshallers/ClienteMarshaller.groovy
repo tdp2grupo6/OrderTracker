@@ -18,6 +18,7 @@ class ClienteMarshaller {
 				latitud: c.latitud,
 				longitud: c.longitud,
 				validador: c.validador,
+				agendaCliente: c.agendaCliente,
 				disponibilidad: c.disponibilidad,
 				estado: c.estado.displayEnum()
 			]
