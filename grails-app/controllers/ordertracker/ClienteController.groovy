@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.*
 class ClienteController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                            filtroAdmin: "POST"]
+                            filtroAdmin: "POST", listaCorta: "GET"]
 
     def springSecurityService
 
@@ -76,6 +76,34 @@ class ClienteController {
         int pagina = fc.pagina? fc.pagina : 1
         FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
         respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+    }
+
+    def listaCorta() {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            def result = Cliente.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        apellido: it.apellido,
+                        email: it.email,
+                        direccion: it.direccion
+                ]
+            }
+            respond result, [status: OK]
+        }
+        else {
+            // TODO eliminar
+            def result = Cliente.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        apellido: it.apellido,
+                        email: it.email,
+                        direccion: it.direccion
+                ]
+            }
+            respond result, [status: OK]
+        }
     }
 
     @Transactional

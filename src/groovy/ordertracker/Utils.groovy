@@ -151,7 +151,6 @@ class Utils {
         Date hoy = new Date().clearTime()
         Date ayer = hoy - 1
         int codigoHoy = Utils.retornarCodigoDia(hoy)
-        int codigoAyer =  Utils.retornarCodigoDia(ayer)
 
         Cliente.list().each {
             if (it.estado == EstadoCliente.VERDE) {
@@ -161,6 +160,50 @@ class Utils {
             }
             else if (it.estado == EstadoCliente.AMARILLO) {
                 it.estado = EstadoCliente.ROJO
+            }
+        }
+
+        def crit1 = Visita.createCriteria()
+        def crit2 = Pedido.createCriteria()
+        def crit3 = Comentario.createCriteria()
+
+        List<Visita> visitas = crit1.list() {
+            and {
+                ge('fechaVisita', ayer)
+                lt('fechaVisita', hoy)
+            }
+        } as List<Visita>
+
+        List<Pedido> pedidos = crit2.list() {
+            and {
+                ge('fechaRealizado', ayer)
+                lt('fechaRealizado', hoy)
+            }
+        } as List<Pedido>
+
+        List<Comentario> comentarios = crit3.list() {
+            and {
+                ge('fechaComentario', ayer)
+                lt('fechaComentario', hoy)
+            }
+        } as List<Comentario>
+
+        for (Visita v: visitas) {
+            if (v.pedido==null && v.comentario==null) {
+                // Enlazar pedido
+                for (Pedido p: pedidos) {
+                    if (p.cliente==v.cliente) {
+                        v.pedido = p
+                        pedidos.remove(p)
+                    }
+                }
+                // Enlazar comentario
+                for (Comentario c: comentarios) {
+                    if (c.cliente==v.cliente) {
+                        v.comentario = c
+                        comentarios.remove(c)
+                    }
+                }
             }
         }
     }
