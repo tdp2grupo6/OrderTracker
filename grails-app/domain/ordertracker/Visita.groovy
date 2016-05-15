@@ -12,7 +12,7 @@ class Visita {
     Pedido pedido
 
     static constraints = {
-        cliente blank: false
+        cliente blank: false, nullable: true
         vendedor blank: true, nullable: true
         fechaVisita blank: false
         comentario blank: true, nullable: true

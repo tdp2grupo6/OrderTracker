@@ -38,11 +38,29 @@ class Cliente {
     }
 
 	void eliminarInstancias() {
-		Pedido.findAllByCliente(this)*.cliente = null
+		def vs = Visita.findAllByCliente(this)
+		def ps = Pedido.findAllByCliente(this)
+		def cs = Comentario.findAllByCliente(this)
+
+		vs.each {
+			it.cliente =  null
+			it.save flush:true
+		}
+
+		ps.each {
+			it.cliente =  null
+			it.save flush:true
+		}
+
+		cs.each {
+			it.cliente =  null
+			it.save flush:true
+		}
 
 		Vendedor.list().each {
 			if (it.clientes.contains(this)) {
 				it.removeFromClientes(this)
+				it.save flush:true
 			}
 		}
 	}
