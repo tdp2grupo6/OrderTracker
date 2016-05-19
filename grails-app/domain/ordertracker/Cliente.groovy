@@ -8,7 +8,7 @@ class Cliente {
 	String apellido
 	String telefono = ""
 	
-	String email
+	String email = ""
 	String contrasena = ""
 	
 	String validador = UUID.randomUUID().toString()
@@ -20,8 +20,8 @@ class Cliente {
 	EstadoCliente estado = EstadoCliente.ROJO
 
 	String direccion = ""
-	double latitud
-	double longitud
+	double latitud = 0
+	double longitud = 0
 
 	ArrayList<Integer> agendaCliente = []
 	
@@ -32,9 +32,13 @@ class Cliente {
 	static constraints = {
 		nombre blank: false
 		apellido blank: false
-		email blank: false, email: true
+		razonSocial blank: true, nullable: true
+		email blank: true, nullable: true, email: true
 		latitud blank: true, nullable: true, min: -90d, max: 90d
 		longitud blank: true, nullable: true, min: -180d, max: 180d
+		telefono blank: true, nullable: true
+		direccion blank: false, nullable: true
+		disponibilidad blank: true, nullable: true
     }
 
 	void eliminarInstancias() {
