@@ -74,6 +74,7 @@ class PedidoController {
             }
         }
         int pagina = fp.pagina? fp.pagina : 1
+        result.sort { it.id }
         FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
         respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }
