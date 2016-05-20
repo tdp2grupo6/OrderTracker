@@ -124,7 +124,7 @@ class ClienteController {
         respond clienteInstance, [status: OK]
 
         sendMail {
-            to "danielgacituav@gmail.com"//"${clienteInstance.email}"
+            to "${clienteInstance.email}"
             subject "Su registro como Cliente en Order Tracker"
             html g.render (template:"nuevoClienteTemplate", model:[nombreCompleto:"${clienteInstance.nombre} ${clienteInstance.apellido}", validador:"${clienteInstance.validador}"])
         }
