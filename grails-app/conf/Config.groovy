@@ -232,3 +232,18 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         '/**':                      'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'                                                                      // Traditional chain
 ]
 grails.plugin.springsecurity.rest.token.validation.enableAnonymousAccess = true
+
+// dgacitua: Configuración para Grails Mail
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "tdp2grupo6@gmail.com"
+        password = "ubascrum"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+
+    }
+}

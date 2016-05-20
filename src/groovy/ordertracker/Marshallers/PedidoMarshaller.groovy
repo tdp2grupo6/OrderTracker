@@ -12,7 +12,7 @@ class PedidoMarshaller {
                 id: p.id,
                 idVendedor: p.vendedor? p.vendedor.id : 0,
                 nombreVendedor: p.vendedor? p.vendedor.nombreCompleto() : "No existe",
-                idCliente: p.cliente? p.cliente.id : "No existe",
+                idCliente: p.cliente? p.cliente.id : 0,
                 nombreCliente: p.cliente? p.cliente.nombreCompleto() : "No existe",
                 fechaRealizado: p.fechaRealizado,
                 estado: p.estado.displayEnum(),

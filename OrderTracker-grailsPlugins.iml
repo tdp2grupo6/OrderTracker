@@ -51,6 +51,12 @@
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/mail-1.0.7/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/mail-1.0.7/grails-app/taglib" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/qrcode-0.7">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/qrcode-0.7/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/qrcode-0.7/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/qrcode-0.7/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/qrcode-0.7/grails-app/taglib" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/quartz-1.0.2">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quartz-1.0.2/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quartz-1.0.2/src/groovy" isTestSource="false" />
@@ -244,6 +250,8 @@
           <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/com/sun/mail/javax.mail/1.5.1/javax.mail-1.5.1.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/quartz-scheduler/quartz/2.2.1/quartz-2.2.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/com/google/zxing/core/3.2.0/core-3.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/ar/com/hjg/pngj/2.1.0/pngj-2.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

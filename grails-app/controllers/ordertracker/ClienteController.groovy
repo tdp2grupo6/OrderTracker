@@ -122,6 +122,12 @@ class ClienteController {
 
         clienteInstance.save flush:true
         respond clienteInstance, [status: OK]
+
+        sendMail {
+            to "danielgacituav@gmail.com"//"${clienteInstance.email}"
+            subject "Su registro como Cliente en Order Tracker"
+            html g.render (template:"nuevoClienteTemplate", model:[nombreCompleto:"${clienteInstance.nombre} ${clienteInstance.apellido}", validador:"${clienteInstance.validador}"])
+        }
     }
 
     @Transactional

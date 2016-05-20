@@ -83,6 +83,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:rest-client-builder:2.1.1"
         compile "org.grails.plugins:quartz:1.0.2"
+        compile "org.grails.plugins:qrcode:0.7"
 
         // Dependencias de Login
         compile "org.grails.plugins:spring-security-core:2.0.0"
