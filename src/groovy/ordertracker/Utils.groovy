@@ -1,13 +1,13 @@
 package ordertracker
 
+import grails.util.Environment
 import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
 import ordertracker.Security.UsuarioRol
-
-import static org.grails.datastore.gorm.GormStaticApi.executeQuery
-
+import org.codehaus.groovy.grails.plugins.qrcode.QrCodeService
+import org.springframework.core.io.ByteArrayResource
 /**
  * Created by dgacitua on 26-04-16.
  */
@@ -220,5 +220,48 @@ class Utils {
         //List<Vendedor> ls = Vendedor.findAll { it.clientes.contains(cl) }
         if (ls.contains(v)) { ls.remove(v) }
         return ls
+    }
+
+    static String obtenerUrlBackend() {
+        String url = "http://localhost:8080/OrderTracker/"
+
+        Environment.executeForCurrentEnvironment {
+            development {
+                url = "http://localhost:8080/OrderTracker/"
+            }
+            openshift {
+                url = "http://ordertracker-tdp2grupo6.rhcloud.com/"
+            }
+        }
+
+        return url
+    }
+
+    static ByteArrayResource generarQR(String texto) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        QrCodeService qr = new QrCodeService()
+        qr.renderPng("${texto}", 300, baos)
+        ByteArrayResource bar = new ByteArrayResource(baos.toByteArray())
+        baos.close()
+        return bar
+        /*
+        OutputStream outStream = null;
+        ByteArrayOutputStream byteOutStream = null;
+        try {
+            outStream = new FileOutputStream("${texto}.png")
+            byteOutStream = new ByteArrayOutputStream()
+
+            QrCodeService qr = new QrCodeService()
+            qr.renderPng("${texto}", 250, byteOutStream)
+            byteOutStream.write(byteOutStream.toByteArray())
+            byteOutStream.writeTo(outStream)
+        } catch (IOException e) {
+            e.printStackTrace()
+        } finally {
+            outStream.close()
+            byteOutStream.close()
+            return new File("${texto}.png")
+        }
+        */
     }
 }

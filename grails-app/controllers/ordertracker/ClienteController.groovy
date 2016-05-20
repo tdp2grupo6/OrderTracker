@@ -2,7 +2,6 @@ package ordertracker
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
-import ordertracker.Estados.EstadoPedido
 import ordertracker.Perfiles.Vendedor
 
 import static org.springframework.http.HttpStatus.*
@@ -124,8 +123,10 @@ class ClienteController {
         respond clienteInstance, [status: OK]
 
         sendMail {
+            multipart true
             to "${clienteInstance.email}"
             subject "Su registro como Cliente en Order Tracker"
+            inline 'qrcode', 'image/png', Utils.generarQR(clienteInstance.validador)
             html g.render (template:"nuevoClienteTemplate", model:[nombreCompleto:"${clienteInstance.nombre} ${clienteInstance.apellido}", validador:"${clienteInstance.validador}"])
         }
     }

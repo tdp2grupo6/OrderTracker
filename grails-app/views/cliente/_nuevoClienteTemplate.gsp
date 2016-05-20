@@ -18,7 +18,7 @@
 
     <p>Se le ha asignado un código QR de validación, el cual debe mostrar a nuestros Vendedores cuando sea visitado:</p>
 
-    <qrcode:image height="250" width="250" text="${validador}" alt="${validador}" absolute="true"/>
+    <img src="cid:qrcode" />
 
     <p>Esperamos que nuestros servicios sean de su utilidad, si tiene alguna consulta, no dude en contactarnos.</p>
 

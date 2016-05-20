@@ -169,6 +169,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
     '/vendedor/**':             ['permitAll'],
     '/pedido/**':               ['permitAll'],
     '/imagen/**':               ['permitAll'],
+    '/qrcode/**':               ['permitAll'],
     '/**':                      ['IS_AUTHENTICATED_REMEMBERED']
 ]
 
