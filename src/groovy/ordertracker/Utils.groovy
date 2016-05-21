@@ -1,6 +1,8 @@
 package ordertracker
 
 import grails.util.Environment
+import groovyx.net.http.ContentType
+import groovyx.net.http.RESTClient
 import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
@@ -35,6 +37,11 @@ class Utils {
     static public final String ADMIN = Perfil.ADMIN.valor
     static public final String VENDEDOR = Perfil.VENDEDOR.valor
     static public final String CLIENTE = Perfil.CLIENTE.valor
+
+    // Variables para Mensajes Push
+    static public final String PUSH_URL = "https://fcm.googleapis.com/fcm"
+    static public final String PUSH_QUERY = "/send"
+    static public final String PUSH_SERVER_KEY = "AIzaSyBV5ysIhGWjfm_5sPlcksvt-z4kncKVfA8"
 
     // Funciones auxiliares
     static int enteroAleatorio(int min, int max) {
@@ -116,6 +123,7 @@ class Utils {
         return (SEMANA.contains(codigoDia) && retornarCodigoDia(fecha)==codigoDia)
     }
 
+    // Actualización Estado Clientes
     static void actualizarClientesInicio() {
         println "[OT-LOG] Actualizando estados de los Clientes..."
 
@@ -222,6 +230,7 @@ class Utils {
         return ls
     }
 
+    /*
     static String obtenerUrlBackend() {
         String url = "http://localhost:8080/OrderTracker/"
 
@@ -236,7 +245,9 @@ class Utils {
 
         return url
     }
+    */
 
+    // Genera un QR en base a un texto y lo copia a un InputStreamSource
     static ByteArrayResource generarQR(String texto) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         QrCodeService qr = new QrCodeService()
@@ -263,5 +274,26 @@ class Utils {
             return new File("${texto}.png")
         }
         */
+    }
+
+    // Genera un mensaje PUSH para un usuario
+    static boolean mensajePush(String tokenUsuario, String titulo, String texto) {
+        if (!tokenUsuario.isEmpty()) {
+            RESTClient restClient = new RESTClient("${PUSH_URL}")
+            def response = restClient.post(path: "${PUSH_QUERY}",
+                    body: [to: "${tokenUsuario}", notification: [title: "${titulo}", text: "${texto}"]],
+                    contentType: ContentType.JSON,
+                    auth: "key=${PUSH_SERVER_KEY}")
+
+            if (response.status == 200) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        else {
+            return false
+        }
     }
 }
