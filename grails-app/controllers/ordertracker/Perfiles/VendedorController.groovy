@@ -79,7 +79,7 @@ class VendedorController {
     }
 
     @Transactional
-    def refreshPushId(PushToken pt) {
+    def refreshPushToken(PushToken pt) {
         if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
             Vendedor v = springSecurityService.currentUser
             v.pushToken = pt.token
