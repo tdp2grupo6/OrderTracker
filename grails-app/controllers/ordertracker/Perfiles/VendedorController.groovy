@@ -83,7 +83,7 @@ class VendedorController {
         if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
             Vendedor v = springSecurityService.currentUser
             v.pushToken = pt.token
-            Utils.mensajePush(v.pushToken, "Order Tracker: Cliente Asociado", "Se ha asociado este dispositivo a Order Tracker")
+            Utils.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
             render status: OK
         }
         else {

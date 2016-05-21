@@ -16,9 +16,9 @@
 
     <p>Le informamos que se ha registrado como Cliente en la plataforma Order Tracker para hacer pedidos de productos.</p>
 
-    <p>Se le ha asignado un código QR de validación, el cual debe mostrar a nuestros Vendedores cuando sea visitado:</p>
+    <p>Se le ha asignado un Código QR de validación, el cual debe mostrar a nuestros Vendedores cuando sea visitado:</p>
 
-    <img src="cid:qrcode" />
+    <img src="cid:qrcode" alt="Imagen Código ${validador}" />
 
     <p>Esperamos que nuestros servicios sean de su utilidad, si tiene alguna consulta, no dude en contactarnos.</p>
 

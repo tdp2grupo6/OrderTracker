@@ -6,6 +6,7 @@ class UrlMappings {
 		"/cliente/buscar/$id"(controller:"cliente", action:"search")
 		"/cliente/filtro"(controller:"cliente", action:"filtroAdmin")
 		"/cliente/lista-corta"(controller:"cliente", action:"listaCorta")
+		"/cliente/reenviar/$id"(controller:"cliente", action:"reenviarQR")
 		
 		"/producto"(resources:"producto")
 		"/producto/buscar/$term"(controller:"producto", action:"search")

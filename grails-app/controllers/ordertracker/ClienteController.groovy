@@ -10,7 +10,7 @@ import static org.springframework.http.HttpStatus.*
 class ClienteController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                            filtroAdmin: "POST", listaCorta: "GET"]
+                            filtroAdmin: "POST", listaCorta: "GET", reenviarQR: "GET"]
 
     def springSecurityService
 
@@ -106,6 +106,23 @@ class ClienteController {
         }
     }
 
+    def reenviarQR(Cliente cl) {
+        if (!cl) {
+            render status: NOT_FOUND
+        }
+        else {
+            sendMail {
+                multipart true
+                to "${cl.email}"
+                subject "Recordatorio como Cliente en Order Tracker"
+                inline 'qrcode', 'image/png', Utils.generarQR(cl.validador)
+                html g.render (template:"reenviarClienteTemplate", model:[nombreCompleto:"${cl.nombre} ${cl.apellido}", validador:"${cl.validador}"])
+            }
+
+            render status: OK
+        }
+    }
+
     @Transactional
     def save(Cliente clienteInstance) {
         if (clienteInstance == null) {
@@ -120,7 +137,6 @@ class ClienteController {
         }
 
         clienteInstance.save flush:true
-        respond clienteInstance, [status: OK]
 
         sendMail {
             multipart true
@@ -129,6 +145,8 @@ class ClienteController {
             inline 'qrcode', 'image/png', Utils.generarQR(clienteInstance.validador)
             html g.render (template:"nuevoClienteTemplate", model:[nombreCompleto:"${clienteInstance.nombre} ${clienteInstance.apellido}", validador:"${clienteInstance.validador}"])
         }
+
+        respond clienteInstance, [status: OK]
     }
 
     @Transactional

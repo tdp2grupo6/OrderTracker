@@ -277,20 +277,15 @@ class Utils {
     }
 
     // Genera un mensaje PUSH para un usuario
-    static boolean mensajePush(String tokenUsuario, String titulo, String texto) {
-        if (!tokenUsuario.isEmpty()) {
+    static boolean mensajePush(Vendedor vend, String titulo, String texto) {
+        if (!vend.pushToken.isEmpty()) {
             RESTClient restClient = new RESTClient("${PUSH_URL}")
             def response = restClient.post(path: "${PUSH_QUERY}",
-                    body: [to: "${tokenUsuario}", notification: [title: "${titulo}", text: "${texto}"]],
+                    body: [to: "${vend.pushToken}", notification: [title: "${titulo}", text: "${texto}"]],
                     contentType: ContentType.JSON,
                     auth: "key=${PUSH_SERVER_KEY}")
 
-            if (response.status == 200) {
-                return true
-            }
-            else {
-                return false
-            }
+            return (response.status == 200)
         }
         else {
             return false
