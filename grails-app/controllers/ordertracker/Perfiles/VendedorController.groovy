@@ -1,19 +1,32 @@
 package ordertracker.Perfiles
 
-
+import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.transaction.Transactional
+import ordertracker.Pedido
+import ordertracker.PushToken
+import ordertracker.Utils
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class VendedorController {
-
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", refreshPushId: "POST"]
+
+    def springSecurityService
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
         respond Vendedor.list(params), [status: OK]
+    }
+
+    def show(Vendedor v) {
+        if (!v) {
+            render status: NOT_FOUND
+        }
+        else {
+            respond v, [status: OK]
+        }
     }
 
     @Transactional
@@ -63,5 +76,17 @@ class VendedorController {
 
         vendedorInstance.delete flush:true
         render status: OK
+    }
+
+    @Transactional
+    def refreshPushId(PushToken pt) {
+        if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
+            Vendedor v = springSecurityService.currentUser
+            v.pushToken = pt.token
+            render status: OK
+        }
+        else {
+            render status: NOT_ACCEPTABLE
+        }
     }
 }

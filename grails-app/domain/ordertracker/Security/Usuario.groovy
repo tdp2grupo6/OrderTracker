@@ -18,6 +18,8 @@ class Usuario implements Serializable {
 	String email
 	String telefono = ""
 
+	String pushToken = ""
+
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -56,6 +58,7 @@ class Usuario implements Serializable {
 		telefono blank: true
 		nombre blank: false
 		apellido blank: false
+		pushToken blank: true, nullable: true
 	}
 
 	static mapping = {

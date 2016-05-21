@@ -41,6 +41,8 @@ class UrlMappings {
 		"/visita"(resources:"visita")
 
 		"/vendedor"(resources:"vendedor")
+		"/vendedor/$id"(controller: "vendedor", action: "refreshPushId")
+		"/vendedor/push-id"(controller: "vendedor", action: "refreshPushId")
 
 		"/persona"(controller: "persona")
 

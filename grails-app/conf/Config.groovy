@@ -230,6 +230,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         '/imagen/**':               'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/persona/**':              'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/login-test/**':           'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
+        '/vendedor/**':             'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',  // Stateless chain
         '/**':                      'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'                                                                      // Traditional chain
 ]
 grails.plugin.springsecurity.rest.token.validation.enableAnonymousAccess = true
