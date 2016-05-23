@@ -138,6 +138,8 @@ class ClienteController {
 
         clienteInstance.save flush:true
 
+        respond clienteInstance, [status: OK]
+
         sendMail {
             multipart true
             to "${clienteInstance.email}"
@@ -145,8 +147,6 @@ class ClienteController {
             inline 'qrcode', 'image/png', Utils.generarQR(clienteInstance.validador)
             html g.render (template:"nuevoClienteTemplate", model:[nombreCompleto:"${clienteInstance.nombre} ${clienteInstance.apellido}", validador:"${clienteInstance.validador}"])
         }
-
-        respond clienteInstance, [status: OK]
     }
 
     @Transactional

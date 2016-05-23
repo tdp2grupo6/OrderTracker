@@ -14,6 +14,10 @@ class Agenda {
         agendaDia nullable: true
     }
 
+    static mapping = {
+        agendaDia sort: "codigoDia"
+    }
+
     void verificarAgenda() {
         // Elimina dias no válidos
         agendaDia.each{

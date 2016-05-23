@@ -427,6 +427,10 @@ class BootStrap {
 		cl2 = Cliente.findById(12)
 		cl3 = Cliente.findById(15)
 		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
+
+		Agenda.list().each {
+			it.poblarAgendaClientes()
+		}
 	}
 
 	private void setTimeZone() {

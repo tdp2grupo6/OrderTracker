@@ -63,7 +63,7 @@ class PedidoController {
                     eq("vendedor", Vendedor.findById(fp.idVendedor))
                 }
                 if (fp.fechaInicio && fp.fechaFin) {
-                    between("fechaRealizado", fp.fechaInicio, fp.fechaFin)
+                    between("fechaRealizado", fp.fechaInicio, fp.fechaFin.clearTime()+1)
                 }
                 else if (fp.fechaInicio) {
                     ge("fechaRealizado", fp.fechaInicio.clearTime())
