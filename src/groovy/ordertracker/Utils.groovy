@@ -278,6 +278,8 @@ class Utils {
     // Genera un mensaje PUSH para un usuario
     static boolean mensajePush(Vendedor vend, String titulo, String texto) {
         if (!vend.pushToken.isEmpty()) {
+            Date fecha = new Date()
+
             String url = PUSH_URL
             String msg = "{ \"to\": \"$vend.pushToken\", \"notification\": { \"title\": \"$titulo\", \"text\": \"$texto\" } }"
             String auth = "key=$PUSH_SERVER_KEY"
@@ -292,8 +294,8 @@ class Utils {
 
             Object output = JSON.parse(response.getBody())
 
-            if (response.status == 200 && !(output.results.error) && !(output.error)) {
-                println "[OT-LOG] Mensaje Push Exitoso! ${response.status}\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
+            if (response.status == 200 && output.failure == 0) {
+                println "[OT-LOG] Mensaje Push Exitoso! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
                 return true
             }
             else {
