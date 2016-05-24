@@ -46,7 +46,7 @@ class Producto {
     static constraints = {
 		nombre blank: false
 		codigo blank: true
-		marca nullable: false
+		marca nullable: true
 		categorias nullable: true
 		imagen nullable: true
 	}
@@ -67,6 +67,12 @@ class Producto {
 		Marca.list().each {
 			if (it.productos.contains(this)) {
 				it.removeFromProductos(this)
+			}
+		}
+
+		PedidoElemento.list().each {
+			if (it.producto == this) {
+				it.producto = null
 			}
 		}
 	}

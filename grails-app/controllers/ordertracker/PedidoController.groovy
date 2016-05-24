@@ -91,6 +91,8 @@ class PedidoController {
             pedidoInstance.vendedor = v
         }
 
+        pedidoInstance.actualizarTotal()
+
         pedidoInstance.validate()
         if (pedidoInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
@@ -98,9 +100,6 @@ class PedidoController {
         }
 
         pedidoInstance.save flush:true
-
-        //Visita v = new Visita(cliente: pedidoInstance.cliente, vendedor: pedidoInstance.vendedor, fechaVisita: pedidoInstance.fechaRealizado, pedido: pedidoInstance)
-        //v.save flush: true
 
         if (pedidoInstance.visita) {
             pedidoInstance.visita.pedido = pedidoInstance

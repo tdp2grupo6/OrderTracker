@@ -9,7 +9,7 @@ class ProductoMarshaller {
 			return [
 				id: p.id,
 				nombre: p.nombre,
-				marca: p.marca.nombre,
+				marca: p.marca? p.marca.nombre : "No existe",
 				caracteristicas: p.caracteristicas,
 				categorias: p.listaCategorias(),
 				rutaImagen: p.rutaImagen(),

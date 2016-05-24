@@ -387,6 +387,7 @@ class BootStrap {
 
 		for (int i=1; i<=50; i++) {
 			pedido = Utils.crearPedidoAleatorio()
+			pedido.actualizarTotal()
 			assert pedido.save(failOnError:true, flush:true, insert: true)
 			pedido.errors = null
 		}

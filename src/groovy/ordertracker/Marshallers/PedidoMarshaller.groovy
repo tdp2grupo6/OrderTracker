@@ -16,7 +16,7 @@ class PedidoMarshaller {
                 nombreCliente: p.cliente? p.cliente.nombreCompleto() : "No existe",
                 fechaRealizado: p.fechaRealizado,
                 estado: p.estado.displayEnum(),
-                totalCompra: p.actualizarTotal(),
+                totalCompra: p.totalCompra,
                 elementos: p.elementos
             ]
         }

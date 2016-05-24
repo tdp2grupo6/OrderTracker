@@ -73,7 +73,6 @@ class VendedorController {
         }
 
         vendedorInstance.eliminarInstancias()
-
         vendedorInstance.delete flush:true
         render status: OK
     }

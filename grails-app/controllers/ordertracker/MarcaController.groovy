@@ -76,6 +76,7 @@ class MarcaController {
             return
         }
 
+        marcaInstance.eliminarInstancias()
         marcaInstance.delete flush:true
         render status: OK
     }

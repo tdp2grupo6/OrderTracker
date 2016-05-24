@@ -26,12 +26,23 @@ class Marca {
 	}
 
 	static mapping = {
-		productos cascade: "all-delete-orphan"
+		//productos cascade: "all-delete-orphan"
 	}
 
     static constraints = {
 		nombre blank: false
 		imagen nullable: true
 		productos nullable: true
+	}
+
+	void eliminarInstancias() {
+		this.productos = null
+		this.imagen = null
+
+		Producto.list().each {
+			if (it.marca == this) {
+				it.marca = null
+			}
+		}
 	}
 }

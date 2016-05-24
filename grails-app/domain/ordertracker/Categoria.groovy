@@ -10,4 +10,14 @@ class Categoria {
 		nombre blank: false
 		productos nullable: true
     }
+
+	void eliminarInstancias() {
+		this.productos = null
+
+		Producto.list().each {
+			if (it.categorias.contains(this)) {
+				it.removeFromCategorias(this)
+			}
+		}
+	}
 }

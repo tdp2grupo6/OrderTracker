@@ -12,12 +12,12 @@ class VisitaMarshaller {
             return [
                 id: v.id,
                 idVendedor: v.vendedor? v.vendedor.id : 0,
-                nombreVendedor: v.vendedor? v.vendedor.nombreCompleto() : "NO EXISTE",
+                nombreVendedor: v.vendedor? v.vendedor.nombreCompleto() : "No existe",
                 idCliente: v.cliente.id,
                 nombreCliente: v.cliente.nombreCompleto(),
                 fechaProgramada: v.fechaVisita,
-                tipoVisita: v.pedido? "Pedido" : (v.comentario? "Comentario" : "NO EXISTE"),
-                elementoVisita: v.pedido? v.pedido : (v.comentario? v.comentario : "NO EXISTE")
+                tipoVisita: v.pedido? "Pedido" : (v.comentario? "Comentario" : "No existe"),
+                elementoVisita: v.pedido? v.pedido : (v.comentario? v.comentario : "No existe")
             ]
         }
     }

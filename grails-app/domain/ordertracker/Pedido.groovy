@@ -15,7 +15,8 @@ class Pedido {
         float acum = 0f
 
         elementos.each {
-            acum += it.producto.precio * it.cantidad
+            it.obtenerSubtotal()
+            acum += it.subTotal
         }
 
         totalCompra = acum
@@ -27,5 +28,6 @@ class Pedido {
         vendedor blank: true, nullable: true
         elementos blank: false, nullable: true
         visita blank: true, nullable: true
+        totalCompra blank: true
     }
 }

@@ -90,6 +90,7 @@ class CategoriaController {
             return
         }
 
+        categoriaInstance.eliminarInstancias()
         categoriaInstance.delete flush:true
         render status: OK
     }

@@ -224,27 +224,9 @@ class Utils {
 
     static List<Vendedor> otrosVendedoresAsociados(Vendedor v, Cliente cl) {
         def ls = Vendedor.executeQuery("from Vendedor v where :cliente in elements(v.clientes)", [cliente: cl])
-        //List<Vendedor> ls = Vendedor.findAll { it.clientes.contains(cl) }
         if (ls.contains(v)) { ls.remove(v) }
         return ls
     }
-
-    /*
-    static String obtenerUrlBackend() {
-        String url = "http://localhost:8080/OrderTracker/"
-
-        Environment.executeForCurrentEnvironment {
-            development {
-                url = "http://localhost:8080/OrderTracker/"
-            }
-            openshift {
-                url = "http://ordertracker-tdp2grupo6.rhcloud.com/"
-            }
-        }
-
-        return url
-    }
-    */
 
     // Genera un QR en base a un texto y lo copia a un InputStreamSource
     static ByteArrayResource generarQR(String texto) {
@@ -254,25 +236,6 @@ class Utils {
         ByteArrayResource bar = new ByteArrayResource(baos.toByteArray())
         baos.close()
         return bar
-        /*
-        OutputStream outStream = null;
-        ByteArrayOutputStream byteOutStream = null;
-        try {
-            outStream = new FileOutputStream("${texto}.png")
-            byteOutStream = new ByteArrayOutputStream()
-
-            QrCodeService qr = new QrCodeService()
-            qr.renderPng("${texto}", 250, byteOutStream)
-            byteOutStream.write(byteOutStream.toByteArray())
-            byteOutStream.writeTo(outStream)
-        } catch (IOException e) {
-            e.printStackTrace()
-        } finally {
-            outStream.close()
-            byteOutStream.close()
-            return new File("${texto}.png")
-        }
-        */
     }
 
     // Genera un mensaje PUSH para un usuario
