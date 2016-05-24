@@ -1,8 +1,7 @@
 package ordertracker
 
-import grails.util.Environment
-import groovyx.net.http.ContentType
-import groovyx.net.http.RESTClient
+import grails.converters.JSON
+import grails.plugins.rest.client.RestBuilder
 import ordertracker.Estados.EstadoCliente
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
@@ -39,8 +38,7 @@ class Utils {
     static public final String CLIENTE = Perfil.CLIENTE.valor
 
     // Variables para Mensajes Push
-    static public final String PUSH_URL = "https://fcm.googleapis.com/fcm"
-    static public final String PUSH_QUERY = "/send"
+    static public final String PUSH_URL = "https://fcm.googleapis.com/fcm/send"
     static public final String PUSH_SERVER_KEY = "AIzaSyBV5ysIhGWjfm_5sPlcksvt-z4kncKVfA8"
 
     // Funciones auxiliares
@@ -279,13 +277,28 @@ class Utils {
     // Genera un mensaje PUSH para un usuario
     static boolean mensajePush(Vendedor vend, String titulo, String texto) {
         if (!vend.pushToken.isEmpty()) {
-            RESTClient restClient = new RESTClient("${PUSH_URL}")
-            def response = restClient.post(path: "${PUSH_QUERY}",
-                    body: [to: "${vend.pushToken}", notification: [title: "${titulo}", text: "${texto}"]],
-                    contentType: ContentType.JSON,
-                    auth: "key=${PUSH_SERVER_KEY}")
+            String url = PUSH_URL
+            String msg = "{ \"to\": \"$vend.pushToken\", \"notification\": { \"title\": \"$titulo\", \"text\": \"$texto\" } }"
+            String auth = "key=$PUSH_SERVER_KEY"
 
-            return (response.status == 200)
+            RestBuilder rest = new RestBuilder()
+
+            def response = rest.post(url) {
+                header 'Authorization', auth
+                contentType 'application/json'
+                json msg
+            }
+
+            if (response.status == 200) {
+                println "[OT-LOG] Successful Push Message! ${response.status}"
+                println "[OT-LOG] Response body: ${response.body}"
+                return true
+            }
+            else {
+                println "[OT-LOG] Failed Push Message! ${response.status}"
+                println "[OT-LOG] Response body: ${response.body}"
+                return false
+            }
         }
         else {
             return false
