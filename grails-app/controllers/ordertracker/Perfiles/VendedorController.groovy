@@ -1,8 +1,8 @@
 package ordertracker.Perfiles
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
-import ordertracker.Pedido
 import ordertracker.PushToken
 import ordertracker.Utils
 
@@ -84,17 +84,19 @@ class VendedorController {
             Vendedor v = springSecurityService.currentUser
             v.pushToken = pt.token
 
-            boolean check = Utils.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
+            Map respuesta = Utils.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
 
-            if (check) {
-                render status: OK
+            if (respuesta['estadoMensajePush'].equals("SUCCESS")) {
+                response.status = 200       // OK
+                render (respuesta as JSON)
             }
             else {
-                render status: NOT_FOUND
+                response.status = 404      // NOT_FOUND
+                render (respuesta as JSON)
             }
         }
         else {
-            render status: NOT_ACCEPTABLE
+            render status: FORBIDDEN
         }
     }
 }

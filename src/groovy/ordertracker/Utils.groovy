@@ -276,8 +276,9 @@ class Utils {
     }
 
     // Genera un mensaje PUSH para un usuario
-    static boolean mensajePush(Vendedor vend, String titulo, String texto) {
+    static Map mensajePush(Vendedor vend, String titulo, String texto) {
         if (!vend.pushToken.isEmpty()) {
+            def ret = [:]
             Date fecha = new Date()
 
             String url = PUSH_URL
@@ -296,15 +297,21 @@ class Utils {
 
             if (response.status == 200 && output.failure == 0) {
                 println "[OT-LOG] Mensaje Push Exitoso! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
-                return true
+                ret.put('estadoMensajePush', "SUCCESS")
+                ret.put('resultado', "${output.results[0].message_id}")
+                return ret
             }
             else {
-                println "[OT-LOG] Mensaje Push Fallido! ${response.status}\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
-                return false
+                println "[OT-LOG] Mensaje Push Fallido! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
+                ret.put('estadoMensajePush', "ERROR")
+                ret.put('resultado', "${output.results[0].error}")
+                return ret
             }
         }
         else {
-            return false
+            def ret = [:]
+            ret.put('estadoMensajePush', "INVALID")
+            return ret
         }
     }
 }
