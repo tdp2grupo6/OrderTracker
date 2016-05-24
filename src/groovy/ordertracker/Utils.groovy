@@ -8,6 +8,7 @@ import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
 import ordertracker.Security.UsuarioRol
 import org.codehaus.groovy.grails.plugins.qrcode.QrCodeService
+import org.codehaus.groovy.grails.web.json.JSONObject
 import org.springframework.core.io.ByteArrayResource
 /**
  * Created by dgacitua on 26-04-16.
@@ -289,14 +290,14 @@ class Utils {
                 json msg
             }
 
-            if (response.status == 200) {
-                println "[OT-LOG] Successful Push Message! ${response.status}"
-                println "[OT-LOG] Response body: ${response.body}"
+            Object output = JSON.parse(response.getBody())
+
+            if (response.status == 200 && !(output.results.error) && !(output.error)) {
+                println "[OT-LOG] Mensaje Push Exitoso! ${response.status}\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
                 return true
             }
             else {
-                println "[OT-LOG] Failed Push Message! ${response.status}"
-                println "[OT-LOG] Response body: ${response.body}"
+                println "[OT-LOG] Mensaje Push Fallido! ${response.status}\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
                 return false
             }
         }
