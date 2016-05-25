@@ -18,8 +18,15 @@ class PedidoController {
     def springSecurityService
 
     def index(Integer max) {
-        //params.max = Math.min(max ?: 10, 100)
-        respond Pedido.list(params), [status: OK]
+        if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
+            Vendedor v = springSecurityService.currentUser
+            def res = Pedido.findAllByVendedor(v)
+            respond res, [status: OK]
+        }
+        else {
+            //params.max = Math.min(max ?: 10, 100)
+            respond Pedido.list(params), [status: OK]
+        }
     }
 
     def show(Pedido p) {
