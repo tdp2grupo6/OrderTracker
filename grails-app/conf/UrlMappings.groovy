@@ -9,14 +9,17 @@ class UrlMappings {
 		"/cliente/reenviar/$id"(controller:"cliente", action:"reenviarQR")
 		
 		"/producto"(resources:"producto")
+		"/producto/filtro"(controller:"producto", action:"filtroAdmin")
 		"/producto/buscar/$term"(controller:"producto", action:"search")
 		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
 		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
 
 		"/marca"(resources:"marca")
+		"/marca/filtro"(controller:"marca", action:"filtroAdmin")
 		"/marca/buscar/$term"(controller:"marca", action:"search")
 
 		"/categoria"(resources:"categoria")
+		"/categoria/filtro"(controller:"categoria", action:"filtroAdmin")
 		"/categoria/buscar/$term"(controller:"categoria", action:"search")
 		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
 
@@ -43,6 +46,8 @@ class UrlMappings {
 
 		"/vendedor"(resources:"vendedor")
 		"/vendedor/$id"(controller: "vendedor", action: "show")
+		"/vendedor/filtro"(controller:"vendedor", action:"filtroAdmin")
+		"/vendedor/lista-corta"(controller:"vendedor", action:"listaCorta")
 		"/vendedor/push-token"(controller: "vendedor", action: "refreshPushToken")
 
 		"/persona"(controller: "persona")

@@ -1,17 +1,19 @@
-package ordertracker
+package ordertracker.Filtros
 
 import grails.validation.Validateable
+import ordertracker.Utils
+
 /**
- * Created by dgacitua on 26-04-16.
+ * Created by dgacitua on 10-05-16.
  */
 @Validateable
-class FiltroPedido {
-    int estado
-    Date fechaInicio
-    Date fechaFin
+class FiltroCliente {
+    String nombre
+    String apellido
+    String email
+    String direccion
 
     long idCliente
-    long idVendedor
 
     int pagina
 

@@ -2,6 +2,8 @@ package ordertracker
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
+import ordertracker.Filtros.FiltroCliente
+import ordertracker.Filtros.FiltroResultado
 import ordertracker.Perfiles.Vendedor
 
 import static org.springframework.http.HttpStatus.*

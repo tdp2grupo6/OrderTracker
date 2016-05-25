@@ -1,7 +1,7 @@
 package ordertracker.Marshallers
 
 import grails.converters.JSON
-import ordertracker.FiltroResultado
+import ordertracker.Filtros.FiltroResultado
 
 /**
  * Created by dgacitua on 26-04-16.
