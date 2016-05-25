@@ -1,5 +1,6 @@
 package ordertracker
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
@@ -14,7 +15,7 @@ import grails.transaction.Transactional
 class ProductoController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                             searchInCategoria: "GET", searchInMarca: "GET"]
+                             searchInCategoria: "GET", searchInMarca: "GET", filtroAdmin: "POST"]
 	
 	def index(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
@@ -95,6 +96,30 @@ class ProductoController {
         result.sort { it.id }
         FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
         respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+    }
+
+    def listaCorta() {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            def result = Producto.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        estado: it.estado? it.estado.toString() : "No existe"
+                ]
+            }
+            respond result, [status: OK]
+        }
+        else {
+            // TODO eliminar
+            def result = Producto.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        estado: it.estado? it.estado.toString() : "No existe"
+                ]
+            }
+            respond result, [status: OK]
+        }
     }
 
     @Transactional
