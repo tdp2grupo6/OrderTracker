@@ -3,6 +3,7 @@ package ordertracker
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
+import ordertracker.Servicios.MensajeroPush
 import ordertracker.Servicios.Utils
 
 import static org.springframework.http.HttpStatus.*
@@ -126,8 +127,15 @@ class ProductoController {
             return
         }
 
+        Producto productoViejo = Producto.findById(productoInstance.id)
+
         productoInstance.save flush:true
         respond productoInstance, [status: OK]
+
+        if (productoInstance.estado != productoViejo.estado && productoInstance.estado == EstadoProducto.DISP) {
+            MensajeroPush mp = new MensajeroPush()
+            mp.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "$productoInstance.nombre")
+        }
     }
 
     @Transactional
