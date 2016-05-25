@@ -1,5 +1,7 @@
 package ordertracker
 
+import ordertracker.Filtros.FiltroPagina
+import ordertracker.Filtros.FiltroResultado
 import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
@@ -10,7 +12,7 @@ class CategoriaController {
 	
 	static responseFormats = ['json']
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                             searchInProducto: "GET"]
+                             searchInProducto: "GET", filtroAdmin: "POST"]
 
 	def index(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
@@ -93,5 +95,16 @@ class CategoriaController {
         categoriaInstance.eliminarInstancias()
         categoriaInstance.delete flush:true
         render status: OK
+    }
+
+    def filtroAdmin(FiltroPagina fp) {
+        int offset = fp.primerValor()
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
+        def prod = Categoria.createCriteria()
+        def result = prod.list (max: maxPage, offset: offset) { }
+        int pagina = fp.pagina? fp.pagina : 1
+        result.sort { it.id }
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }
 }
