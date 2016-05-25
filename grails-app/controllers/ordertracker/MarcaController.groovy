@@ -1,6 +1,7 @@
 package ordertracker
 
-
+import ordertracker.Filtros.FiltroPagina
+import ordertracker.Filtros.FiltroResultado
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -9,7 +10,7 @@ import grails.transaction.Transactional
 class MarcaController {
 
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET", filtroAdmin: "POST"]
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -79,5 +80,16 @@ class MarcaController {
         marcaInstance.eliminarInstancias()
         marcaInstance.delete flush:true
         render status: OK
+    }
+
+    def filtroAdmin(FiltroPagina fp) {
+        int offset = fp.primerValor()
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
+        def prod = Marca.createCriteria()
+        def result = prod.list (max: maxPage, offset: offset) { }
+        int pagina = fp.pagina? fp.pagina : 1
+        result.sort { it.id }
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }
 }
