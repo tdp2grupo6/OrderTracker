@@ -3,11 +3,11 @@ package ordertracker.Perfiles
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
-import ordertracker.Cliente
 import ordertracker.Filtros.FiltroResultado
 import ordertracker.Filtros.FiltroVendedor
 import ordertracker.PushToken
-import ordertracker.Utils
+import ordertracker.Servicios.MensajeroPush
+import ordertracker.Servicios.Utils
 
 import static org.springframework.http.HttpStatus.*
 
@@ -30,6 +30,55 @@ class VendedorController {
         }
         else {
             respond v, [status: OK]
+        }
+    }
+
+    def filtroAdmin(FiltroVendedor fv) {
+        int offset = fv.primerValor()
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
+        def prod = Vendedor.createCriteria()
+        def result = prod.list (max: maxPage, offset: offset) {
+            and {
+                if (fv.username) {
+                    ilike("username", "${fv.username}%")
+                }
+                if (fv.nombre) {
+                    ilike("nombre", "${fv.nombre}%")
+                }
+                if (fv.apellido) {
+                    ilike("apellido", "${fv.apellido}%")
+                }
+            }
+        }
+        int pagina = fv.pagina? fv.pagina : 1
+        result.sort { it.id }
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+    }
+
+    def listaCorta() {
+        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
+            def result = Vendedor.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        apellido: it.apellido,
+                        username: it.username
+                ]
+            }
+            respond result, [status: OK]
+        }
+        else {
+            // TODO eliminar
+            def result = Vendedor.list().collect {
+                [
+                        id: it.id,
+                        nombre: it.nombre,
+                        apellido: it.apellido,
+                        username: it.username
+                ]
+            }
+            respond result, [status: OK]
         }
     }
 
@@ -86,8 +135,10 @@ class VendedorController {
         if (SpringSecurityUtils.ifAllGranted(Utils.VENDEDOR)) {
             Vendedor v = springSecurityService.currentUser
             v.pushToken = pt.token
+            v.save flush:true
 
-            Map respuesta = Utils.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
+            MensajeroPush mp = new MensajeroPush()
+            Map respuesta = mp.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
 
             if (respuesta['estadoMensajePush'].equals("SUCCESS")) {
                 response.status = 200       // OK
@@ -100,55 +151,6 @@ class VendedorController {
         }
         else {
             render status: FORBIDDEN
-        }
-    }
-
-    def filtroAdmin(FiltroVendedor fv) {
-        int offset = fv.primerValor()
-        int maxPage = Utils.RESULTADOS_POR_PAGINA
-        def prod = Vendedor.createCriteria()
-        def result = prod.list (max: maxPage, offset: offset) {
-            and {
-                if (fv.username) {
-                    ilike("username", "${fv.username}%")
-                }
-                if (fv.nombre) {
-                    ilike("nombre", "${fv.nombre}%")
-                }
-                if (fv.apellido) {
-                    ilike("apellido", "${fv.apellido}%")
-                }
-            }
-        }
-        int pagina = fv.pagina? fv.pagina : 1
-        result.sort { it.id }
-        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
-        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
-    }
-
-    def listaCorta() {
-        if (SpringSecurityUtils.ifAllGranted(Utils.ADMIN)) {
-            def result = Vendedor.list().collect {
-                [
-                        id: it.id,
-                        nombre: it.nombre,
-                        apellido: it.apellido,
-                        username: it.username
-                ]
-            }
-            respond result, [status: OK]
-        }
-        else {
-            // TODO eliminar
-            def result = Vendedor.list().collect {
-                [
-                        id: it.id,
-                        nombre: it.nombre,
-                        apellido: it.apellido,
-                        username: it.username
-                ]
-            }
-            respond result, [status: OK]
         }
     }
 }

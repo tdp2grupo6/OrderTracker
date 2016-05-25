@@ -1,10 +1,12 @@
 package ordertracker.Filtros
 
-import ordertracker.Utils
+import grails.validation.Validateable
+import ordertracker.Servicios.Utils
 
 /**
  * Created by dgacitua on 24-05-16.
  */
+@Validateable
 class FiltroVendedor {
     String username
     String nombre

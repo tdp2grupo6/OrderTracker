@@ -7,6 +7,7 @@ import ordertracker.Security.Usuario
 import ordertracker.Security.UsuarioRol
 import ordertracker.Perfiles.Admin
 import ordertracker.Perfiles.Vendedor
+import ordertracker.Servicios.Utils
 import org.springframework.web.context.support.WebApplicationContextUtils
 
 class BootStrap {

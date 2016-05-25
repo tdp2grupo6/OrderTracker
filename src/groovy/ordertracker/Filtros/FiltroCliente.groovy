@@ -1,7 +1,7 @@
 package ordertracker.Filtros
 
 import grails.validation.Validateable
-import ordertracker.Utils
+import ordertracker.Servicios.Utils
 
 /**
  * Created by dgacitua on 10-05-16.

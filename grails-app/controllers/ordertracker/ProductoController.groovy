@@ -1,9 +1,9 @@
 package ordertracker
 
-import grails.plugin.springsecurity.SpringSecurityUtils
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
+import ordertracker.Servicios.Utils
 
 import static org.springframework.http.HttpStatus.*
 import org.codehaus.groovy.runtime.StringGroovyMethods
