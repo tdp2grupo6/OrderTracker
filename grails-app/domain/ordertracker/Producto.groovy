@@ -34,6 +34,7 @@ class Producto {
 			return "imagen/miniatura/${ImagenController.nombreImagenRelleno}"
 		}
 	}
+
 	String rutaMiniatura() {
 		if (imagen!=null) {
 			return "imagen/miniatura/$imagen.id"

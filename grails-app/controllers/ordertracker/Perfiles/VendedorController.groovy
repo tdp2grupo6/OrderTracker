@@ -110,13 +110,13 @@ class VendedorController {
         def result = prod.list (max: maxPage, offset: offset) {
             and {
                 if (fv.username) {
-                    eq("username", fv.username)
+                    ilike("username", "${fv.username}%")
                 }
                 if (fv.nombre) {
-                    eq("nombre", fv.nombre)
+                    ilike("nombre", "${fv.nombre}%")
                 }
                 if (fv.apellido) {
-                    eq("apellido", fv.apellido)
+                    ilike("apellido", "${fv.apellido}%")
                 }
             }
         }

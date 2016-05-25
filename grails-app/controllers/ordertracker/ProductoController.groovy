@@ -1,5 +1,10 @@
 package ordertracker
 
+import grails.plugin.springsecurity.SpringSecurityUtils
+import ordertracker.Estados.EstadoProducto
+import ordertracker.Filtros.FiltroProducto
+import ordertracker.Filtros.FiltroResultado
+
 import static org.springframework.http.HttpStatus.*
 import org.codehaus.groovy.runtime.StringGroovyMethods
 import grails.transaction.Transactional
@@ -108,5 +113,33 @@ class ProductoController {
 
         productoInstance.delete flush:true
         render status: OK
+    }
+
+    def filtroAdmin(FiltroProducto fp) {
+        int offset = fp.primerValor()
+        int maxPage = Utils.RESULTADOS_POR_PAGINA
+        def prod = Producto.createCriteria()
+        def result = prod.list (max: maxPage, offset: offset) {
+            and {
+                if (fp.estado) {
+                    eq('estado', EstadoProducto.obtenerEstado(fp.estado))
+                }
+                if (fp.nombre) {
+                    ilike('nombre', "%${fp.nombre}%")
+                }
+                if (fp.marca) {
+                    eq('marca', Marca.findByNombre(fp.marca))
+                }
+                if (fp.categoria) {
+                    categorias {
+                        eq('nombre', "${fp.categoria}")
+                    }
+                }
+            }
+        }
+        int pagina = fp.pagina? fp.pagina : 1
+        result.sort { it.id }
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }
 }

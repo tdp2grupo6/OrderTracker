@@ -10,6 +10,7 @@ class UrlMappings {
 		
 		"/producto"(resources:"producto")
 		"/producto/filtro"(controller:"producto", action:"filtroAdmin")
+		"/producto/lista-corta"(controller:"producto", action:"listaCorta")
 		"/producto/buscar/$term"(controller:"producto", action:"search")
 		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
 		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
