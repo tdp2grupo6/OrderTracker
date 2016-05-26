@@ -4,8 +4,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
-import ordertracker.Servicios.MensajeroPush
-import ordertracker.Servicios.Utils
 
 import static org.springframework.http.HttpStatus.*
 import org.codehaus.groovy.runtime.StringGroovyMethods
@@ -16,6 +14,8 @@ class ProductoController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
                              searchInCategoria: "GET", searchInMarca: "GET", filtroAdmin: "POST"]
+
+    def mensajePushService
 	
 	def index(Integer max) {
 		//params.max = Math.min(max ?: 10, 100)
@@ -158,8 +158,7 @@ class ProductoController {
         respond productoInstance, [status: OK]
 
         if (productoInstance.estado != productoViejo.estado && productoInstance.estado == EstadoProducto.DISP) {
-            MensajeroPush mp = new MensajeroPush()
-            mp.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "$productoInstance.nombre")
+            mensajePushService.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "$productoInstance.nombre")
         }
     }
 

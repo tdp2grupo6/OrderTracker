@@ -1,21 +1,10 @@
-package ordertracker.Servicios
+package ordertracker
 
-import grails.converters.JSON
-import grails.plugins.rest.client.RestBuilder
-import ordertracker.AgendaDia
-import ordertracker.AgendaUpdate
-import ordertracker.Cliente
-import ordertracker.Comentario
 import ordertracker.Estados.EstadoCliente
-import ordertracker.Pedido
-import ordertracker.PedidoElemento
 import ordertracker.Perfiles.Vendedor
-import ordertracker.Producto
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
-import ordertracker.Security.Usuario
 import ordertracker.Security.UsuarioRol
-import ordertracker.Visita
 import org.codehaus.groovy.grails.plugins.qrcode.QrCodeService
 import org.springframework.core.io.ByteArrayResource
 /**

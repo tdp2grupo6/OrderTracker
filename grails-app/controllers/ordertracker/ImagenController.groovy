@@ -75,10 +75,11 @@ class ImagenController {
 
 				render results as JSON
 				break;
-			default: render status: HttpStatus.METHOD_NOT_ALLOWED.value()
+			default: render status: METHOD_NOT_ALLOWED.value()
 		}
 	}
 
+	/*
 	def upload2() {
 		MultipartFile image = request.getFile('file')
 		if (!image.isEmpty()) {
@@ -123,6 +124,7 @@ class ImagenController {
 			render status: NOT_FOUND
 		}
 	}
+	*/
 
 	def picture() {
 		def pic = Imagen.get(params.id)

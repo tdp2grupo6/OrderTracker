@@ -1,16 +1,12 @@
-package ordertracker.Servicios
+package ordertracker
 
 import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Rol
 import ordertracker.Security.Usuario
-import ordertracker.Security.UsuarioRol
 
-/**
- * Created by dgacitua on 25-05-16.
- */
-class MensajeroPush {
+class MensajePushService {
     // Variables para Mensajes Push
     static public final String PUSH_URL = "https://fcm.googleapis.com/fcm/send"
     static public final String PUSH_SERVER_KEY = "AIzaSyBV5ysIhGWjfm_5sPlcksvt-z4kncKVfA8"

@@ -6,8 +6,7 @@ import grails.transaction.Transactional
 import ordertracker.Filtros.FiltroResultado
 import ordertracker.Filtros.FiltroVendedor
 import ordertracker.PushToken
-import ordertracker.Servicios.MensajeroPush
-import ordertracker.Servicios.Utils
+import ordertracker.Utils
 
 import static org.springframework.http.HttpStatus.*
 
@@ -18,6 +17,7 @@ class VendedorController {
                              refreshPushId: "POST", filtroAdmin: "POST", listaCorta: "GET"]
 
     def springSecurityService
+    def mensajePushService
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -137,8 +137,7 @@ class VendedorController {
             v.pushToken = pt.token
             v.save flush:true
 
-            MensajeroPush mp = new MensajeroPush()
-            Map respuesta = mp.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
+            Map respuesta = mensajePushService.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
 
             if (respuesta['estadoMensajePush'].equals("SUCCESS")) {
                 response.status = 200       // OK

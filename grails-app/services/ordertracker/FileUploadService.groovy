@@ -6,8 +6,6 @@ import org.springframework.web.multipart.MultipartFile
 
 @Transactional
 class FileUploadService {
-    boolean transactional = true
-
     def String uploadFile(MultipartFile file, String name, String destinationDirectory) {
 
         def servletContext = ServletContextHolder.servletContext
