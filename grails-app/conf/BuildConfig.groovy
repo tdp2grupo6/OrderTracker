@@ -55,7 +55,7 @@ grails.project.dependency.resolution = {
 		// Dependencias extra de Order Tracker
         test "org.gebish:geb-spock:0.13.0"
 		compile "org.imgscalr:imgscalr-lib:4.2"
-        compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7"
+        //compile "org.codehaus.groovy.modules.http-builder:http-builder:0.7"
     }
 
     plugins {
@@ -89,7 +89,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:spring-security-core:2.0.0"
         compile "org.grails.plugins:spring-security-rest:1.5.3"
         //compile "org.grails.plugins:spring-security-ui:1.0-RC3"
-        compile "org.grails.plugins:spring-security-mock:2.0-RC2"
+        //compile "org.grails.plugins:spring-security-mock:2.0-RC2"
 
         // CORS para consultas desde Frontend
         runtime "org.grails.plugins:cors:1.1.8"
