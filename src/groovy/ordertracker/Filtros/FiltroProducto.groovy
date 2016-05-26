@@ -1,10 +1,12 @@
 package ordertracker.Filtros
 
+import grails.validation.Validateable
 import ordertracker.Utils
 
 /**
  * Created by dgacitua on 25-05-16.
  */
+@Validateable
 class FiltroProducto {
     int estado
 

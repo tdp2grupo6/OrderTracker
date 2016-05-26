@@ -31,7 +31,8 @@ class Producto {
 			return "imagen/ver/$imagen.id"
 		}
 		else {
-			return "imagen/miniatura/${ImagenController.nombreImagenRelleno}"
+			Imagen img = Imagen.findByOriginalFilename(ImagenController.nombreImagenRelleno)
+			return "imagen/ver/$img.id"
 		}
 	}
 
@@ -40,7 +41,8 @@ class Producto {
 			return "imagen/miniatura/$imagen.id"
 		}
 		else {
-			return "imagen/miniatura/${ImagenController.nombreMiniaturaRelleno}"
+			Imagen img = Imagen.findByOriginalFilename(ImagenController.nombreImagenRelleno)
+			return "imagen/miniatura/$img.id"
 		}
 	}
 	

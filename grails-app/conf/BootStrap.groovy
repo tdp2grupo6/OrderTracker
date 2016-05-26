@@ -335,6 +335,9 @@ class BootStrap {
 		imagen.errors = null
 		producto.errors = null
 
+		// Imagen de relleno
+		def imagenRelleno = new Imagen(originalFilename: "${ImagenController.nombreImagenRelleno}", thumbnailFilename: "${ImagenController.nombreMiniaturaRelleno}", newFilename: "${ImagenController.nombreImagenRelleno}", size: 512)
+
 		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Imagen.count imágenes en la Base de Datos"
@@ -343,48 +346,6 @@ class BootStrap {
 	private void precargarPedidos() {
 		def pedido, vendedor
 		def ped1, ped2, ped3, ped4
-
-		/*
-		vendedor = Vendedor.findByUsername('vendedor')
-
-		cliente = Cliente.findById(3)
-		ped1 = new PedidoElemento(producto: producto, cantidad: 1)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1], fechaRealizado: Utils.parsearFechaEntrada("2016-04-21T14:45:00-0300"), vendedor: vendedor)
-		assert pedido.save(failOnError:true, flush:true, insert: true)
-		pedido.errors = null
-
-		cliente = Cliente.findById(1)
-		ped1 = new PedidoElemento(producto: Producto.findById(1), cantidad: 3)
-		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 4)
-		ped3 = new PedidoElemento(producto: Producto.findById(3), cantidad: 5)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-22T16:15:00-0300"), vendedor: vendedor)
-		assert pedido.save(failOnError:true, flush:true, insert: true)
-		pedido.errors = null
-
-		cliente = Cliente.findById(4)
-		ped1 = new PedidoElemento(producto: Producto.findById(5), cantidad: 3)
-		ped2 = new PedidoElemento(producto: Producto.findById(1), cantidad: 4)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2], fechaRealizado: Utils.parsearFechaEntrada("2016-04-25T13:00:00-0300"), vendedor: vendedor)
-		assert pedido.save(failOnError:true, flush:true, insert: true)
-		pedido.errors = null
-
-		cliente = Cliente.findById(2)
-		ped1 = new PedidoElemento(producto: Producto.findById(3), cantidad: 4)
-		ped2 = new PedidoElemento(producto: Producto.findById(2), cantidad: 6)
-		ped3 = new PedidoElemento(producto: Producto.findById(1), cantidad: 5)
-		ped4 = new PedidoElemento(producto: Producto.findById(4), cantidad: 2)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3, ped4], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T11:30:00-0300"), vendedor: vendedor)
-		assert pedido.save(failOnError:true, flush:true, insert: true)
-		pedido.errors = null
-
-		cliente = Cliente.findById(5)
-		ped1 = new PedidoElemento(producto: Producto.findById(13), cantidad: 1)
-		ped2 = new PedidoElemento(producto: Producto.findById(8), cantidad: 8)
-		ped3 = new PedidoElemento(producto: Producto.findById(7), cantidad: 3)
-		pedido = new Pedido(cliente: cliente, elementos: [ped1, ped2, ped3], fechaRealizado: Utils.parsearFechaEntrada("2016-04-26T18:30:00-0300"), vendedor: vendedor)
-		assert pedido.save(failOnError:true, flush:true, insert: true)
-		pedido.errors = null
-		*/
 
 		for (int i=1; i<=50; i++) {
 			pedido = Utils.crearPedidoAleatorio()
