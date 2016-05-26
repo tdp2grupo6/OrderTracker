@@ -337,6 +337,7 @@ class BootStrap {
 
 		// Imagen de relleno
 		def imagenRelleno = new Imagen(originalFilename: "${ImagenController.nombreImagenRelleno}", thumbnailFilename: "${ImagenController.nombreMiniaturaRelleno}", newFilename: "${ImagenController.nombreImagenRelleno}", size: 512)
+		assert imagenRelleno.save(failOnError: true, flush: true, insert: true)
 
 		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"

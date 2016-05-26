@@ -10,20 +10,20 @@ class Marca {
 
 	String rutaImagen() {
 		if (imagen!=null) {
-			return "imagen/ver/$imagen.id"
+			return "imagen/ver/${imagen.id}"
 		}
 		else {
-			Imagen img = Imagen.findByOriginalFilename(ImagenController.nombreImagenRelleno)
-			return "imagen/ver/$img.id"
+			Imagen img = Imagen.findByOriginalFilename("${ImagenController.nombreImagenRelleno}")
+			return "imagen/ver/${img.id}"
 		}
 	}
 	String rutaMiniatura() {
 		if (imagen!=null) {
-			return "imagen/miniatura/$imagen.id"
+			return "imagen/miniatura/${imagen.id}"
 		}
 		else {
-			Imagen img = Imagen.findByOriginalFilename(ImagenController.nombreImagenRelleno)
-			return "imagen/miniatura/$img.id"
+			Imagen img = Imagen.findByOriginalFilename("${ImagenController.nombreImagenRelleno}")
+			return "imagen/miniatura/${img.id}"
 		}
 	}
 

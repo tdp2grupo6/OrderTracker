@@ -31,6 +31,7 @@ class UrlMappings {
 
 		"/imagen/ver/$id"(controller:"imagen", action:"picture")
 		"/imagen/miniatura/$id"(controller:"imagen", action:"thumbnail")
+		"/imagen/listar"(controller:"marca", action:"listarImagenes")
 		"/imagen/subir"(controller:"imagen", action:"upload")
 		"/imagen/borrar/$id"(controller:"imagen", action:"delete")
 

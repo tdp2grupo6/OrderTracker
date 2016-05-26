@@ -10,7 +10,8 @@ import grails.transaction.Transactional
 class MarcaController {
 
     static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET", filtroAdmin: "POST"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET", filtroAdmin: "POST",
+                            listarImagenes: "GET"]
 
     def index(Integer max) {
         //params.max = Math.min(max ?: 10, 100)
@@ -91,5 +92,10 @@ class MarcaController {
         result.sort { it.id }
         FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
         respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+    }
+
+    def listarImagenes() {
+        def lst = Imagen.list()
+        respond lst, [status: OK]
     }
 }
