@@ -10,9 +10,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
+import static org.springframework.http.HttpStatus.*
+
 class ImagenController {
 	static final String nombreImagenRelleno = "sinfoto.jpg"
 	static final String nombreMiniaturaRelleno = "sinfoto-thumbnail.png"
+
+	FileUploadService fileUploadService
 
 	def upload() {
 		switch(request.method){
@@ -58,6 +62,7 @@ class ImagenController {
 						).save()
 
 						results << [
+								id: picture.id,
 								name: picture.originalFilename,
 								size: picture.fileSize,
 								url: createLink(controller:'imagen', action:'picture', id: picture.id),
@@ -71,6 +76,51 @@ class ImagenController {
 				render results as JSON
 				break;
 			default: render status: HttpStatus.METHOD_NOT_ALLOWED.value()
+		}
+	}
+
+	def upload2() {
+		MultipartFile image = request.getFile('file')
+		if (!image.isEmpty()) {
+			//userInstance.avatar = fileUploadService.uploadFile(avatarImage, "logo.png", "~/Desktop/upload")
+			String storageDirectory = obtenerRuta("uploads")?:'/tmp'
+			String newFilenameBase = UUID.randomUUID().toString()
+			String originalFileExtension = image.originalFilename.substring(image.originalFilename.lastIndexOf("."))
+			String newFilename = newFilenameBase + originalFileExtension
+			println "[OT-LOG] Subiendo imagen $newFilename a $storageDirectory"
+
+			String original = fileUploadService.uploadFile(image, newFilename, storageDirectory)
+			File newFile = new File("$storageDirectory/$newFilename")
+			image.transferTo(newFile)
+
+			BufferedImage thumbnail = Scalr.resize(ImageIO.read(newFile), 250)
+			String thumbnailFilename = newFilenameBase + '-thumbnail.png'
+			File thumbnailFile = new File("$storageDirectory/$thumbnailFilename")
+			ImageIO.write(thumbnail, 'png', thumbnailFile)
+
+
+			Imagen picture = new Imagen(
+					originalFilename: image.originalFilename,
+					thumbnailFilename: thumbnailFilename,
+					newFilename: newFilename,
+					fileSize: image.size
+			).save(flush: true)
+
+			def results = [
+					id: picture.id,
+					name: picture.originalFilename,
+					size: picture.fileSize,
+					url: createLink(controller:'imagen', action:'picture', id: picture.id),
+					thumbnail_url: createLink(controller:'imagen', action:'thumbnail', id: picture.id),
+					delete_url: createLink(controller:'imagen', action:'delete', id: picture.id),
+					delete_type: "DELETE"
+			]
+
+			response.status = 200
+			render results as JSON
+		}
+		else {
+			render status: NOT_FOUND
 		}
 	}
 
