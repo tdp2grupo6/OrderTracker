@@ -1,6 +1,7 @@
 import grails.util.Environment
 import ordertracker.*
 import ordertracker.Perfiles.Vendedor
+import ordertracker.Relations.CategoriaProducto
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
 import ordertracker.Security.Usuario
@@ -207,14 +208,16 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "01.jpg", thumbnailFilename: "prod01-thumbnail.png", newFilename: "prod01.jpg", size: 512)
-		producto = new Producto(nombre: "Mochila Deportiva Negra", caracteristicas: "Mochila de alta capacidad y costura reforzada", marca: marca, precio: 719.00, stock: 40, imagen: imagen).addToCategorias(cat4)
+		producto = new Producto(nombre: "Mochila Deportiva Negra", caracteristicas: "Mochila de alta capacidad y costura reforzada", marca: marca, precio: 719.00, stock: 40, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat4, producto)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "02.jpg", thumbnailFilename: "prod02-thumbnail.png", newFilename: "prod02.jpg", size: 512)
-		producto = new Producto(nombre: "Bolso de la Seleccion", caracteristicas: "Diseño y estilo de la Selección Argentina", marca: marca, precio: 599.00, stock: 22, imagen: imagen).addToCategorias(cat4)
+		producto = new Producto(nombre: "Bolso de la Seleccion", caracteristicas: "Diseño y estilo de la Selección Argentina", marca: marca, precio: 599.00, stock: 22, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat4, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -225,8 +228,9 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "03.jpg", thumbnailFilename: "prod03-thumbnail.png", newFilename: "prod03.jpg", size: 512)
-		producto = new Producto(nombre: "Vestido Print", caracteristicas: "Temporada otoño-invierno 2016", marca: marca, precio: 1645.00, stock: 8, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Vestido Print", caracteristicas: "Temporada otoño-invierno 2016", marca: marca, precio: 1645.00, stock: 8, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -237,23 +241,29 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "04.jpg", thumbnailFilename: "prod04-thumbnail.png", newFilename: "prod04.jpg", size: 512)
-		producto = new Producto(nombre: "Vestido Basico", caracteristicas: "Diseño sencillo", marca: marca, precio: 999.99, stock: 16, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Vestido Basico", caracteristicas: "Diseño sencillo", marca: marca, precio: 999.99, stock: 16, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
+		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "05.jpg", thumbnailFilename: "prod05-thumbnail.png", newFilename: "prod05.jpg", size: 512)
-		producto = new Producto(nombre: "Vestido Mini Negro", caracteristicas: "Fuera de temporada", marca: marca, precio: 449.99, stock: 5, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Vestido Mini Negro", caracteristicas: "Fuera de temporada", marca: marca, precio: 449.99, stock: 5, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
+		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "t04.jpg", thumbnailFilename: "tm04-thumbnail.png", newFilename: "tm04.jpg", size: 512)
 		marca = new Marca(nombre: "Nike", imagen: imagen)
 		assert marca.save(failOnError: true, flush: true, insert: true)
+		imagen.errors = null
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "06.jpg", thumbnailFilename: "prod06-thumbnail.png", newFilename: "prod06.jpg", size: 512)
-		producto = new Producto(nombre: "Zapatillas de Correr", caracteristicas: "Modelo Free Run +3", marca: marca, precio: 1749.00, stock: 45, imagen: imagen).addToCategorias(cat5)
+		producto = new Producto(nombre: "Zapatillas de Correr", caracteristicas: "Modelo Free Run +3", marca: marca, precio: 1749.00, stock: 45, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat5, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -264,14 +274,16 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "07.jpg", thumbnailFilename: "prod07-thumbnail.png", newFilename: "prod07.jpg", size: 512)
-		producto = new Producto(nombre: "Remera Zebra", caracteristicas: "Colección Animal", marca: marca, precio: 349.99, stock: 35, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Remera Zebra", caracteristicas: "Colección Animal", marca: marca, precio: 349.99, stock: 35, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "08.jpg", thumbnailFilename: "prod08-thumbnail.png", newFilename: "prod08.jpg", size: 512)
-		producto = new Producto(nombre: "Remera Leopardo", caracteristicas: "Colección Animal", marca: marca, precio: 399.99, stock: 35, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Remera Leopardo", caracteristicas: "Colección Animal", marca: marca, precio: 399.99, stock: 35, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -282,20 +294,23 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "09.jpg", thumbnailFilename: "prod09-thumbnail.png", newFilename: "prod09.jpg", size: 512)
-		producto = new Producto(nombre: "Zapatillas Outdoor", caracteristicas: "Modelo Reebok The Stone", marca: marca, precio: 1399.00, stock: 7, imagen: imagen).addToCategorias(cat5)
+		producto = new Producto(nombre: "Zapatillas Outdoor", caracteristicas: "Modelo Reebok The Stone", marca: marca, precio: 1399.00, stock: 7, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat5, producto)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "10.jpg", thumbnailFilename: "prod10-thumbnail.png", newFilename: "prod10.jpg", size: 512)
-		producto = new Producto(nombre: "Conjunto Delta Suit", caracteristicas: "Varios colores disponibles", marca: marca, precio: 1319.00, stock: 9, imagen: imagen).addToCategorias(cat1)
+		producto = new Producto(nombre: "Conjunto Delta Suit", caracteristicas: "Varios colores disponibles", marca: marca, precio: 1319.00, stock: 9, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat1, producto, true)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "11.jpg", thumbnailFilename: "prod11-thumbnail.png", newFilename: "prod11.jpg", size: 512)
-		producto = new Producto(nombre: "Chaqueta Alpha Suit", caracteristicas: "Alta durabilidad outdoor", marca: marca, precio: 879.00, stock: 4, imagen: imagen).addToCategorias(cat1)
+		producto = new Producto(nombre: "Chaqueta Alpha Suit", caracteristicas: "Alta durabilidad outdoor", marca: marca, precio: 879.00, stock: 4, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat1, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -306,20 +321,23 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "12.jpg", thumbnailFilename: "prod12-thumbnail.png", newFilename: "prod12.jpg", size: 512)
-		producto = new Producto(nombre: "Zapatillas Chuck Taylor All Star", caracteristicas: "Modelo clásico, varias tallas", marca: marca, precio: 999.00, stock: 21, imagen: imagen).addToCategorias(cat5)
+		producto = new Producto(nombre: "Zapatillas Chuck Taylor All Star", caracteristicas: "Modelo clásico, varias tallas", marca: marca, precio: 999.00, stock: 21, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat5, producto)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "13.jpg", thumbnailFilename: "prod13-thumbnail.png", newFilename: "prod13.jpg", size: 512)
-		producto = new Producto(nombre: "Remera Mono Patch Ringer Tee", caracteristicas: "Solo negro, varias tallas", marca: marca, precio: 699.00, stock: 7, imagen: imagen).addToCategorias(cat2)
+		producto = new Producto(nombre: "Remera Mono Patch Ringer Tee", caracteristicas: "Solo negro, varias tallas", marca: marca, precio: 699.00, stock: 7, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat2, producto)
 		imagen.errors = null
 		producto.errors = null
 
 		imagen = new Imagen(originalFilename: "14.jpg", thumbnailFilename: "prod14-thumbnail.png", newFilename: "prod14.jpg", size: 512)
-		producto = new Producto(nombre: "Jeans Jean Harlow Skinny", caracteristicas: "Solo tallas XS, S, M", marca: marca, precio: 1199.00, stock: 12, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Jeans Jean Harlow Skinny", caracteristicas: "Solo tallas XS, S, M", marca: marca, precio: 1199.00, stock: 12, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
 		imagen.errors = null
 		producto.errors = null
 
@@ -330,8 +348,9 @@ class BootStrap {
 		marca.errors = null
 
 		imagen = new Imagen(originalFilename: "15.jpg", thumbnailFilename: "prod15-thumbnail.png", newFilename: "prod15.jpg", size: 512)
-		producto = new Producto(nombre: "Falda Nelly Basic Skirt", caracteristicas: "Modelo clásico, varias tallas", marca: marca, precio: 849.00, stock: 16, imagen: imagen).addToCategorias(cat3)
+		producto = new Producto(nombre: "Falda Nelly Basic Skirt", caracteristicas: "Modelo clásico, varias tallas", marca: marca, precio: 849.00, stock: 16, imagen: imagen)
 		assert producto.save(failOnError: true, flush: true, insert: true)
+		CategoriaProducto.create(cat3, producto)
 		imagen.errors = null
 		producto.errors = null
 

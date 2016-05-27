@@ -2,6 +2,7 @@ package ordertracker
 
 import ordertracker.Filtros.FiltroPagina
 import ordertracker.Filtros.FiltroResultado
+import ordertracker.Relations.CategoriaProducto
 import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
@@ -42,8 +43,12 @@ class CategoriaController {
         params.max = Math.min(max ?: 10, 100)
         if (StringGroovyMethods.isLong(params.id)) {
             long idFiltro = StringGroovyMethods.toLong(params.id)
+            Producto p = Producto.findById(idFiltro)
+            def res = CategoriaProducto.findAllByProducto(p).collect { it.categoria } as Set
+            /*
             def prod = Producto.findById(idFiltro)
             def res = prod.categorias.toList()
+            */
             respond res, model: [status: OK, totalResultados: res.count]
         }
         else {

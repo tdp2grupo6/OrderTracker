@@ -2,29 +2,29 @@ class UrlMappings {
 
 	static mappings = {
 		// TODO Declarar nuevos Endpoints de esta forma en el UrlMapping
-		"/cliente"(resources:"cliente")
+		"/cliente"(resources:"cliente", parseRequest:true)
 		"/cliente/buscar/$id"(controller:"cliente", action:"search")
 		"/cliente/filtro"(controller:"cliente", action:"filtroAdmin")
 		"/cliente/lista-corta"(controller:"cliente", action:"listaCorta")
 		"/cliente/reenviar/$id"(controller:"cliente", action:"reenviarQR")
 		
-		"/producto"(resources:"producto")
+		"/producto"(resources:"producto", parseRequest:true)
 		"/producto/filtro"(controller:"producto", action:"filtroAdmin")
 		"/producto/lista-corta"(controller:"producto", action:"listaCorta")
 		"/producto/buscar/$term"(controller:"producto", action:"search")
 		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
 		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
 
-		"/marca"(resources:"marca")
+		"/marca"(resources:"marca", parseRequest:true)
 		"/marca/filtro"(controller:"marca", action:"filtroAdmin")
 		"/marca/buscar/$term"(controller:"marca", action:"search")
 
-		"/categoria"(resources:"categoria")
+		"/categoria"(resources:"categoria", parseRequest:true)
 		"/categoria/filtro"(controller:"categoria", action:"filtroAdmin")
 		"/categoria/buscar/$term"(controller:"categoria", action:"search")
 		"/categoria/buscar-producto/$id"(controller:"categoria", action:"searchInProducto")
 
-		"/pedido"(resources:"pedido")
+		"/pedido"(resources:"pedido", parseRequest:true)
 		"/pedido/filtro"(controller:"pedido", action:"filtroAdmin")
 		"/pedido/buscar-cliente/$id"(controller:"pedido", action:"searchByCliente")
 		"/pedido/buscar-estado/$id"(controller:"pedido", action:"searchByEstado")
@@ -35,7 +35,7 @@ class UrlMappings {
 		"/imagen/subir"(controller:"imagen", action:"upload")
 		"/imagen/borrar/$id"(controller:"imagen", action:"delete")
 
-		"/agenda"(resources:"agenda")
+		"/agenda"(resources:"agenda", parseRequest:true)
 		"/agenda/dia/$codigoDia"(controller:"agenda", action:"agendaDia")
 		"/agenda/semana"(controller:"agenda", action:"agendaSemana")
 		"/agenda/admin-dia/$idVendedor/$codigoDia"(controller:"agenda", action:"agendaAdminDia")
@@ -46,7 +46,7 @@ class UrlMappings {
 
 		"/visita"(resources:"visita")
 
-		"/vendedor"(resources:"vendedor")
+		"/vendedor"(resources:"vendedor", parseRequest:true)
 		"/vendedor/$id"(controller: "vendedor", action: "show")
 		"/vendedor/filtro"(controller:"vendedor", action:"filtroAdmin")
 		"/vendedor/lista-corta"(controller:"vendedor", action:"listaCorta")

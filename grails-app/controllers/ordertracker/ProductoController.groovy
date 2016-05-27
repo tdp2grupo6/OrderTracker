@@ -1,9 +1,13 @@
 package ordertracker
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
+import ordertracker.Relations.CategoriaProducto
+import org.codehaus.groovy.grails.web.json.JSONArray
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 import static org.springframework.http.HttpStatus.*
 import org.codehaus.groovy.runtime.StringGroovyMethods
@@ -45,11 +49,15 @@ class ProductoController {
         params.max = Math.min(max ?: 10, 100)
         if (StringGroovyMethods.isLong(params.id)) {
             long idFiltro = StringGroovyMethods.toLong(params.id)
+            Categoria cat = Categoria.findById(idFiltro)
+            def res = CategoriaProducto.findAllByCategoria(cat).collect { it.producto } as Set
+            /*
             def res = Producto.withCriteria {
                     categorias {
                         idEq(idFiltro)
                     }
                 }
+            */
             respond res, model: [status: OK, totalResultados: res.count]
         }
         else {
@@ -123,7 +131,17 @@ class ProductoController {
     }
 
     @Transactional
-    def save(Producto productoInstance) {
+    def save() {
+        JSONObject body = new JSONObject()
+
+        JSON.use('deep') {
+            println "Here is request.JSON: ${request.JSON as JSON}"
+            println "Here is params: $params"
+            body = request.JSON as JSONObject
+        }
+
+        Producto productoInstance = new Producto(body)
+
         if (productoInstance == null) {
             render status: NOT_FOUND
             return
@@ -136,11 +154,26 @@ class ProductoController {
         }
 
         productoInstance.save flush:true
+        productoInstance.procesarCategorias(body)
+
+        productoInstance.save flush:true
         respond productoInstance, [status: OK]
     }
 
     @Transactional
-    def update(Producto productoInstance) {
+    def update() {
+        JSONObject body = new JSONObject()
+        long targetId = StringGroovyMethods.isLong(params.id)? StringGroovyMethods.toLong(params.id) : 0
+
+        JSON.use('deep') {
+            println "Here is request.JSON: ${request.JSON as JSON}"
+            println "Here is params: $params"
+            body = request.JSON as JSONObject
+        }
+
+        Producto productoInstance = Producto.findById(targetId)
+        productoInstance.properties = body
+
         if (productoInstance == null) {
             render status: NOT_FOUND
             return
@@ -155,6 +188,8 @@ class ProductoController {
         Producto productoViejo = Producto.findById(productoInstance.id)
 
         productoInstance.save flush:true
+        productoInstance.procesarCategorias(body)
+
         respond productoInstance, [status: OK]
 
         if (productoInstance.estado != productoViejo.estado && productoInstance.estado == EstadoProducto.DISP) {
