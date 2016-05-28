@@ -13,6 +13,14 @@ class Categoria {
 		//productos nullable: true
     }
 
+	Set<Producto> obtenerProductos() {
+		CategoriaProducto.findAllByCategoria(this).collect { it.producto } as Set
+	}
+
+	boolean tieneProducto(Producto prod) {
+		CategoriaProducto.countByCategoriaAndProducto(this, prod) > 0
+	}
+
 	void eliminarInstancias() {
 		//this.productos = null
 

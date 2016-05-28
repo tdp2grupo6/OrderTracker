@@ -87,22 +87,24 @@ class ProductoController {
                     eq('estado', EstadoProducto.obtenerEstado(fp.estado))
                 }
                 if (fp.nombre) {
-                    ilike('nombre', "%${fp.nombre}%")
+                    ilike('nombre', "${fp.nombre}%")
                 }
                 if (fp.marca) {
                     eq('marca', Marca.findByNombre(fp.marca))
                 }
-                if (fp.categoria) {
-                    categorias {
-                        eq('nombre', "${fp.categoria}")
-                    }
-                }
             }
         }
+
+        if (fp.categoria) {
+            Categoria cat = Categoria.findByNombre(fp.categoria)
+            def result2 = cat.obtenerProductos()
+            result = result.intersect(result2)
+        }
+
         int pagina = fp.pagina? fp.pagina : 1
         result.sort { it.id }
-        FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
-        respond respuesta, model:[status: OK, totalResultados: result.totalCount]
+        FiltroResultado respuesta = new FiltroResultado(pagina, result.size(), result as List)
+        respond respuesta, model:[status: OK, totalResultados: result.size()]
     }
 
     def listaCorta() {
