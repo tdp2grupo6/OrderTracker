@@ -155,7 +155,6 @@ class ProductoController {
         productoInstance.save flush:true
         productoInstance.procesarCategorias(body)
 
-        productoInstance.save flush:true
         respond productoInstance, [status: OK]
     }
 
@@ -171,6 +170,7 @@ class ProductoController {
         }
 
         Producto productoInstance = Producto.findById(targetId)
+        int stockAntiguo = productoInstance? productoInstance.stock : 0
         productoInstance.properties = body
 
         if (productoInstance == null) {
@@ -191,7 +191,7 @@ class ProductoController {
 
         respond productoInstance, [status: OK]
 
-        if (productoInstance.estado != productoViejo.estado && productoInstance.estado == EstadoProducto.DISP) {
+        if (stockAntiguo == 0 && productoInstance.stock > 0) {
             mensajePushService.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "$productoInstance.nombre")
         }
     }

@@ -15,6 +15,7 @@ class AgendaController {
                             agendaAdminDia: "GET", agendaAdminSemana: "GET", agendaEditar: "POST"]
 
     def springSecurityService
+    def mensajePushService
 
     // Métodos de Negocio //
     def agendaDia() {
@@ -109,6 +110,7 @@ class AgendaController {
             }
 
             Vendedor v = Vendedor.findById(au.idVendedor)
+            int clientesAntiguos = v.clientes?.size()?: 0
             v.clientes = []
 
             au.clientes.each {
@@ -116,6 +118,9 @@ class AgendaController {
             }
 
             v.save flush:true
+            int clientesNuevos = v.clientes?.size()?: 0
+
+            println "[OT-LOG] Vendedor: ${v.username} - Clientes Antiguos: ${clientesAntiguos} - Clientes Nuevos: ${clientesNuevos}"
 
             def listaClientes = v.clientes
             Agenda agenda = v.agenda
@@ -172,6 +177,11 @@ class AgendaController {
             agenda.save flush:true
 
             respond agenda, [status: OK]
+
+            if (clientesNuevos > clientesAntiguos) {
+                int diff = clientesNuevos - clientesAntiguos
+                mensajePushService.mensajePush(v, "Order Tracker: Nuevos Clientes", "Tenés ${diff} nuevo(s) cliente(s)")
+            }
         }
     }
 
