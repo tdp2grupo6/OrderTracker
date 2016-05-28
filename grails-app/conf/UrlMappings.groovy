@@ -26,6 +26,7 @@ class UrlMappings {
 
 		"/pedido"(resources:"pedido", parseRequest:true)
 		"/pedido/filtro"(controller:"pedido", action:"filtroAdmin")
+		"/pedido/descontar/$id"(controller:"pedido", action:"descontarStock")
 		"/pedido/buscar-cliente/$id"(controller:"pedido", action:"searchByCliente")
 		"/pedido/buscar-estado/$id"(controller:"pedido", action:"searchByEstado")
 

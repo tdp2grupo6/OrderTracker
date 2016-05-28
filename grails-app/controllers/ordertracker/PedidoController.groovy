@@ -6,6 +6,7 @@ import ordertracker.Estados.EstadoPedido
 import ordertracker.Filtros.FiltroPedido
 import ordertracker.Filtros.FiltroResultado
 import ordertracker.Perfiles.Vendedor
+import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
 
@@ -13,7 +14,7 @@ import static org.springframework.http.HttpStatus.*
 class PedidoController {
     static responseFormats = ['json']
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                             searchByCliente: "GET", searchByEstado: "GET", filtroAdmin: "POST"]
+                             searchByCliente: "GET", searchByEstado: "GET", filtroAdmin: "POST", descontarStock: "GET"]
 
     def springSecurityService
 
@@ -147,5 +148,41 @@ class PedidoController {
 
         pedidoInstance.delete flush:true
         render status: OK
+    }
+
+    @Transactional
+    def descontarStock() {
+        long pedidoId = StringGroovyMethods.isLong(params.id)? StringGroovyMethods.toLong(params.id) : 0
+        Pedido pedidoInstance = Pedido.findById(pedidoId)
+
+        if (pedidoInstance == null) {
+            render status: NOT_FOUND
+            return
+        }
+
+        boolean checkStock = true
+
+        for (PedidoElemento pe in pedidoInstance.elementos) {
+            Producto base = Producto.findById(pe.producto.id)
+            if (base.stock < pe.cantidad) {
+                checkStock = false
+            }
+        }
+
+        if (checkStock) {
+            ArrayList<Producto> lista = []
+
+            for (PedidoElemento pe in pedidoInstance.elementos) {
+                Producto base = Producto.findById(pe.producto.id)
+                base.stock -= pe.cantidad
+                base.save flush:true
+                lista.add(base)
+            }
+
+            respond lista, [status: OK]
+        }
+        else {
+            render status: NOT_ACCEPTABLE
+        }
     }
 }

@@ -2,16 +2,15 @@ package ordertracker
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.transaction.Transactional
 import ordertracker.Estados.EstadoProducto
 import ordertracker.Filtros.FiltroProducto
 import ordertracker.Filtros.FiltroResultado
 import ordertracker.Relations.CategoriaProducto
-import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
+import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
-import org.codehaus.groovy.runtime.StringGroovyMethods
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class ProductoController {

@@ -12,7 +12,7 @@ class Producto {
 	
 	int stock = 0
 	float precio = 0f
-	EstadoProducto estado = EstadoProducto.NODISP
+	EstadoProducto estado = EstadoProducto.DISP
 
 	Imagen imagen
 	Object categorias
