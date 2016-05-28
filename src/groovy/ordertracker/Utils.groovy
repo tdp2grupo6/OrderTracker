@@ -230,4 +230,11 @@ class Utils {
         baos.close()
         return bar
     }
+
+    // Mensajes de log
+    static String log(String mensaje) {
+        String logMsg = "[OT-LOG] <${new Date()}> ${mensaje}"
+        println logMsg
+        return logMsg
+    }
 }

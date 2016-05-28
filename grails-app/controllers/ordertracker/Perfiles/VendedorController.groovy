@@ -7,6 +7,7 @@ import ordertracker.Filtros.FiltroResultado
 import ordertracker.Filtros.FiltroVendedor
 import ordertracker.PushToken
 import ordertracker.Utils
+import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import static org.springframework.http.HttpStatus.*
 
@@ -89,6 +90,8 @@ class VendedorController {
             return
         }
 
+        String pass = vendedorInstance.password
+
         vendedorInstance.validate()
         if (vendedorInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
@@ -98,6 +101,13 @@ class VendedorController {
         vendedorInstance.save flush:true
         vendedorInstance.habilitarUsuario()
         respond vendedorInstance, [status: OK]
+
+        Utils.log("Se va a enviar un correo a ${vendedorInstance.email}")
+        sendMail {
+            to "${vendedorInstance.email}"
+            subject "Su registro como Vendedor en Order Tracker"
+            html g.render (template:"nuevoVendedorTemplate", model:[nombreCompleto:"${vendedorInstance.nombre} ${vendedorInstance.apellido}", username: "${vendedorInstance.username}", password: "${pass}"])
+        }
     }
 
     @Transactional
@@ -107,6 +117,11 @@ class VendedorController {
             return
         }
 
+        String pass = vendedorInstance.password
+
+        boolean usernameEditado = vendedorInstance.isDirty('username')
+        boolean passwordEditado = vendedorInstance.isDirty('password')
+
         vendedorInstance.validate()
         if (vendedorInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
@@ -115,6 +130,16 @@ class VendedorController {
 
         vendedorInstance.save flush:true
         respond vendedorInstance, [status: OK]
+
+        if (usernameEditado || passwordEditado) {
+            String newPass = passwordEditado? pass : "< NO CAMBIA >"
+            Utils.log("Se va a enviar un correo a ${vendedorInstance.email}")
+            sendMail {
+                to "${vendedorInstance.email}"
+                subject "Sus credenciales como Vendedor en Order Tracker"
+                html g.render (template:"reenviarVendedorTemplate", model:[nombreCompleto:"${vendedorInstance.nombre} ${vendedorInstance.apellido}", username: "${vendedorInstance.username}", password: "${newPass}"])
+            }
+        }
     }
 
     @Transactional

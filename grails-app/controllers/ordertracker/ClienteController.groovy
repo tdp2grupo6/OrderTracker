@@ -113,6 +113,7 @@ class ClienteController {
             render status: NOT_FOUND
         }
         else {
+            Utils.log("Se va a enviar un correo a ${cl.email}")
             sendMail {
                 multipart true
                 to "${cl.email}"
@@ -142,6 +143,7 @@ class ClienteController {
 
         respond clienteInstance, [status: OK]
 
+        Utils.log("Se va a enviar un correo a ${clienteInstance.email}")
         sendMail {
             multipart true
             to "${clienteInstance.email}"
