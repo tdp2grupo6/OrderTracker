@@ -169,7 +169,7 @@ class PedidoController {
             }
         }
 
-        if (checkStock) {
+        if (checkStock && !(pedidoInstance.elementos.isEmpty())) {
             ArrayList<Producto> lista = []
 
             for (PedidoElemento pe in pedidoInstance.elementos) {
