@@ -47,6 +47,7 @@ class MensajePushService {
         else {
             def ret = [:]
             ret.put('estadoMensajePush', "INVALID")
+            println "[OT-LOG] Mensaje Push Inválido! <${new Date()}>"
             return ret
         }
     }
@@ -66,7 +67,6 @@ class MensajePushService {
             def ret = [:]
             Date fecha = new Date()
             String array = (dest as JSON).toString()
-            //println array
 
             String url = PUSH_URL
             String msg = "{ \"registration_ids\": $array, \"notification\": { \"title\": \"$titulo\", \"text\": \"$texto\" } }"
@@ -83,13 +83,13 @@ class MensajePushService {
             Object output = JSON.parse(response.getBody())
 
             if (response.status == 200 && output.failure == 0) {
-                println "[OT-LOG] Mensaje Push Exitoso! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
+                println "[OT-LOG] Mensaje Broadcast Exitoso! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
                 ret.put('estadoMensajePush', "SUCCESS")
                 ret.put('resultado', "${output.results}")
                 return ret
             }
             else {
-                println "[OT-LOG] Mensaje Push Fallido! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
+                println "[OT-LOG] Mensaje Broadcast Fallido! ${response.status} <${fecha}>\n[OT-LOG] Cuerpo de la respuesta: ${response.body}"
                 ret.put('estadoMensajePush', "ERROR")
                 ret.put('resultado', "${output.results}")
                 return ret
@@ -98,6 +98,7 @@ class MensajePushService {
         else {
             def ret = [:]
             ret.put('estadoMensajePush', "INVALID")
+            println "[OT-LOG] Mensaje Broadcast Inválido! <${new Date()}>"
             return ret
         }
     }

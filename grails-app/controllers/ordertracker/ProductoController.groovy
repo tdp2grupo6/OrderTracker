@@ -134,8 +134,8 @@ class ProductoController {
         JSONObject body = new JSONObject()
 
         JSON.use('deep') {
-            println "Here is request.JSON: ${request.JSON as JSON}"
-            println "Here is params: $params"
+            //println "Here is request.JSON: ${request.JSON as JSON}"
+            //println "Here is params: $params"
             body = request.JSON as JSONObject
         }
 
@@ -164,20 +164,20 @@ class ProductoController {
         long targetId = StringGroovyMethods.isLong(params.id)? StringGroovyMethods.toLong(params.id) : 0
 
         JSON.use('deep') {
-            println "Here is request.JSON: ${request.JSON as JSON}"
-            println "Here is params: $params"
+            //println "Here is request.JSON: ${request.JSON as JSON}"
+            //println "Here is params: $params"
             body = request.JSON as JSONObject
         }
 
         Producto productoInstance = Producto.findById(targetId)
         int stockAntiguo = productoInstance? productoInstance.stock : 0
-        productoInstance.properties = body
 
         if (productoInstance == null) {
             render status: NOT_FOUND
             return
         }
 
+        productoInstance.properties = body
         productoInstance.validate()
         if (productoInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
@@ -188,11 +188,12 @@ class ProductoController {
 
         productoInstance.save flush:true
         productoInstance.procesarCategorias(body)
+        println "[OT-LOG] Producto editado: ${productoInstance.nombre} - Stock Antiguo: ${stockAntiguo} - Stock Nuevo: ${productoInstance.stock}"
 
         respond productoInstance, [status: OK]
 
         if (stockAntiguo == 0 && productoInstance.stock > 0) {
-            mensajePushService.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "$productoInstance.nombre")
+            mensajePushService.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "${productoInstance.nombre}")
         }
     }
 
