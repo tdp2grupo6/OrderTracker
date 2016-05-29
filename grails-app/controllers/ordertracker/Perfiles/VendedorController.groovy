@@ -57,7 +57,7 @@ class VendedorController {
             }
         }
         int pagina = fv.pagina? fv.pagina : 1
-        result.sort { it.id }
+        result.sort { it.nombre }
         FiltroResultado respuesta = new FiltroResultado(pagina, result.totalCount, result as List)
         respond respuesta, model:[status: OK, totalResultados: result.totalCount]
     }

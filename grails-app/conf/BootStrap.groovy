@@ -78,16 +78,16 @@ class BootStrap {
 		def vend = new Vendedor(username: 'vendedor', password: 'vendedor', nombre: 'Vendedor', apellido: 'OrderTracker', email: 'vendedor@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend, rolVendedor, true
 
-		def vend1 = new Vendedor(username: 'bbeltran', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').habilitarUsuario()
+		def vend1 = new Vendedor(username: 'beltrbel', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend1, rolVendedor, true
 
-		def vend2 = new Vendedor(username: 'dgacitua', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').habilitarUsuario()
+		def vend2 = new Vendedor(username: 'gacitdan', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend2, rolVendedor, true
 
-		def vend3 = new Vendedor(username: 'poddo', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').habilitarUsuario()
+		def vend3 = new Vendedor(username: 'oddopab', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend3, rolVendedor, true
 
-		def vend4 = new Vendedor(username: 'mroitman', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').habilitarUsuario()
+		def vend4 = new Vendedor(username: 'roitmmax', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').habilitarUsuario()
 		//UsuarioRol.create vend4, rolVendedor, true
 
 		assert Usuario.count == 6
@@ -381,25 +381,25 @@ class BootStrap {
 		Vendedor v
 		Cliente cl1, cl2, cl3
 
-		v = Vendedor.findByUsername('dgacitua')
+		v = Vendedor.findByUsername('gacitdan')
 		cl1 = Cliente.findById(1)
 		cl2 = Cliente.findById(3)
 		cl3 = Cliente.findById(5)
 		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
 
-		v = Vendedor.findByUsername('bbeltran')
+		v = Vendedor.findByUsername('beltrbel')
 		cl1 = Cliente.findById(2)
 		cl2 = Cliente.findById(4)
 		cl3 = Cliente.findById(6)
 		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
 
-		v = Vendedor.findByUsername('poddo')
+		v = Vendedor.findByUsername('oddopab')
 		cl1 = Cliente.findById(7)
 		cl2 = Cliente.findById(8)
 		cl3 = Cliente.findById(9)
 		v.addToClientes(cl1).addToClientes(cl2).addToClientes(cl3)
 
-		v = Vendedor.findByUsername('mroitman')
+		v = Vendedor.findByUsername('roitmmax')
 		cl1 = Cliente.findById(10)
 		cl2 = Cliente.findById(13)
 		cl3 = Cliente.findById(14)

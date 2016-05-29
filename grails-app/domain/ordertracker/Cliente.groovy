@@ -33,7 +33,7 @@ class Cliente {
 		nombre blank: false
 		apellido blank: false
 		razonSocial blank: true, nullable: true
-		email blank: true, nullable: true, email: true
+		email blank: false, email: true, unique: true
 		latitud blank: true, nullable: true, min: -90d, max: 90d
 		longitud blank: true, nullable: true, min: -180d, max: 180d
 		telefono blank: true, nullable: true
