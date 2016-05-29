@@ -167,7 +167,7 @@ class VendedorController {
             v.pushToken = pt.token
             v.save flush:true
 
-            Map respuesta = mensajePushService.mensajePush(v, "Order Tracker: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
+            Map respuesta = mensajePushService.mensajePush(v, "OT: Vendedor Asociado", "Se ha asociado este dispositivo a Order Tracker")
 
             if (respuesta['estadoMensajePush'].equals("SUCCESS")) {
                 response.status = 200       // OK
