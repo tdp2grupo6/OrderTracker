@@ -72,22 +72,22 @@ class BootStrap {
 		// Usuarios de prueba
 		println "[OT-LOG] Iniciando carga de usuarios en la Base de Datos..."
 
-		def admin = new Admin(username: 'admin', password: 'admin', nombre: 'Administrador', apellido: 'OrderTracker', email: 'admin@ordertracker.com.ar').habilitarUsuario()		//.save(failOnError:true, flush:true, insert: true)
+		def admin = new Admin(username: 'admin', password: 'admin', nombre: 'Administrador', apellido: 'OrderTracker', email: 'admin@ordertracker.com.ar', telefono: '11 1111-1111').habilitarUsuario()		//.save(failOnError:true, flush:true, insert: true)
 		//UsuarioRol.create admin, rolAdmin, true
 
-		def vend = new Vendedor(username: 'vendedor', password: 'vendedor', nombre: 'Vendedor', apellido: 'OrderTracker', email: 'vendedor@ordertracker.com.ar').habilitarUsuario()
+		def vend = new Vendedor(username: 'vendedor', password: 'vendedor', nombre: 'Vendedor', apellido: 'OrderTracker', email: 'vendedor@ordertracker.com.ar', telefono: '11 2143-4565').habilitarUsuario()
 		//UsuarioRol.create vend, rolVendedor, true
 
-		def vend1 = new Vendedor(username: 'beltrbel', password: 'bbeltran', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar').habilitarUsuario()
+		def vend1 = new Vendedor(username: 'beltrbel', password: 'beltrbel', nombre: 'Belen', apellido: 'Beltran', email: 'bbeltran@ordertracker.com.ar', telefono: '11 6977-1123').habilitarUsuario()
 		//UsuarioRol.create vend1, rolVendedor, true
 
-		def vend2 = new Vendedor(username: 'gacitdan', password: 'dgacitua', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar').habilitarUsuario()
+		def vend2 = new Vendedor(username: 'gacitdan', password: 'gacitdan', nombre: 'Daniel', apellido: 'Gacitua', email: 'dgacitua@ordertracker.com.ar', telefono: '11 2394-7520').habilitarUsuario()
 		//UsuarioRol.create vend2, rolVendedor, true
 
-		def vend3 = new Vendedor(username: 'oddopab', password: 'poddo', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar').habilitarUsuario()
+		def vend3 = new Vendedor(username: 'oddopab', password: 'oddopab', nombre: 'Pablo', apellido: 'Oddo', email: 'poddo@ordertracker.com.ar', telefono: '11 8925-2829').habilitarUsuario()
 		//UsuarioRol.create vend3, rolVendedor, true
 
-		def vend4 = new Vendedor(username: 'roitmmax', password: 'mroitman', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar').habilitarUsuario()
+		def vend4 = new Vendedor(username: 'roitmmax', password: 'roitmmax', nombre: 'Maximiliano', apellido: 'Roitman', email: 'mroitman@ordertracker.com.ar', telefono: '11 2937-9303').habilitarUsuario()
 		//UsuarioRol.create vend4, rolVendedor, true
 
 		assert Usuario.count == 6

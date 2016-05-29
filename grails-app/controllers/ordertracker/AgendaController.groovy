@@ -180,7 +180,7 @@ class AgendaController {
 
             if (clientesNuevos > clientesAntiguos) {
                 int diff = clientesNuevos - clientesAntiguos
-                mensajePushService.mensajePush(v, "Order Tracker: Nuevos Clientes", "Tenés ${diff} nuevo(s) cliente(s)")
+                mensajePushService.mensajePush(v, "OT: Nuevos Clientes", "Tenes ${diff} nuevo(s) cliente(s)")
             }
         }
     }

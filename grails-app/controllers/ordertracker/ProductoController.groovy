@@ -195,7 +195,7 @@ class ProductoController {
         respond productoInstance, [status: OK]
 
         if (stockAntiguo == 0 && productoInstance.stock > 0) {
-            mensajePushService.mensajeBroadcast("Order Tracker: Producto nuevamente disponible", "${productoInstance.nombre}")
+            mensajePushService.mensajeBroadcast("OT: Producto nuevamente disponible", "${productoInstance.nombre}")
         }
     }
 
