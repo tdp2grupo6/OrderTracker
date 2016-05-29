@@ -52,6 +52,8 @@ class UrlMappings {
 		"/vendedor/filtro"(controller:"vendedor", action:"filtroAdmin")
 		"/vendedor/lista-corta"(controller:"vendedor", action:"listaCorta")
 		"/vendedor/push-token"(controller: "vendedor", action: "refreshPushToken")
+		"/vendedor/transferir"(controller:"vendedor", action:"transferirCliente")
+		"/vendedor/transferir-clientes"(controller:"vendedor", action:"transferirClientes")
 
 		"/persona"(controller: "persona")
 

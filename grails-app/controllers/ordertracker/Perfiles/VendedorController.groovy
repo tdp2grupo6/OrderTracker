@@ -3,9 +3,14 @@ package ordertracker.Perfiles
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
+import ordertracker.Agenda
+import ordertracker.AgendaDia
+import ordertracker.Cliente
 import ordertracker.Filtros.FiltroResultado
 import ordertracker.Filtros.FiltroVendedor
+import ordertracker.Pedido
 import ordertracker.PushToken
+import ordertracker.RequestTransfer
 import ordertracker.Utils
 import org.codehaus.groovy.runtime.StringGroovyMethods
 
@@ -14,8 +19,8 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class VendedorController {
     static responseFormats = ['json']
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE",
-                             refreshPushId: "POST", filtroAdmin: "POST", listaCorta: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", refreshPushId: "POST",
+                             filtroAdmin: "POST", listaCorta: "GET", transferirCliente: "POST", transferirClientes: "POST"]
 
     def springSecurityService
     def mensajePushService
@@ -175,6 +180,104 @@ class VendedorController {
         }
         else {
             render status: FORBIDDEN
+        }
+    }
+
+    @Transactional
+    def transferirCliente(RequestTransfer rt) {
+        if (rt.vendedorViejo != null && rt.vendedorNuevo != null && rt.cliente != null && rt.vendedorViejo.clientes.contains(rt.cliente)) {
+            // Actualizar agenda
+            Agenda agendaVieja = rt.vendedorViejo.agenda
+            Agenda agendaNueva = rt.vendedorNuevo.agenda
+
+            for (int codigoDia in Utils.SEMANA) {
+                AgendaDia diaViejo = AgendaDia.findByAgendaAndCodigoDia(agendaVieja, codigoDia);
+                AgendaDia diaNuevo = AgendaDia.findByAgendaAndCodigoDia(agendaNueva, codigoDia);
+
+                if (diaViejo.listaClientes.contains(rt.cliente.id)) {
+                    diaViejo.listaClientes.remove(rt.cliente.id)
+                    diaViejo.save flush:true
+
+                    if (!diaNuevo.listaClientes.contains(rt.cliente.id)) {
+                        diaNuevo.listaClientes.add(rt.cliente.id)
+                        diaNuevo.save flush:true
+                    }
+                }
+            }
+            agendaVieja.save flush:true
+            agendaNueva.save flush:true
+
+            // Transferir clientes
+            rt.vendedorViejo.removeFromClientes(rt.cliente)
+            rt.vendedorNuevo.addToClientes(rt.cliente)
+
+            rt.vendedorViejo.save flush:true
+            rt.vendedorNuevo.save flush:true
+
+            List<Vendedor> resp = [rt.vendedorViejo, rt.vendedorNuevo]
+            respond resp, [status: OK]
+        }
+        else {
+            render status: NOT_ACCEPTABLE
+        }
+    }
+
+
+    @Transactional
+    def transferirClientes(RequestTransfer rt) {
+        if (rt.vendedorViejo != null && rt.vendedorNuevo != null) {
+            // Cargar clientes a transferir
+            Set<Cliente> listaClientes = []
+
+            for (Cliente cl in rt.vendedorViejo.clientes) {
+                listaClientes.add(cl)
+            }
+
+            // Actualizar agenda
+            Agenda agendaVieja = rt.vendedorViejo.agenda
+            Agenda agendaNueva = rt.vendedorNuevo.agenda
+
+            for (int codigoDia in Utils.SEMANA) {
+                AgendaDia diaViejo = AgendaDia.findByAgendaAndCodigoDia(agendaVieja, codigoDia);
+                AgendaDia diaNuevo = AgendaDia.findByAgendaAndCodigoDia(agendaNueva, codigoDia);
+
+                for (Cliente cl in listaClientes) {
+                    if (diaViejo.listaClientes.contains(cl.id)) {
+                        diaViejo.listaClientes.remove(cl.id)
+                        diaViejo.save flush: true
+
+                        if (!diaNuevo.listaClientes.contains(cl.id)) {
+                            diaNuevo.listaClientes.add(cl.id)
+                            diaNuevo.save flush: true
+                        }
+                    }
+                }
+            }
+            agendaVieja.save flush:true
+            agendaNueva.save flush:true
+
+            // Actualizar pedidos
+            Set<Pedido> listaPedidos = Pedido.findAllByVendedor(rt.vendedorViejo)
+
+            for (Pedido p in listaPedidos) {
+                p.vendedor = rt.vendedorNuevo
+                p.save flush:true
+            }
+
+            // Transferir clientes
+            for (Cliente cl in listaClientes) {
+                rt.vendedorViejo.removeFromClientes(cl)
+                rt.vendedorNuevo.addToClientes(cl)
+            }
+
+            rt.vendedorViejo.save flush:true
+            rt.vendedorNuevo.save flush:true
+
+            List<Vendedor> resp = [rt.vendedorViejo, rt.vendedorNuevo]
+            respond resp, [status: OK]
+        }
+        else {
+            render status: NOT_ACCEPTABLE
         }
     }
 }
