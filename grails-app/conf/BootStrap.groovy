@@ -364,15 +364,26 @@ class BootStrap {
 	}
 
 	private void precargarPedidos() {
-		def pedido, vendedor
-		def ped1, ped2, ped3, ped4
+		/*
+		Pedido pedido
+		List<Pedido> pedidos = []
 
-		for (int i=1; i<=50; i++) {
+		for (int i=1; i<=35; i++) {
 			pedido = Utils.crearPedidoAleatorio()
 			pedido.actualizarTotal()
-			assert pedido.save(failOnError:true, flush:true, insert: true)
-			pedido.errors = null
+			pedidos.add(pedido)
 		}
+
+		pedidos.sort { it.fechaRealizado }
+
+		for (Pedido p in pedidos) {
+			println p.fechaRealizado
+			assert p.save(failOnError:true, flush:true, insert: true)
+			p.errors = null
+		}
+		*/
+		int cantidad = 35
+		Utils.crearPedidosAleatorios(cantidad)
 
 		println "[OT-LOG] Finalizada carga de $Pedido.count pedidos en la Base de Datos"
 	}

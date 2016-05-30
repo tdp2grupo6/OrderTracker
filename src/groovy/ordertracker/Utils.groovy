@@ -1,6 +1,7 @@
 package ordertracker
 
 import ordertracker.Estados.EstadoCliente
+import ordertracker.Estados.EstadoProducto
 import ordertracker.Perfiles.Vendedor
 import ordertracker.Security.Perfil
 import ordertracker.Security.Rol
@@ -44,31 +45,63 @@ class Utils {
         return range.from + new Random().nextInt(range.to - range.from + 1)
     }
 
-    static Pedido crearPedidoAleatorio() {
-        Cliente cl = Cliente.findById(enteroAleatorio(1, Cliente.count))
-        Vendedor v = vendedorCliente(cl)
-        int numProductos = enteroAleatorio(1, 3)
-        ArrayList<PedidoElemento> pd = new ArrayList<PedidoElemento>()
-        Date fin = new Date()
-        Date ini = fin - 15
+    static void crearPedidosAleatorios(int cantidad) {
+        def orderVisitasByDate = new OrderBy({ it.fechaVisita })
+        def orderPedidosByDate = new OrderBy({ it.fechaRealizado })
+        List<Visita> visitas = []
+        List<Pedido> pedidos = []
 
-        for (int i=1; i<=numProductos; i++) {
-            Producto p = Producto.findById(enteroAleatorio(1, Producto.count))
-            if (!(pd.producto).contains(p)) {
-                int numItems = enteroAleatorio(1, 5)
-                pd.add(new PedidoElemento(producto: p, cantidad: numItems))
+        for (int i=1; i<=cantidad; i++) {
+            Vendedor v = vendedorAleatorio()
+            Cliente cl = clienteVendedor(v)
+
+            int numProductos = enteroAleatorio(1, 3)
+            ArrayList<PedidoElemento> pd = new ArrayList<PedidoElemento>()
+            Date fin = new Date()
+            Date ini = fin - 15
+
+            for (int j=1; j<=numProductos; j++) {
+                Producto p = productoAleatorio()
+                if (!(pd.producto).contains(p)) {
+                    int numItems = enteroAleatorio(1, 5)
+                    pd.add(new PedidoElemento(producto: p, cantidad: numItems))
+                }
             }
+
+            Date fecha = fechaAleatoria(ini..fin)
+            Visita vis = new Visita(cliente: cl, vendedor: v, fechaVisita: fecha)
+            Pedido ped = new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fecha)
+
+            visitas.add(vis)
+            pedidos.add(ped)
         }
 
-        Date fecha = fechaAleatoria(ini..fin)
-        Visita vis = new Visita(cliente: cl, vendedor: v, fechaVisita: fecha).save(flush: true)
-        return new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fecha, visita: vis)
+        visitas.sort { orderVisitasByDate }
+        pedidos.sort { orderPedidosByDate }
+
+        for (int i=0; i<cantidad; i++) {
+            Visita v = visitas[i]
+            Pedido p = pedidos[i]
+
+            v.save flush:true
+
+            p.visita = v
+            p.save flush:true
+        }
     }
 
     static Vendedor vendedorAleatorio() {
+        /*
         Rol rol = Rol.findByAuthority(VENDEDOR)
         def vends = UsuarioRol.findAllByRol(rol).usuario
         return (Vendedor)(vends.sort{new Random()}?.take(1)[0])
+        */
+        def vends = [
+                Vendedor.findByUsername('gacitdan'),
+                Vendedor.findByUsername('roitmmax'),
+                Vendedor.findByUsername('beltrbel')
+        ]
+        return vends.sort{new Random()}?.take(1)[0]
     }
 
     static Vendedor vendedorCliente(Cliente cl) {
@@ -84,6 +117,16 @@ class Utils {
         }
 
         return resp? resp : vendedorAleatorio()
+    }
+
+    static Producto productoAleatorio() {
+        def prods = Producto.findAll()
+        return prods.sort{new Random()}?.take(1)[0]
+    }
+
+    static Cliente clienteVendedor(Vendedor v) {
+        def clientes = v.clientes
+        return clientes.sort{new Random()}?.take(1)[0]
     }
 
     static Date parsearFechaEntrada(String fecha) {
