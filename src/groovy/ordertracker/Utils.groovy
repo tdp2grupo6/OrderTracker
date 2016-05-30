@@ -46,8 +46,6 @@ class Utils {
     }
 
     static void crearPedidosAleatorios(int cantidad) {
-        def orderVisitasByDate = new OrderBy({ it.fechaVisita })
-        def orderPedidosByDate = new OrderBy({ it.fechaRealizado })
         List<Visita> visitas = []
         List<Pedido> pedidos = []
 
@@ -71,13 +69,14 @@ class Utils {
             Date fecha = fechaAleatoria(ini..fin)
             Visita vis = new Visita(cliente: cl, vendedor: v, fechaVisita: fecha)
             Pedido ped = new Pedido(cliente: cl, vendedor: v, elementos: pd, fechaRealizado: fecha)
+            ped.actualizarTotal()
 
             visitas.add(vis)
             pedidos.add(ped)
         }
 
-        visitas.sort { orderVisitasByDate }
-        pedidos.sort { orderPedidosByDate }
+        visitas.sort {it.fechaVisita}
+        pedidos.sort {it.fechaRealizado}
 
         for (int i=0; i<cantidad; i++) {
             Visita v = visitas[i]

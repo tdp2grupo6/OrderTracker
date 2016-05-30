@@ -125,6 +125,8 @@ class PedidoController {
             return
         }
 
+        pedidoInstance.actualizarTotal()
+
         pedidoInstance.validate()
         if (pedidoInstance.hasErrors()) {
             render status: NOT_ACCEPTABLE
