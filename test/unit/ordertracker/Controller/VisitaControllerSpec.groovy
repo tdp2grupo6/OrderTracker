@@ -1,4 +1,4 @@
-package ordertracker.Perfiles
+package ordertracker
 
 import grails.converters.JSON
 import grails.test.mixin.Mock
@@ -7,14 +7,14 @@ import spock.lang.Specification
 
 import static org.springframework.http.HttpStatus.*
 
-@TestFor(VendedorController)
-@Mock(Vendedor)
-class VendedorControllerSpec extends Specification {
+@TestFor(VisitaController)
+@Mock([Visita,Cliente])
+class VisitaControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
+        params['cliente'] = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
+        params['fechaProgramada'] = new Date()
     }
 
     void "Test the index action returns the correct model"() {
@@ -32,10 +32,11 @@ class VendedorControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
-            def vendedor = new Vendedor()
+            def visita = new Visita()
+
             request.method = 'POST'
             response.format = 'json'
-            controller.save(vendedor)
+            controller.save(visita)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -43,15 +44,15 @@ class VendedorControllerSpec extends Specification {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
+            visita = new Visita(params)
+
             request.method = 'POST'
             response.format = 'json'
-            vendedor = new Vendedor(params)
+            controller.save(visita)
 
-            controller.save(vendedor)
-
-        then:"The response status is CREATED and the instance is returned"
+        then:"The response status is OK and the instance is returned"
             response.status == OK.value
-            response.text == (vendedor as JSON).toString()
+            response.text == (visita as JSON).toString()
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -65,10 +66,11 @@ class VendedorControllerSpec extends Specification {
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def vendedor = new Vendedor()
+            def visita = new Visita()
+
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(vendedor)
+            controller.update(visita)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -76,14 +78,15 @@ class VendedorControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            vendedor = new Vendedor(params).save(flush: true)
+            visita = new Visita(params).save(flush: true)
+
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(vendedor)
+            controller.update(visita)
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value
-            response.text == (vendedor as JSON).toString()
+            response.text == (visita as JSON).toString()
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
@@ -98,18 +101,18 @@ class VendedorControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            request.method = 'DELETE'
-            response.format = 'json'
-            def vendedor = new Vendedor(params).save(flush: true)
+            def visita = new Visita(params).save(flush: true)
 
         then:"It exists"
-            Vendedor.count() == 1
+            Visita.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(vendedor)
+            request.method = 'DELETE'
+            response.format = 'json'
+            controller.delete(visita)
 
         then:"The instance is deleted"
-            Vendedor.count() == 0
+            Visita.count() == 0
             response.status == OK.value
     }
 }

@@ -57,6 +57,9 @@ class UrlMappings {
 
 		"/persona"(controller: "persona")
 
+		"/descuento"(resources:"descuento", parseRequest:true)
+		"/descuento/filtro"(controller: "descuento", action: "filtroAdmin")
+
 		"/login-test"(controller: "secureTest")
 		"/login-test/usuario"(controller: "secureTest", action: "datosUsuario")
 		"/login-test/lista-vendedores"(controller: "secureTest", action: "listaVendedores")

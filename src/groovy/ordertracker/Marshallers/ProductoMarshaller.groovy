@@ -16,7 +16,8 @@ class ProductoMarshaller {
 				rutaMiniatura: p.rutaMiniatura(),
 				stock: p.stock,
 				precio: p.precio,
-				estado: p.estado.displayEnum()
+				estado: p.estado.displayEnum(),
+				descuentos: p.obtenerDescuentos()
 			]
 		}
 	}

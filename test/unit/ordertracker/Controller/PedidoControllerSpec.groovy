@@ -1,46 +1,24 @@
 package ordertracker
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 import static org.springframework.http.HttpStatus.*
 
-@TestFor(ComentarioController)
-@Mock([Comentario,Cliente,Visita])
-class ComentarioControllerSpec extends Specification {
-
-    //def springSecurityService = [currentUser:[id:1], roles:[Utils.VENDEDOR, Utils.ADMIN], asdfs: []]
+@TestFor(PedidoController)
+@Mock([Pedido,PedidoElemento,Cliente,Producto,Marca,Visita])
+class PedidoControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
         params['cliente'] = new Cliente(apellido: "Tinelli", nombre: "Marcelo", email: "mtinelli@gmail.com", razonSocial: "Marcelo Tinelli", direccion: "Ugarte 152", latitud: -34.5887297d, longitud: -58.3966085d)
-        params['razonComun'] = "Otro"
-        params['comentario'] = "No hay acuerdo con el cliente respecto al pedido"
-    }
-
-    def populateCustomParams(params, id) {
-        assert params != null
-        params['id'] = id
-    }
-
-    void "Testeando listar un cliente"() {
-        given:
-        def cln = new Cliente(apellido: "Luna", nombre: "Silvina", email: "silvi@gmail.com", razonSocial: "Silvina Luna", direccion: "Las Heras 2850", latitud: -34.5887297d, longitud: -58.3966085d).save(flush: true)
-        def c1 = new Comentario(cliente: cln, comentario: "Muy bueno").save(flush: true)
-        def c2 = new Comentario(cliente: cln, comentario: "Muy malo").save(flush: true)
-        def c3 = new Comentario(cliente: cln, comentario: "Muy mediocre").save(flush: true)
-
-        when:
-        def clienteBuscado = c2		// Cambiar por c1, c2 o c3 (a gusto)
-        populateCustomParams(params, clienteBuscado.id)
-        controller.show()
-
-        then:
-        response.status == OK.value
-        response.text == (clienteBuscado as JSON).toString()
+        params['elementos'] = [
+                new PedidoElemento(producto: new Producto(nombre: "Bolso de la Seleccion", marca: new Marca(nombre: "Reebok"), precio: 1002.99, stock: 34), cantidad: 10),
+                new PedidoElemento(producto: new Producto(nombre: "Remera Deportiva", marca: new Marca(nombre: "Nike"), precio: 1433.99, stock: 12), cantidad: 25),
+                new PedidoElemento(producto: new Producto(nombre: "Zapatillas de Running", marca: new Marca(nombre: "Adidas"), precio: 999.99, stock: 12), cantidad: 5)
+        ]
     }
 
     void "Test the index action returns the correct model"() {
@@ -58,10 +36,11 @@ class ComentarioControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             // Make sure the domain class has at least one non-null property
             // or this test will fail.
-            def comentario = new Comentario()
+            def pedido = new Pedido()
+
             request.method = 'POST'
             response.format = 'json'
-            controller.save(comentario)
+            controller.save(pedido)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -69,15 +48,15 @@ class ComentarioControllerSpec extends Specification {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            comentario = new Comentario(params)
+            pedido = new Pedido(params)
 
             request.method = 'POST'
             response.format = 'json'
-            controller.save(comentario)
+            controller.save(pedido)
 
         then:"The response status is OK and the instance is returned"
             response.status == OK.value
-            response.text == (comentario as JSON).toString()
+            response.text == (pedido as JSON).toString()
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -91,10 +70,11 @@ class ComentarioControllerSpec extends Specification {
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def comentario = new Comentario()
+            def pedido = new Pedido()
+
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(comentario)
+            controller.update(pedido)
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -102,14 +82,15 @@ class ComentarioControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            comentario = new Comentario(params).save(flush: true)
+            pedido = new Pedido(params).save(flush: true)
+
             request.method = 'PUT'
             response.format = 'json'
-            controller.update(comentario)
+            controller.update(pedido)
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value
-            response.text == (comentario as JSON).toString()
+            response.text == (pedido as JSON).toString()
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
@@ -124,18 +105,18 @@ class ComentarioControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def comentario = new Comentario(params).save(flush: true)
+            def pedido = new Pedido(params).save(flush: true)
 
         then:"It exists"
-            Comentario.count() == 1
+            Pedido.count() == 1
 
         when:"The domain instance is passed to the delete action"
             request.method = 'DELETE'
             response.format = 'json'
-            controller.delete(comentario)
+            controller.delete(pedido)
 
         then:"The instance is deleted"
-            Comentario.count() == 0
+            Pedido.count() == 0
             response.status == OK.value
     }
 }

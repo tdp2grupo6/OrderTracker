@@ -68,6 +68,14 @@ class Producto {
 		imagen nullable: true
 	}
 
+	List<Descuento> obtenerDescuentos() {
+		return Descuento.findAllByProducto(this)
+	}
+
+	int numeroDescuentos() {
+		return Descuento.countByProducto(this)
+	}
+
 	void procesarCategorias(JSONObject input) {
 		List parsed = input.categorias
 
@@ -82,8 +90,8 @@ class Producto {
 
 	void eliminarInstancias() {
 		this.marca = null
-		//this.categorias = null
 		this.imagen = null
+		//this.categorias = null
 
 		this.save(flush: true)
 
@@ -95,6 +103,8 @@ class Producto {
 		}
 		*/
 		CategoriaProducto.removeAll(this)
+
+		Descuento.where { producto == this } .deleteAll()
 
 		Marca.list().each {
 			if (it.productos.contains(this)) {

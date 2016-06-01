@@ -1,11 +1,12 @@
 package ordertracker
 
+import grails.converters.JSON
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
 import ordertracker.Perfiles.Vendedor
+import spock.lang.Specification
 
 import static org.springframework.http.HttpStatus.*
-import grails.converters.JSON
-import grails.test.mixin.*
-import spock.lang.*
 
 @TestFor(AgendaController)
 @Mock([Agenda,Vendedor])

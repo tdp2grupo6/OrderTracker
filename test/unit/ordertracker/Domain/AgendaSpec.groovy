@@ -1,8 +1,8 @@
 package ordertracker.Domain
 
 import grails.test.mixin.TestFor
-import spock.lang.Specification
 import ordertracker.Agenda
+import spock.lang.Specification
 
 /**
  * Created by dgacitua on 06-05-16.

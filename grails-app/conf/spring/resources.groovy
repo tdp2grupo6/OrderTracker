@@ -18,7 +18,8 @@ beans = {
 				new UsuarioMarshaller(),
 				new VendedorMarshaller(),
 				new AgendaMarshaller(),
-				new AgendaDiaMarshaller()
+				new AgendaDiaMarshaller(),
+				new DescuentoMarshaller()
 		]
 	}
 }
