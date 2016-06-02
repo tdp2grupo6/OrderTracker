@@ -358,9 +358,19 @@ class BootStrap {
 		def imagenRelleno = new Imagen(originalFilename: "${ImagenController.nombreImagenRelleno}", thumbnailFilename: "${ImagenController.nombreMiniaturaRelleno}", newFilename: "${ImagenController.nombreImagenRelleno}", size: 512)
 		assert imagenRelleno.save(failOnError: true, flush: true, insert: true)
 
+		// Descuentos precargados
+		assert new Descuento(producto: Producto.findById(1), descuento: 5, minimoProductos: 5, maximoProductos: 9).save(failOnError: true, flush: true, insert: true)
+		assert new Descuento(producto: Producto.findById(1), descuento: 10, minimoProductos: 10, maximoProductos: 24).save(failOnError: true, flush: true, insert: true)
+		assert new Descuento(producto: Producto.findById(1), descuento: 15, minimoProductos: 25, maximoProductos: 49).save(failOnError: true, flush: true, insert: true)
+		assert new Descuento(producto: Producto.findById(1), descuento: 20, minimoProductos: 50, maximoProductos: 100).save(failOnError: true, flush: true, insert: true)
+		assert new Descuento(producto: Producto.findById(2), descuento: 15, minimoProductos: 15, maximoProductos: 29).save(failOnError: true, flush: true, insert: true)
+		assert new Descuento(producto: Producto.findById(2), descuento: 25, minimoProductos: 30, maximoProductos: 100).save(failOnError: true, flush: true, insert: true)
+
+
 		println "[OT-LOG] Finalizada carga de $Marca.count marcas en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Producto.count productos en la Base de Datos"
 		println "[OT-LOG] Finalizada carga de $Imagen.count imágenes en la Base de Datos"
+		println "[OT-LOG] Finalizada carga de $Descuento.count descuentos en la Base de Datos"
 	}
 
 	private void precargarPedidos() {

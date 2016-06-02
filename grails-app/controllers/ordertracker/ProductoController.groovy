@@ -16,7 +16,8 @@ import static org.springframework.http.HttpStatus.*
 class ProductoController {
     static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", show: "GET", search: "GET",
-                             searchInCategoria: "GET", searchInMarca: "GET", filtroAdmin: "POST"]
+                             searchInCategoria: "GET", searchInMarca: "GET", filtroAdmin: "POST",
+                             buscarDescuentos: "GET"]
 
     def mensajePushService
 	
@@ -129,6 +130,11 @@ class ProductoController {
             }
             respond result, [status: OK]
         }
+    }
+
+    def buscarDescuentos(Producto p) {
+        List<Descuento> resp = Descuento.findAllByProducto(p)
+        respond resp, [status: OK]
     }
 
     @Transactional

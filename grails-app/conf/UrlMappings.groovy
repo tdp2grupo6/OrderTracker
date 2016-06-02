@@ -14,6 +14,7 @@ class UrlMappings {
 		"/producto/buscar/$term"(controller:"producto", action:"search")
 		"/producto/buscar-categoria/$id"(controller:"producto", action:"searchInCategoria")
 		"/producto/buscar-marca/$id"(controller:"producto", action:"searchInMarca")
+		"/producto/descuentos/$id"(controller:"producto", action:"buscarDescuentos")
 
 		"/marca"(resources:"marca", parseRequest:true)
 		"/marca/filtro"(controller:"marca", action:"filtroAdmin")
