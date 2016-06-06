@@ -45,7 +45,7 @@ class DescuentoController {
         descuentoInstance.save flush:true
         respond descuentoInstance, [status: OK]
 
-        mensajePushService.mensajeBroadcast("OT: Nuevo descuento", "${descuentoInstance.descuento}% en ${descuentoInstance.producto}")
+        mensajePushService.mensajeBroadcast("OT: Nuevo descuento", "${descuentoInstance.descuento}% en ${descuentoInstance.producto.nombre}")
     }
 
     @Transactional

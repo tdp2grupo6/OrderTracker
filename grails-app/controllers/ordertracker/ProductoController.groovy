@@ -145,9 +145,15 @@ class ProductoController {
             //println "Here is request.JSON: ${request.JSON as JSON}"
             //println "Here is params: $params"
             body = request.JSON as JSONObject
+            desc = body.descuentos
         }
 
         Producto productoInstance = new Producto(body)
+
+        List<Descuento> desc2 = []
+        desc.each {
+            desc2.add(new Descuento(it))
+        }
 
         if (productoInstance == null) {
             render status: NOT_FOUND
@@ -162,6 +168,9 @@ class ProductoController {
 
         productoInstance.save flush:true
         productoInstance.procesarCategorias(body)
+        desc2.each {
+            it.save flush:true
+        }
 
         respond productoInstance, [status: OK]
     }
@@ -175,6 +184,7 @@ class ProductoController {
             //println "Here is request.JSON: ${request.JSON as JSON}"
             //println "Here is params: $params"
             body = request.JSON as JSONObject
+            desc = body.descuentos
         }
 
         Producto productoInstance = Producto.findById(targetId)
